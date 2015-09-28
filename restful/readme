@@ -1,0 +1,44 @@
+rest-client 需要php http 模块
+Debian
+apt源里找不到php http模块
+
+安装php-pear
+然后pecl install pecl_http
+
+可能会包phpize
+安装php-dev可以解决
+创建如下文件
+/etc/php5/conf.d/http.ini
+===============
+; configuration for php http module
+extension=http.so
+===============
+
+pest-master 需要curl模块
+apt-get install curl
+
+anandkunal-ToroPHP 服务端框架
+pest-master, rest-client-php-master 都是客户端随便用哪个都OK
+
+example:
+	index.php  // 主循环文件
+	.htaccess
+	handle/
+		hello.php
+		Pest.php
+		rest_client.php
+		Toro.php	
+把这个目录整体拷贝到/var/www/目录下
+
+http://ip/223535   OK
+
+also
+	handle/
+		index.php
+		.htaccess
+		hello.php
+		Pest.php
+		rest_client.php
+		Toro.php
+把所有文件放到同一目录下 比如handle
+.htaccess要用handle/目录下的htaccess, index.php 目录包含改下 就OK

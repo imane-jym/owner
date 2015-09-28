@@ -1,0 +1,5 @@
+/* package.json */
+{
+	"name": "ananas",
+	"main": "./lib/index.js"
+}
