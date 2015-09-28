@@ -1,0 +1,16 @@
+:CMakeBar	cmake-project.txt	/*:CMakeBar*
+:CMakeGen	cmake-project.txt	/*:CMakeGen*
+cmake-project	cmake-project.txt	/*cmake-project*
+cmake-project-commands	cmake-project.txt	/*cmake-project-commands*
+cmake-project-configuration	cmake-project.txt	/*cmake-project-configuration*
+cmake-project-contents	cmake-project.txt	/*cmake-project-contents*
+cmake-project-credits	cmake-project.txt	/*cmake-project-credits*
+cmake-project-history	cmake-project.txt	/*cmake-project-history*
+cmake-project-installation	cmake-project.txt	/*cmake-project-installation*
+cmake-project-intro	cmake-project.txt	/*cmake-project-intro*
+cmake-project-requirements	cmake-project.txt	/*cmake-project-requirements*
+cmake-project-todo	cmake-project.txt	/*cmake-project-todo*
+cmake-project-usage	cmake-project.txt	/*cmake-project-usage*
+cmake-project.txt	cmake-project.txt	/*cmake-project.txt*
+g:cmake_project_bar_width	cmake-project.txt	/*g:cmake_project_bar_width*
+g:cmake_project_show_bar	cmake-project.txt	/*g:cmake_project_show_bar*
