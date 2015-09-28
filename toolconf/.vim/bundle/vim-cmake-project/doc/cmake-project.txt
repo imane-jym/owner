@@ -1,0 +1,157 @@
+*cmake-project.txt*   CMake project management plugin 
+
+Author:         Minh Ngo <minh@fedoraproject.org>
+Licence:        BSD
+Homepage:       http://github.com/Ignotus/vim-cmake-project
+Version:        2.0.0
+
+==============================================================================
+Contents                                  *cmake-project* *cmake-project-contents*
+
+         1. Intro ........................... |cmake-project-intro|
+         2. Requirements .................... |cmake-project-requirements|
+         3. Installation .................... |cmake-project-installation|
+         4. Usage ........................... |cmake-project-usage|
+                Commands .................... |cmake-project-commands|
+         5. Configuration ................... |cmake-project-configuration|
+         6. History ......................... |cmake-project-history|
+         7. Todo ............................ |cmake-project-todo|
+         8. Credits ......................... |cmake-project-credits|
+
+==============================================================================
+1. Intro                                                   *cmake-project-intro*
+
+CMake-Project is a plugin for cmake projects effective management. It provides
+a sidebar that shows files in the tree view.
+
+==============================================================================
+2. Requirements                                     *cmake-project-requirements*
+
+You need to have the VIM editor that supports python scripting. You can check
+it by this command in a console:
+
+    $ vim --version |grep +python
+    +cryptv          +linebreak       +python/dyn      +viminfo
+
+==============================================================================
+3. Installation                                     *cmake-project-installation*
+
+Change your current directory to the plugin root archive directory and use
+install methods:
+>
+    make install
+<
+
+You can specify a destination install directory by following methods:
+>
+    make install DESTDIR=/opt/vim
+<
+
+By default, DESTDIR is equal to ~/.vim/
+
+==============================================================================
+4. Usage                                                   *cmake-project-usage*
+
+First of all, you should go to the cmake project directory.
+>
+    $ cd <project directory>
+<
+Secondly, create a folder for cmake project build files.
+>
+    $ mkdir <build dir>
+<
+Thirdly, start your VIM editor in the project directory.
+>
+    $ vim
+<
+Fourthly, You can generate a cmake content for VIM by this command:
+>
+    :CMakeGen <build dir>
+<
+Show the project bar by the command:
+>
+    :CMakeBar
+<
+Press <Space> over a directory to hide/show its contents. Press <Space> over a
+file to open it.
+
+------------------------------------------------------------------------------
+COMMANDS                                                *cmake-project-commands*
+
+:CMakeGen {build-directory}                                          *:CMakeGen*
+    Generate a cmake project content for VIM.
+
+:CMakeBar                                                            *:CMakeBar*
+    Show a project bar.
+
+==============================================================================
+5. Configuration                                   *cmake-project-configuration*
+                
+                                                      *g:cmake_project_show_bar*
+g:cmake_project_show_bar~
+Default: 0
+
+Enable this parameter to show the cmake project bar after starting.
+
+Example:
+>
+    let g:cmake_project_show_bar = 1
+<
+
+                                                     *g:cmake_project_bar_width*
+g:cmake_project_bar_width~
+Default: 40
+
+You can change CMake Project panel width by this variable.
+
+Example:
+>
+    let g:cmake_project_bar_width = 40
+<
+==============================================================================
+6. History                                               *cmake-project-history*
+
+2.0.0 (2014-02-21)
+    - Second major release. All code had been rewritten in Python. Interface
+      and configuration paramters was simplified.
+
+1.0.0 (2012-10-21)
+    - First major release.
+
+==============================================================================
+7. Todo                                                     *cmake-project-todo*
+
+    - Other cmake project files support. // Completed in 2.0.0!
+    - Please send your feature requests to my github project
+      https://github.com/Ignotus/vim-cmake-project
+
+==============================================================================
+8. Credits                                               *cmake-project-credits*
+
+CMake-project was written by Minh Ngo and is released under the BSD License.
+
+    Copyright (C) 2012-2014 Minh Ngo <nlminhtl@gmail.com>
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+Thanks to the following people for code contributions, feature suggestions etc:
+Nikolay Pavlov (http://habrahabr.ru/users/ZyXI/)
+
+==============================================================================
+ vim: tw=78 ts=8 sw=4 sts=4 et ft=help  
