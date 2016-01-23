@@ -100,4 +100,11 @@ else
 endif
 colorscheme solarized
 
-let g:EasyGrepFilesToExclude=".svn,.git,*.swp,*~"
+"easygrep
+let g:EasyGrepMode = 2 
+let g:EasyGrepFilesToExclude="tags,.svn,.git,.swp,*~"
+let g:EasyGrepCommand = 1
+let g:EasyGrepJumpToMatch = 0
+
+"ctrlp
+let g:ctrlp_working_path_mode = 'rw'
