@@ -112,6 +112,12 @@ class DBctrl extends Model {
 		return $this->query("select id,content,main_param from module where type = {$type}");
 	}
 
+	public function GetModuleById($id)
+	{
+		$id = $this->escapeString($id);
+		return $this->query("select id,content,main_param from module where id = {$id}");
+	}
+
 	public function GetJobModelListByModuleId($module_id)
 	{
 		$module_id = $this->escapeString($module_id);

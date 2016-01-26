@@ -18,14 +18,16 @@ class OptLaunch extends Controller {
 		$model->Init();
 		$job_model_arr = $model->GetJobModelListByModuleId($id);
 		$module_list = $model->GetModuleByType(1);
+		$module_self = $model->GetModuleById($id);
 		
 		$template = $this->loadView('opt_launch');
 		$template->set('config', $config);
 		$template->set('job_model_arr', $job_model_arr);
 		$template->set('username', $_SESSION['user_name']);
-		$template->set('active', $id * 1000 + 1);
+		$template->set('active', $id + 1000);
 		$template->set('module',$module_list);
 		$template->set('module_id', $id);
+		$template->set('module_self', $module_self[0]);
 		$template->render();
 	}
    	

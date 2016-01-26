@@ -42,7 +42,7 @@
 
     <script src="<?php echo $config['base_url'] ?>/static/assets/js/minimal.min.js"></script>
   </head>
-  <body class="bg-1">
+  <body class="bg-3">
 
 
  
@@ -400,13 +400,13 @@
                 
                 <ul class="menu">
                   
-				  <li <?php echo ($active % 1000 == 0 ? "class =\"active\"" : ""); ?>>
+				  <li <?php echo (floor($active / 1000) == 0 ? "class =\"active\"" : ""); ?>>
 				  <a href="<?php echo $config['base_url']; ?>/main">
 				  <i class="fa fa-pencil"></i> 任务概况
 					</a>
 				  </li>
 
-				  <li class="dropdown <?php echo ($active % 1000 == 1 ? "open active" : ""); ?>">
+				  <li class="dropdown <?php echo (floor($active / 1000) == 1 ? "open active" : ""); ?>">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					  <i class="fa fa-pencil"></i>  操作模块 <b class="fa fa-plus dropdown-plus"></b>
 					</a>
@@ -414,7 +414,7 @@
 					<?php
 						foreach($module as $key => $value)
 						{
-							if ($active / 1000 == 1 && $active % 1000 == $value[0])
+							if (floor($active / 1000) == 1 && ($active % 1000 == $value[0]))
 							{
 								$str = "<li class=\"active\">";
 							}
