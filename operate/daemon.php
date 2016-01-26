@@ -160,6 +160,10 @@ function handler_process()
 			{                                                
 				$read = fread($val['fd'], 1024);                
 				$val['result'] .= $read;                           
+				if (strlen($read) > 0)
+				{
+					$val['dirty'] = true;
+				}
 			}                                                
 			else
 			{
@@ -228,7 +232,7 @@ function daemon()
 		while(1)
 		{
 			$ret = handler_process();
-			usleep(20000);			
+			usleep(200000);			
 			if ($ret == 1)
 				return;
 		}

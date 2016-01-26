@@ -14,7 +14,7 @@
           <div class="pageheader">
             
 
-            <h2><i class="fa fa-puzzle-piece" style="line-height: 48px;padding-left: 5px;"></i> 操作模块 <span></span></h2>
+		  <h2><i class="fa fa-puzzle-piece" style="line-height: 48px;padding-left: 5px;"></i> <?php echo $module_self[1]; ?> <span></span></h2>
             
 
             <!-- <div class="breadcrumbs">
