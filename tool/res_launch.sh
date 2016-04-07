@@ -49,7 +49,7 @@ address=''
 password=''
 case $2 in
 	"imo" )
-		address="jiangyiming@61.174.12.216:/var/www/res"
+		address="jiangyiming@123.59.67.237:/var/www/res"
 		password="yim@821.me";;
 	"inner" )
 		address="ime@172.16.0.89:/home/ime/packet"
@@ -57,8 +57,14 @@ case $2 in
 	"outer" )
 		address="jiangyiming@203.12.203.22:/home/jiangyiming/update"
 		password="yim@821.me";;
+	"xd_imo" )
+		address="jiangyiming@119.29.86.114:/var/www/res"
+		password="yim@821.me";;
+	"zhw_imo" )
+		address="jiangyiming@210.59.246.45:/var/www/res"
+		password="yim@821.me";;
 	* )
-		echo "zone para must be [imo, inner, outer]"
+		echo "zone para must be [imo, inner, outer, xd_imo, zhw_imo]"
 		exit 1
 esac
 
