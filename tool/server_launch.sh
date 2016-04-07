@@ -1,8 +1,8 @@
 #!/bin/bash
 #set -x
-if [ $# -ne 3 ]; then                                
+if [ $# -ne 4 ]; then                                
 	echo "命令格式错误 $0 服务器svn地址 配表svn地址 版本包名字"       
-	echo "例如: $0 http://172.16.0.3/repository/f6_server/branches/hero-2.4.0-r1 http://172.16.0.3/repository/f6_art/branch/2.4.0 yunding.2.4.0"
+	echo "例如: $0 http://172.16.0.2/svn/3d_client/branches/server_0.9 http://172.16.0.3/repository/branch/2.4.0 inland.1.1.0 imo"
 	exit 1                                           
 fi                                                   
 
@@ -28,11 +28,11 @@ fi
 
 cd $main_path
 echo "现在开始检查CSV工作目录"
-if [ ! -d data/config ]
+if [ ! -d build/config ]
 then
 	echo "现在开始创建CSV工作目录"
-	mkdir -p data
-	svn co --non-interactive --username=$svn_username --password=$svn_passwd $csv_config/data/config data/config
+	mkdir -p build 
+	svn co --non-interactive --username=$svn_username --password=$svn_passwd $csv_config build/config
 	if [ $? -ne 0 ]
 	then
 		echo "创建CSV工作目录失败，请联系服务器研发工程师"
@@ -60,7 +60,7 @@ then
 fi
 
 echo "现在开始切换CSV"
-svn sw --non-interactive --username=$svn_username --password=$svn_passwd $csv_config/data/config data/config | tee /tmp/$tmp_file
+svn sw --non-interactive --username=$svn_username --password=$svn_passwd $csv_config build/config | tee /tmp/$tmp_file
 if [ $? -ne 0 ]
 then
 	echo "切换svn失败，请联系服务器研发工程师"
@@ -86,11 +86,11 @@ then
 	cd ../
 fi
 
-echo "检查第三方库"
-if [ ! -f "libc/libcrypto.so.1.0.0" ]
-then
-	cp ../libc/* libc/
-fi
+#echo "检查第三方库"
+#if [ ! -f "libc/libcrypto.so.1.0.0" ]
+#then
+#	cp ../libc/* libc/
+#fi
 
 echo "现在开始检查编译链接目录"
 echo "现在开始编译链接"
@@ -101,5 +101,5 @@ then
 	exit 1
 fi
 
-./pck.sh $3 imo 
+./pck.sh $3 $4
 cd $original_path
