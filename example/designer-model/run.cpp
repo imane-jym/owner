@@ -18,8 +18,15 @@
 
 #include "singleton.h"
 
+#include "product.h"
+#include "factory.h"
+
 int main(int argc, char *argv[])
 {
 	CSingleton *one = CSingleton::getInstance();	
+
+	Factory *fact = new DeriveFactory();
+	Product *p1 = fact->createProduct();
+	p1->display();
 	return 0;
 }

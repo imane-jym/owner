@@ -23,8 +23,9 @@ class CSingleton
 {
 	public:
 		static CSingleton *getInstance();
-	private:
+	protected:
 		static CSingleton* m_pInstance;
+		CSingleton();
 };
 
 #endif

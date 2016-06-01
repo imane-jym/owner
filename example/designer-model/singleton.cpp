@@ -19,6 +19,11 @@
 
 CSingleton *CSingleton::m_pInstance = NULL;
 
+CSingleton::CSingleton()
+{
+
+}
+
 CSingleton *CSingleton::getInstance()
 {
 	if (m_pInstance == NULL)
