@@ -21,6 +21,8 @@
 #include "product.h"
 #include "factory.h"
 
+#include "facade.h"
+
 int main(int argc, char *argv[])
 {
 	CSingleton *one = CSingleton::getInstance();	
@@ -28,5 +30,8 @@ int main(int argc, char *argv[])
 	Factory *fact = new DeriveFactory();
 	Product *p1 = fact->createProduct();
 	p1->display();
+
+	Facade *fa = new Facade();
+	fa->operate();
 	return 0;
 }
