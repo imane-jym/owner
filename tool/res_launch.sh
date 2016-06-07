@@ -40,6 +40,11 @@ then
 fi
 
 name=`svn info | grep -E 'Last Changed Rev|最后修改的版本' | cut -d: -f 2 | cut -c 2-`
+if [ a$name = "a" ]
+then
+	echo "svn info get version fail"
+	exit 1
+fi
 cd ../
 if [ -e $name ]; then
 	rm -rf $name
@@ -60,9 +65,27 @@ case $2 in
 	"xd_imo" )
 		address="jiangyiming@119.29.86.114:/var/www/res"
 		password="yim@821.me";;
+	"xd_choose" )
+		address="jiangyiming@119.29.86.114:/var/www/res"
+		password="yim@821.me";;
 	"zhw_imo" )
 		address="jiangyiming@210.59.246.45:/var/www/res"
 		password="yim@821.me";;
+	"zhw_choose" )
+		address="jiangyiming@210.59.246.45:/var/www/res"
+		password="yim@821.me";;
+	"bm_imo" )
+                address="jiangyiming@107.150.99.112:/var/www/res"
+                password="yim@821.me";;
+	"bm_choose" )
+                address="jiangyiming@107.150.99.112:/var/www/res"
+                password="yim@821.me";;
+	"xm_choose" )
+                address="jiangyiming@54.254.245.24:/var/www/res"
+                password="yim@821.me";;
+	"xm_imo" )
+                address="jiangyiming@54.254.245.24:/var/www/res"
+                password="yim@821.me";;
 	* )
 		echo "zone para must be [imo, inner, outer, xd_imo, zhw_imo]"
 		exit 1
@@ -73,6 +96,8 @@ cp -r $main_path/* $name
 cd $name
 find . -name .svn -exec rm -rf {} \; >& /dev/null
 cd ../
+
+echo "================ launch res $name ================="
 
 expect -c "
 set timeout -1

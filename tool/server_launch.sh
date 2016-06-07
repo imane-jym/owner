@@ -13,12 +13,13 @@ svn_username=imane
 svn_passwd=imane
 tmp_file=tmp_`date +%Y%m%d-%H%M%S`_pid$$
 
-main_path=`basename $server_version`
+#main_path=`basename $server_version`
+main_path=`echo $server_version| awk -F/ '{ print $(NF-1)"_"$(NF)}'`
 echo "现在检查服务器工作目录"
 if [ ! -d $main_path ]
 then
 	echo "现在开始创建服务器工作目录"
-	svn co --non-interactive --username=$svn_username --password=$svn_passwd $server_version 
+	svn co --non-interactive --username=$svn_username --password=$svn_passwd $server_version $main_path
 	if [ $? -ne 0 ]
 	then
 		echo "创建svn工作目录失败，请联系服务器研发工程师"

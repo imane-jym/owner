@@ -76,6 +76,11 @@ then
 fi
 
 name=`svn info | grep -E 'Last Changed Rev|最后修改的版本' | cut -d: -f 2 | cut -c 2-`
+if [ a$name = "a" ]
+then
+	echo "svn info get version fail"
+	exit 1
+fi
 cd ../
 if [ -e $name ]; then
 	rm -rf $name
@@ -234,6 +239,20 @@ case $2 in
 		210.59.246.47	jiangyiming yim@821.me	/data/threed3 10003
 		"
                 address="jiangyiming@210.59.246.45:/var/www/config"
+                password="yim@821.me";;
+	"bm_choose" )
+		src_address='jiangyiming@107.150.99.112:/var/www/config'
+		serverlist="
+		107.150.99.112	jiangyiming yim@821.me	/data/threed_255 255\n
+		"
+                address="jiangyiming@107.150.99.112:/var/www/config"
+                password="yim@821.me";;
+	"xm_choose" )
+		src_address='jiangyiming@10.14.2.7:/var/www/config'
+		serverlist="
+		52.77.126.15	jiangyiming yim@821.me	/data/threed_255 255
+		"
+                address="jiangyiming@54.254.245.24:/var/www/config"
                 password="yim@821.me";;
 	* )
 		echo "zone para must be [imo, inner, outer, xd_imo, xd_test]"

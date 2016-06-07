@@ -42,9 +42,20 @@ case $2 in
 	"zhw_choose" )
 		src_address='jiangyiming@172.16.105.4:/var/www/config'
 		serverlist="
+		210.59.246.48	jiangyiming yim@821.me	/data/threed 1\n
+		210.59.246.49	jiangyiming yim@821.me	/data/threed 2\n
+		210.59.246.48	jiangyiming yim@821.me	/data/threed2 3\n
+		210.59.246.49	jiangyiming yim@821.me	/data/threed2	4\n
+		210.59.246.48	jiangyiming yim@821.me	/data/threed3	5\n
+		210.59.246.49	jiangyiming yim@821.me	/data/threed3	6\n
+		210.59.246.48	jiangyiming yim@821.me	/data/threed4	7\n
+		210.59.246.49	jiangyiming yim@821.me	/data/threed4	8\n
 		210.59.246.47	jiangyiming yim@821.me	/data/threed 10001\n
 		210.59.246.47	jiangyiming yim@821.me	/data/threed2 10002\n
-		210.59.246.47	jiangyiming yim@821.me	/data/threed3 10003
+		210.59.246.47	jiangyiming yim@821.me	/data/threed3 10003\n
+		210.59.246.47	jiangyiming yim@821.me	/data/threed4 10004\n
+		210.59.246.47	jiangyiming yim@821.me	/data/threed5 10005\n
+		210.59.246.47	jiangyiming yim@821.me	/data/threed6 10006\n
 		"
                 address="jiangyiming@210.59.246.45:/var/www/config"
                 password="yim@821.me"
@@ -158,6 +169,58 @@ case $2 in
 		119.29.93.233	jiangyiming yim@821.me  /data/threed3 98\n
 		119.29.61.185	jiangyiming yim@821.me  /data/threed4 99\n
 		119.29.93.233	jiangyiming yim@821.me  /data/threed4 100\n
+		119.29.180.191	jiangyiming yim@821.me  /data/threed 101\n
+		119.29.180.118	jiangyiming yim@821.me  /data/threed 102\n
+		119.29.180.191	jiangyiming yim@821.me  /data/threed2 103\n
+		119.29.180.118	jiangyiming yim@821.me  /data/threed2 104\n
+		119.29.180.191	jiangyiming yim@821.me  /data/threed3 105\n
+		119.29.180.118	jiangyiming yim@821.me  /data/threed3 106\n
+		119.29.180.191	jiangyiming yim@821.me  /data/threed4 107\n
+		119.29.180.118	jiangyiming yim@821.me  /data/threed4 108\n
+		119.29.187.83	jiangyiming yim@821.me	/data/threed	109\n
+		119.29.193.193	jiangyiming yim@821.me	/data/threed	110\n
+		119.29.187.83	jiangyiming yim@821.me	/data/threed2	111\n
+		119.29.193.193	jiangyiming yim@821.me	/data/threed2	112\n
+		119.29.187.83	jiangyiming yim@821.me	/data/threed3	113\n
+		119.29.193.193	jiangyiming yim@821.me	/data/threed3	114\n
+		119.29.187.83	jiangyiming yim@821.me	/data/threed4	115\n
+		119.29.193.193	jiangyiming yim@821.me	/data/threed4	116\n
+		119.29.27.52	jiangyiming yim@821.me	/data/threed	117\n
+		119.29.156.112	jiangyiming yim@821.me	/data/threed	118\n
+		119.29.24.216	jiangyiming yim@821.me	/data/threed	119\n
+		119.29.77.173	jiangyiming yim@821.me	/data/threed	120\n
+		119.29.27.52	jiangyiming yim@821.me	/data/threed2	121\n
+		119.29.156.112	jiangyiming yim@821.me	/data/threed2	122\n
+		119.29.24.216	jiangyiming yim@821.me	/data/threed2	123\n
+		119.29.77.173	jiangyiming yim@821.me	/data/threed2	124\n
+		119.29.27.52	jiangyiming yim@821.me	/data/threed3	125\n
+		119.29.156.112	jiangyiming yim@821.me	/data/threed3	126\n
+		119.29.24.216	jiangyiming yim@821.me	/data/threed3	127\n
+		119.29.77.173	jiangyiming yim@821.me	/data/threed3	128\n
+		119.29.27.52	jiangyiming yim@821.me	/data/threed4	129\n
+		119.29.156.112	jiangyiming yim@821.me	/data/threed4	130\n
+		119.29.24.216	jiangyiming yim@821.me	/data/threed4	131\n
+		119.29.77.173	jiangyiming yim@821.me	/data/threed4	132\n
+		119.29.241.111	jiangyiming yim@821.me	/data/threed	1001\n
+		119.29.243.135	jiangyiming yim@821.me	/data/threed	1002\n
+		119.29.241.111	jiangyiming yim@821.me	/data/threed2	1003\n
+		119.29.243.135	jiangyiming yim@821.me	/data/threed2	1004\n
+		119.29.241.111	jiangyiming yim@821.me	/data/threed3	1005\n
+		119.29.243.135	jiangyiming yim@821.me	/data/threed3	1006\n
+		119.29.241.111	jiangyiming yim@821.me	/data/threed4	1007\n
+		119.29.243.135	jiangyiming yim@821.me	/data/threed4	1008\n
+		119.29.248.178	jiangyiming yim@821.me	/data/threed	1009\n
+		119.29.248.178	jiangyiming yim@821.me	/data/threed2	1010\n
+		119.29.248.178	jiangyiming yim@821.me	/data/threed3	1011\n
+		119.29.248.178	jiangyiming yim@821.me	/data/threed4	1012\n
+		119.29.242.81	jiangyiming yim@821.me	/data/threed	2001\n
+		119.29.241.182	jiangyiming yim@821.me	/data/threed	2002\n
+		119.29.242.81	jiangyiming yim@821.me	/data/threed2	2003\n
+		119.29.241.182	jiangyiming yim@821.me	/data/threed2	2004\n
+		119.29.242.81	jiangyiming yim@821.me	/data/threed3	2005\n
+		119.29.241.182	jiangyiming yim@821.me	/data/threed3	2006\n
+		119.29.242.81	jiangyiming yim@821.me	/data/threed4	2007\n
+		119.29.241.182	jiangyiming yim@821.me	/data/threed4	2008\n
 		119.29.162.249	jiangyiming yim@821.me	/data/threed 7001\n
 		119.29.159.65	jiangyiming yim@821.me	/data/threed 7002\n
 		119.29.162.249	jiangyiming yim@821.me	/data/threed2 7003\n
@@ -190,18 +253,72 @@ case $2 in
 		119.29.108.133	jiangyiming yim@821.me  /data/threed2 9006\n
 		119.29.108.133	jiangyiming yim@821.me  /data/threed3 9007\n
 		119.29.108.133	jiangyiming yim@821.me  /data/threed4 9008\n
+		119.29.181.143	jiangyiming yim@821.me  /data/threed 9009\n
+		119.29.134.215	jiangyiming yim@821.me  /data/threed 9010\n
+		119.29.181.143	jiangyiming yim@821.me  /data/threed2 9011\n
+		119.29.134.215	jiangyiming yim@821.me  /data/threed2 9012\n
+		119.29.181.143	jiangyiming yim@821.me  /data/threed3 9013\n
+		119.29.134.215	jiangyiming yim@821.me  /data/threed3 9014\n
+		119.29.181.143	jiangyiming yim@821.me  /data/threed4 9015\n
+		119.29.134.215	jiangyiming yim@821.me  /data/threed4 9016\n
+		119.29.196.159	jiangyiming yim@821.me  /data/threed 9017\n
+		119.29.195.147	jiangyiming yim@821.me  /data/threed 9018\n
+		119.29.196.159	jiangyiming yim@821.me  /data/threed2 9019\n
+		119.29.195.147	jiangyiming yim@821.me  /data/threed2 9020\n
+		119.29.196.159	jiangyiming yim@821.me  /data/threed3 9021\n
+		119.29.195.147	jiangyiming yim@821.me  /data/threed3 9022\n
+		119.29.196.159	jiangyiming yim@821.me  /data/threed4 9023\n
+		119.29.195.147	jiangyiming yim@821.me  /data/threed4 9024\n
 		119.29.108.133  jiangyiming yim@821.me  /data/threed5 9801\n
 		119.29.86.71	jiangyiming yim@821.me	/data/threed 10001\n
 		119.29.86.71	jiangyiming yim@821.me	/data/threed2 10002\n
 		119.29.86.71	jiangyiming yim@821.me	/data/threed3 10003\n
 		119.29.86.71	jiangyiming yim@821.me	/data/threed4 10004\n
 		119.29.86.71	jiangyiming yim@821.me	/data/threed5 10005\n
+		119.29.86.71	jiangyiming yim@821.me	/data/threed6 10006\n
+		119.29.86.71	jiangyiming yim@821.me	/data/threed7 10007\n
+		119.29.92.244	jiangyiming yim@821.me	/data/threed 3001\n
+		119.29.205.110	jiangyiming yim@821.me	/data/threed 3002\n
+		119.29.92.244	jiangyiming yim@821.me	/data/threed 3003\n
+		119.29.205.110	jiangyiming yim@821.me	/data/threed 3004\n
+		119.29.92.244	jiangyiming yim@821.me	/data/threed 3005\n
+		119.29.205.110	jiangyiming yim@821.me	/data/threed 3006\n
+		119.29.92.244	jiangyiming yim@821.me	/data/threed 3007\n
+		119.29.205.110	jiangyiming yim@821.me	/data/threed 3008
 		"
                 address="jiangyiming@119.29.86.114:/var/www/config"
                 password="yim@821.me"
 		db_server_address="jiangyiming@119.29.86.71"
 		db_server_password="yim@821.me"
 		db_host="10.104.145.37"
+		db_user="threed_db"
+		db_pwd="123456"
+		db_name="threed_login"
+		;;
+	"bm_choose" )
+		src_address='jiangyiming@107.150.99.112:/var/www/config'
+		serverlist="
+		107.150.99.112	jiangyiming yim@821.me	/data/threed_255 255
+		"
+                address="jiangyiming@107.150.99.112:/var/www/config"
+                password="yim@821.me"
+		db_server_address="jiangyiming@107.150.99.112"
+		db_server_password="yim@821.me"
+		db_host="10.11.19.205"
+		db_user="threed_db"
+		db_pwd="123456"
+		db_name="threed_login"
+		;;
+	"xm_choose" )
+		src_address='jiangyiming@10.14.2.7:/var/www/config'
+		serverlist="
+		52.77.126.15	jiangyiming yim@821.me	/data/threed_255 255
+		"
+                address="jiangyiming@54.254.245.24:/var/www/config"
+                password="yim@821.me"
+		db_server_address="jiangyiming@54.254.245.24"
+		db_server_password="yim@821.me"
+		db_host="10.14.2.11"
 		db_user="threed_db"
 		db_pwd="123456"
 		db_name="threed_login"
@@ -217,15 +334,12 @@ echo -e $serverlist > temp
 while read line
 do
 	server_id=''
-	if [ z$2 = z"xd_choose" -o z$2 = z"zhw_choose" ]
+	server_id=`echo $line | awk '{print $5}'`
+	isChoose $server_id
+	if [ $? -ne 1 ]
 	then
-		server_id=`echo $line | awk '{print $5}'`
-		isChoose $server_id
-		if [ $? -ne 1 ]
-		then
-			continue
-		fi
-	fi	
+	continue
+	fi
 	host_ip=`echo $line | awk '{print $1}'`
 	username=`echo $line | awk '{print $2}'`
 	passwd=`echo $line | awk '{print $3}'`
@@ -250,11 +364,12 @@ EOF
 if [ $? -ne 0 ]
 then
 	echo "===== $server_id $host_ip $dest_file fail ====="
-	exit 1
+	#exit 1
 else
 	echo "===== $server_id $host_ip $dest_file success ====="
+	already_server=$already_server" "$server_id
 fi
-already_server=$already_server" "$server_id
+#already_server=$already_server" "$server_id
 done < temp
 echo $already_server
 
