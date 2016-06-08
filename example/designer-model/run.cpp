@@ -26,6 +26,11 @@
 #include "flyweight.h"
 
 #include "proxy.h"
+
+#include "prototype.h"
+
+#include "observer.h"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -51,5 +56,22 @@ int main(int argc, char *argv[])
 	SubSubject *pSub = new SubSubject();
 	Proxy *p2 = new Proxy(pSub);
 	p2->request();
+
+	cout << "<<< prototype pattern >>>" << endl;
+	Prototype *prot = new SubPrototype();	
+	Prototype *prot2 = prot->clone();
+
+	cout << "<<< observer pattern >>>" << endl;
+	OSubject *pOSub = new SubOSubject();
+	ObserverA *pObA = new ObserverA();
+	ObserverB *pObB = new ObserverB();
+	pOSub->attach(pObA);
+	pOSub->attach(pObB);
+	pOSub->SetState("old");
+	pOSub->notify();
+	pOSub->SetState("new");
+	pOSub->notify();
+
+
 	return 0;
 }
