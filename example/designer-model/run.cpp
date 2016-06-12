@@ -31,6 +31,8 @@
 
 #include "observer.h"
 
+#include "visitor.h"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -71,7 +73,10 @@ int main(int argc, char *argv[])
 	pOSub->notify();
 	pOSub->SetState("new");
 	pOSub->notify();
-
-
+	
+	cout << "<<< visitor pattern >>>" << endl;
+	Visitor *pV = new SubVisitorA();
+	Element *pE = new ElementA();
+	pE->accept(pV);
 	return 0;
 }
