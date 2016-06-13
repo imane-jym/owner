@@ -1,3 +1,24 @@
+安装redis
+sudo apt-get install redis-server
+需要 phpize
+sudo apt-get install php5-dev
+网站
+https://github.com/phpredis/phpredis
+git clone https://github.com/phpredis/phpredis.git
+phpize
+./configure
+make && sudo make install
+
+编辑文件
+cd /etc/php5/conf.d
+touch redis.ini
+=====================
+sudo cat redis.ini 
+extension=redis.so
+=====================
+
+重启apache2
+
 apt-get install php5
 apt-get install mysql
 apt-get install php5-mysql
