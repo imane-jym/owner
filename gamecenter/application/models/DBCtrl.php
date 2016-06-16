@@ -44,53 +44,41 @@ class DBctrl extends Model {
 
 	public function CreateInitTable()
 	{
-		if (!$this->ExistTable("user"))
+		if (!$this->ExistTable("game_info"))
 		{
 			$this->execute(
-					"create table user(                           
-					 user_id bigint unsigned primary key auto_increment,
-					 user_name varchar(64) not null default 'test',
-					 password varchar(64) not null default '',           
-					 admin smallint unsigned not null default 0,
-					 unique key(user_name),
-					 key(user_id, password)
-					 )engine=innodb DEFAULT charset=utf8;");             
-		}
-		if (!$this->ExistTable("module"))
-		{
-			$this->execute(
-					"create table module(                           
-					 id int unsigned primary key auto_increment,
-					 type smallint unsigned not null default 0,             
-					 main_param varchar(255) not null default '',           
-					 content varchar(255) not null default ''           
-					 )engine=innodb DEFAULT charset=utf8;");             
-		}
-		if (!$this->ExistTable("job_model"))
-		{
-			$this->execute(
-					"create table job_model(                           
-					 id int unsigned primary key auto_increment,
-					 module_id int unsigned not null default 0,             
-					 param varchar(255) not null default '',           
-					 job_content varchar(255) not null default ''           
-					 )engine=innodb DEFAULT charset=utf8;");             
-		}
-		if (!$this->ExistTable("job"))
-		{
-			/*
-			 * status 0 pending 1 success 2 fail 3 running
-			 */
-			$this->execute(
-					"create table job(                           
-					 id int unsigned primary key auto_increment,
-					 module_id int unsigned not null default 0,             
-					 param varchar(255) not null default '',           
+					"create table game_info(                           
+					 game_id int unsigned primary key auto_increment,
+					 icon varchar(255) not null default '',           
+					 url varchar(255) not null default '',           
+					 title varchar(255) not null default '',           
+					 brief varchar(255) not null default '',           
+					 content varchar(65535) not null default '',           
 					 create_time int unsigned not null default 0,
-					 create_user_id int unsigned not null default 0,
-					 job_content varchar(255) not null default '',           
-					 result text not null default '', 
-					 status smallint unsigned not null default 0
+					 onsale_time int unsigned not null default 0,
+					 big_pic varchar(255) not null default '',           
+					 status smallint unsigned not null default 0 comment '0:defailt no pass 1: pass 2: test 3: onsale 4: offsale'
+					 )engine=innodb DEFAULT charset=utf8;");              
+		}
+		if (!$this->ExistTable("category_info"))
+		{
+			$this->execute(
+					"create table category_info(                           
+					 category_id int unsigned primary key auto_increment,
+					 name varchar(255) not null default '',           
+					 game_id_list varchar(65535) not null default '',           
+					 pic varchar(255) not null default '',           
+					 )engine=innodb DEFAULT charset=utf8;");              
+		}
+		if (!$this->ExistTable("hot_info"))
+		{
+			$this->execute(
+					"create table category_info(                           
+					 hot_id int unsigned primary key auto_increment,
+					 game_id_list varchar(65535) not null default '',           
+					 ex1 varchar(65535) not null default '',           
+					 ex2 varchar(65535) not null default '',           
+					 ex3 varchar(65535) not null default '',           
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
 	}

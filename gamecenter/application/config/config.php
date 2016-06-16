@@ -10,6 +10,9 @@ $config['db_name'] = 'web_operate'; // Database name
 $config['db_username'] = '3d'; // Database username
 $config['db_password'] = '123456'; // Database password
 
+$config['redis_ip'] = '127.0.0.1'; //redis ip, this redis is used for cache
+$config['redis_port'] = '6379'; // redis port
+
 $config['login_user'] = 'imane'; //user name http auth use
 $config['login_passwd'] = 'imane'; // user password http auth use
 

@@ -33,6 +33,7 @@
 
 #include "visitor.h"
 
+#include "state.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -78,5 +79,12 @@ int main(int argc, char *argv[])
 	Visitor *pV = new SubVisitorA();
 	Element *pE = new ElementA();
 	pE->accept(pV);
+
+	cout << "<<< state pattern >>>" << endl;
+	State *pS = new StateA();
+	Context *pSub3 = new Context(pS);
+	pSub3->Operate();
+	pSub3->Operate();
+	pSub3->Operate();
 	return 0;
 }
