@@ -1,7 +1,9 @@
 <?php
 
 class DBctrl extends Model {
-
+	const AdBigShow = 1;
+	const AdEditorRecommand = 2;
+	const AdHotGame = 3;
 	public function Init()
 	{
 		global $config;
