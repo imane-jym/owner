@@ -60,6 +60,7 @@ class DBctrl extends Model {
 					 onsale_time int unsigned not null default 0,
 					 big_pic varchar(255) not null default '',           
 					 status smallint unsigned not null default 0 comment '0:defailt no pass 1: pass 2: test 3: onsale 4: offsale'
+					 is_login smallint unsigned not null default 0 comment '0:defailt no 1: need'
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
 		if (!$this->ExistTable("category_info"))
@@ -85,77 +86,37 @@ class DBctrl extends Model {
 		}
 	}
 	
-	public function GetJobList()
+	public function GetGameList($mixId)
 	{
-		return $this->query("select id,job_content,param,create_time,user_name,status from job left join user on job.create_user_id = user.user_id order by create_time desc limit 100");
+		$strCondition = "";
+		if (is_array($mixId))
+		{
+			$strCondition = "in ('" . implode(",", $mixId) . "')";
+		}
+		else if (is_numeric($mixId))
+		{
+			$strCondition = "='" . $mixId . "'"; 	
+		}
+		else
+			return array();
+
+		return $this->query("select game_id,icon,url,title,brief,content,create_time,onsale_time,big_pic,status,is_login from game_info where game_id " . $strCondition);
 	}
 
-	public function GetJobContent($id)
+	public function GetCategoryInfoList()
+	{
+		return $this->query("select category_id,name,game_id_list,pic from category_info");
+	}
+
+	public function GetHotInfoList()
+	{
+		return $this->query("select hot_id,game_id_list,ex1,ex2,ex3 from hot_info");
+	}
+
+	public function GetHotInfoList($id)
 	{
 		$id = $this->escapeString($id);
-		return $this->query("select result from job where id = {$id}");
-	}
-
-	public function GetModuleByType($type)
-	{
-		$type = $this->escapeString($type);
-		return $this->query("select id,content,main_param from module where type = {$type}");
-	}
-
-	public function GetModuleById($id)
-	{
-		$id = $this->escapeString($id);
-		return $this->query("select id,content,main_param from module where id = {$id}");
-	}
-
-	public function GetJobModelListByModuleId($module_id)
-	{
-		$module_id = $this->escapeString($module_id);
-		return $this->query("select id,job_content,param from job_model where module_id = {$module_id}");
-	}
-
-	public function GetJobModel($id)
-	{
-		$id = $this->escapeString($id);
-		return $this->query("select module_id,param,job_content from job_model where id = {$id}");
-	}
-
-	public function InsertJobModel($module_id, $param, $content)
-	{
-		$module_id = $this->escapeString($module_id);
-		$param = $this->escapeString($param);
-		$content = $this->escapeString($content);
-		return $this->execute("insert into job_model(module_id, param, job_content) values({$module_id},'{$param}','{$content}')");
-	}
-
-	public function InsertJob($module_id, $param, $content, $create_user_id)
-	{
-		$module_id = $this->escapeString($module_id);
-		$param = $this->escapeString($param);
-		$content = $this->escapeString($content);
-		$create_user_id = $this->escapeString($create_user_id);
-		return $this->execute("insert into job(module_id, param, job_content, create_time, create_user_id) values({$module_id},'{$param}','{$content}',". time(NULL) . ",'{$create_user_id}')");
-	}
-	
-	public function GetJobbyPending($id)
-	{
-		return $this->query("select job.id,module_id,param,create_time,create_user_id,job_content,result,status,type,main_param from job left join module on job.module_id = module.id where status = 0 and job.id > {$id}");
-	}
-
-	public function UpdateJob($id, $status,  $result)
-	{
-		$id = $this->escapeString($id);
-		$status = $this->escapeString($status);
-		$result = $this->escapeString($result);
-		return $this->execute("update job set result='{$result}', status='{$status}' where id = '{$id}'");
-	}
-
-	public function GetUserAuth($username, $password)
-	{
-		$usename = $this->escapeString($username);
-		$password = $this->escapeString($password);
-
-		return $this->query("select user_id,user_name,admin from user where user_name = '{$username}' and password = '{$password}'");
+		return $this->query("select hot_id,game_id_list,ex1,ex2,ex3 from hot_info where hot_id = {$id}");
 	}
 }
 
