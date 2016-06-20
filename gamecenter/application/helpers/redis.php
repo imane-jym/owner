@@ -96,6 +96,13 @@ class RedisCtrl {
 		return $connection->zAdd($zName, $score, $val);
 	}
 
+	public function ZSetDel($zName, $val)
+	{
+	    global $config;
+	    $this->AddPre($zName, $config["redis_pre"], "string");
+		return $connection->zRem($zName, $val);
+	}
+
     public function ZSetRange($zName, $start, $end)
     {
  		global $config;

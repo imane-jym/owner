@@ -85,6 +85,28 @@ class DBctrl extends Model {
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
 	}
+
+	public function GetNewGameListSortTime()
+	{
+		return $this->query("select game_id,icon,url,title,brief,content,create_time,onsale_time,big_pic,status,is_login from game_info where status = 3 order by onsale_time desc");
+	}
+
+	public function GetGameListByKind($mixId, $kind)
+	{
+		$strCondition = "";
+		if (is_array($mixId))
+		{
+			$strCondition = "in ('" . implode(",", $mixId) . "')";
+		}
+		else if (is_numeric($mixId))
+		{
+			$strCondition = "='" . $mixId . "'"; 	
+		}
+		else
+			return array();
+
+		return $this->query("select game_id,icon,url,title,brief,content,create_time,onsale_time,big_pic,status,is_login from game_info where game_id " . $strCondition . " and status = " . $kind);
+	}
 	
 	public function GetGameList($mixId)
 	{
