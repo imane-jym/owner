@@ -17,6 +17,8 @@ $config['redis_pre'] = 'center';
 $config['login_user'] = 'imane'; //user name http auth use
 $config['login_passwd'] = 'imane'; // user password http auth use
 
+$config['secure_key'] = 'asEg38s3l94'; //backport secure key
+
 define('LOG_PATH', ROOT_DIR .'log/');
 define('LOG_FILE_SIZE', 10485760); // 10mb
 define('LOG_DATA_PATH', ROOT_DIR .'log/');

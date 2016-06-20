@@ -5,161 +5,182 @@ class DataCtrl {
 	const AdEditorRecommand = 2;
 	const AdHotGame = 3;
 
-	public $db;
-	public $redis;
-
-	public function Init()
+	public function ResetAdCache()
 	{
 		global $config;
-		parent::Init($config['db_host'], $config['db_name'], $config['db_username'], $config['db_password']);
-	}
-
-	public function ExistIndex($table, $index)
-	{
-		global $config;
-		$table = $this->escapeString($table);
-		$index = $this->escapeString($index);
-		$result = $this->query("select * from information_schema.statistics where table_name='{$table}' and index_name='{$index}' and table_schema = '{$config['db_name']}'");
-		return count($result);
-	}
-
-	public function ExistColumn($table, $col)
-	{
-		global $config;
-		$table = $this->escapeString($table);
-		$col = $this->escapeString($col);
-		$result = $this->query("select * from information_schema.columns where table_name='{$table}' and column_name='{$col}' and table_schema = '{$config['db_name']}'");
-		return count($result);
-	}
-
-	public function ExistTable($table)
-	{
-		global $config;
-		$table = $this->escapeString($table);
-		$result = $this->query("select * from information_schema.tables where table_name='{$table}' and table_schema = '{$config['db_name']}'");
-		return count($result);
-	}
-
-	public function ExistRecord($table, $condition)
-	{
-		global $config;
-		$table = $this->escapeString($table);
-		$result = $this->query("select * from {$table} where {$condition}");
-		return count($result);
-	}
-
-	public function CreateInitTable()
-	{
-		if (!$this->ExistTable("game_info"))
+		if (!isset($_REQUEST['token']))
 		{
-			$this->execute(
-					"create table game_info(
-					 game_id int unsigned primary key auto_increment,
-					 icon varchar(255) not null default '',
-					 url varchar(255) not null default '',
-					 title varchar(255) not null default '',
-					 brief varchar(255) not null default '',
-					 content varchar(65535) not null default '',
-					 create_time int unsigned not null default 0,
-					 onsale_time int unsigned not null default 0,
-					 big_pic varchar(255) not null default '',
-					 status smallint unsigned not null default 0 comment '0:defailt no pass 1: pass 2: test 3: onsale 4: offsale'
-					 )engine=innodb DEFAULT charset=utf8;");
+			return -1;
 		}
-		if (!$this->ExistTable("category_info"))
+		if ($_REQUEST['token'] != $config['secure_key'])
 		{
-			$this->execute(
-					"create table category_info(
-					 category_id int unsigned primary key auto_increment,
-					 name varchar(255) not null default '',
-					 game_id_list varchar(65535) not null default '',
-					 pic varchar(255) not null default '',
-					 )engine=innodb DEFAULT charset=utf8;");
+			return -1;
 		}
-		if (!$this->ExistTable("hot_info"))
+		$model = new DBCtrl;
+		$model->Init();
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$category = $model->GetHotInfoList();
+		$ad = array();
+		foreach ($category as $key => $val)
 		{
-			$this->execute(
-					"create table category_info(
-					 hot_id int unsigned primary key auto_increment,
-					 game_id_list varchar(65535) not null default '',
-					 ex1 varchar(65535) not null default '',
-					 ex2 varchar(65535) not null default '',
-					 ex3 varchar(65535) not null default '',
-					 )engine=innodb DEFAULT charset=utf8;");
+			$cacheKey = "";
+			if ($val[0] == AdBigShow)
+			{
+				$cacheKey = "AdBigShow";
+			}
+			else if ($val[0] == AdEditorRecommand)
+			{
+				$cacheKey = "AdEditorRecommand";
+			}
+			else if ($val[0] == AdHotGame)
+			{
+				$cacheKey = "AdHotGame";
+			}
+			else
+			{
+				continue;
+			}
+			$ad[$cacheKey] = json_encode(array(
+				"hot_id" => $val[0],
+				"game_id_list" => $val[1],
+				"ex1" => $val[2],
+				"ex2" => $val[3],
+				"ex3" => $val[4]
+			));
 		}
+		$cache->StringMSet($ad);
+		return 0;
 	}
 
-	public function GetJobList()
+	public function ResetCategoryCache()
 	{
-		return $this->query("select id,job_content,param,create_time,user_name,status from job left join user on job.create_user_id = user.user_id order by create_time desc limit 100");
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			return -1;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			return -1;
+		}
+		$model = new DBCtrl;
+		$model->Init();
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$category = $model->GetCategoryInfoList();
+		$ad = array();
+		$ad["Category"] = array();
+		foreach ($category as $key => $val)
+		{
+			$ad["Category"][] = array(
+				"category_id" => $val[0],
+				"name" => $val[1],
+				"game_id_list" => $val[2],
+				"pic" => $val[3]
+			);
+		}
+		$ad["Category"] = json_encode($ad["Category"]);
+		$cache->StringMSet($ad);
+		return 0;
 	}
 
-	public function GetJobContent($id)
+	public function ResetNewGameCache()
 	{
-		$id = $this->escapeString($id);
-		return $this->query("select result from job where id = {$id}");
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			return -1;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			return -1;
+		}
+		$model = new DBCtrl;
+		$model->Init();
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$cache->delete("NewGame");
+		$category = $model->GetNewGameListSortTime();
+		foreach ($category as $key => $val)
+		{
+			$cache->ZSetAdd("NewGame", $val[0], $val[7]);
+		}
+		return 0;
 	}
 
-	public function GetModuleByType($type)
+	public function GetAndSetGameInfoCache($game_id)
 	{
-		$type = $this->escapeString($type);
-		return $this->query("select id,content,main_param from module where type = {$type}");
+		$model = new DBCtrl;
+		$model->Init();
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$info = $model->GetGameList($game_id);
+		if (empty($info))
+		{
+			return Array();
+		}
+		$info = array(
+			'game_id' => $info[0],
+			'icon' => $info[1],
+			'url' => $info[2],
+			'title' => $info[3],
+			'brief' => $info[4],
+			'content' => $info[5],
+			'create_time' => $info[6],
+			'onsale_time' => $info[7],
+			'big_pic' => $info[8],
+			'status' => $info[9],
+			'is_login' => $info[10]
+		);
+		$cache->HashMSet("GameInfo", array($category[0], json_encode($info))
+						);
+		return $info;
 	}
 
-	public function GetModuleById($id)
+	public function ResetOnSaleCache($game_id, $onsale_time)
 	{
-		$id = $this->escapeString($id);
-		return $this->query("select id,content,main_param from module where id = {$id}");
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			return -1;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			return -1;
+		}
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$cache->ZSetAdd("NewGame", $game_id, $onsale_time);
 	}
 
-	public function GetJobModelListByModuleId($module_id)
+	public function ResetOffSaleCache($game_id)
 	{
-		$module_id = $this->escapeString($module_id);
-		return $this->query("select id,job_content,param from job_model where module_id = {$module_id}");
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			return -1;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			return -1;
+		}
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$cache->ZSetDel("NewGame", $game_id);
+		return 0;
 	}
 
-	public function GetJobModel($id)
+	public function HandlerGetMoreHotGame()
 	{
-		$id = $this->escapeString($id);
-		return $this->query("select module_id,param,job_content from job_model where id = {$id}");
-	}
-
-	public function InsertJobModel($module_id, $param, $content)
-	{
-		$module_id = $this->escapeString($module_id);
-		$param = $this->escapeString($param);
-		$content = $this->escapeString($content);
-		return $this->execute("insert into job_model(module_id, param, job_content) values({$module_id},'{$param}','{$content}')");
-	}
-
-	public function InsertJob($module_id, $param, $content, $create_user_id)
-	{
-		$module_id = $this->escapeString($module_id);
-		$param = $this->escapeString($param);
-		$content = $this->escapeString($content);
-		$create_user_id = $this->escapeString($create_user_id);
-		return $this->execute("insert into job(module_id, param, job_content, create_time, create_user_id) values({$module_id},'{$param}','{$content}',". time(NULL) . ",'{$create_user_id}')");
-	}
-
-	public function GetJobbyPending($id)
-	{
-		return $this->query("select job.id,module_id,param,create_time,create_user_id,job_content,result,status,type,main_param from job left join module on job.module_id = module.id where status = 0 and job.id > {$id}");
-	}
-
-	public function UpdateJob($id, $status,  $result)
-	{
-		$id = $this->escapeString($id);
-		$status = $this->escapeString($status);
-		$result = $this->escapeString($result);
-		return $this->execute("update job set result='{$result}', status='{$status}' where id = '{$id}'");
-	}
-
-	public function GetUserAuth($username, $password)
-	{
-		$usename = $this->escapeString($username);
-		$password = $this->escapeString($password);
-
-		return $this->query("select user_id,user_name,admin from user where user_name = '{$username}' and password = '{$password}'");
+		$result = array();
+		if (!isset($_REQUEST['page']))
+		{
+			return $result;
+		}
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$cache->ZSetDel("NewGame", $game_id);
 	}
 }
 
