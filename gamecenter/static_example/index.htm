@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>1758.com微游戏</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="full-screen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="360-fullscreen" content="true" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="cache" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<link rel="shortcut icon " href="http://images.1758.com/images/48.ico">
+		<link rel="stylesheet" type="text/css" href="style/build/index.css?v=201511301259" />
+	</head>
+
+	<body>
+		<!-- <span class="count">人气：85964</span> -->
+		<section class="index-tab">
+			<div id='index-menu' class="pure-g index-menu">
+				<div id='menu-hot' class="pure-u-1-4 dm">
+					<div class="dk" data-track='hot' data-type="un">
+						<a href="#hot">
+							<p>热门</p>
+						</a>
+					</div>
+				</div>
+				<div id='menu-newgame' class="pure-u-1-4 dm">
+					<div class="dk" data-track='newgame' data-type='un'>
+						<a href="#newgame">
+							<p>新游</p>
+						</a>
+					</div>
+				</div>
+				<div id='menu-gift' class="pure-u-1-4 dm">
+					<div class="dk" data-track='gift' data-type='un'>
+						<a href="#gift">
+							<p>礼包</p>
+						</a>
+					</div>
+				</div>
+				<div id='menu-category' class="pure-u-1-4 dm">
+					<div class="dk" data-track='category' data-type='un'>
+						<a href="#category">
+							<p>分类</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="hot gone">
+			<div class="flexslider">
+				<ul class="slides">
+					<li>
+						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111834&ex1758=1&tp=full&title=%E6%88%91%E6%AC%B2%E5%B0%81%E5%A4%A9web&r=lb">
+							<img src="http://images.1758.com/article/image/2015/10/20/21651445329561114.jpg" />
+						</a>
+					</li>
+					<li>
+						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111639&r=lb">
+							<img src="http://images.1758.com/images/lbyugong.jpg" />
+						</a>
+					</li>
+					<li>
+						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111858&ex1758=1&tp=full&title=%E5%8F%AC%E5%94%A4%E5%B8%88%E5%AD%A6%E9%99%A2">
+							<img src="http://images.1758.com/article/image/2015/10/23/51491445580815962.jpg" />
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="ads bg" style="display: none;">
+				<div class="ads-inner">
+					<div class="ads-head">
+						<img src="images/notify.png" />公告
+					</div>
+					<div class="ads-content"></div>
+				</div>
+			</div>
+			<div class="lib bg">
+				<div class="lib-inner">
+					<header class="lib-top">
+						<h2>小编推荐</h2>
+						<div id="new-more" class="lib-more">更多<img src="images/right.png" /></div>
+					</header>
+					<div class="new-main">
+						<div id="i-new-game" class="pure-g">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="lib bg">
+				<div class="lib-inner">
+					<header class="lib-top">
+						<h2>热门游戏</h2>
+						<!--<div class="lib-more">更多<img src="images/right.png"/></div>-->
+					</header>
+					<div id="hot-game" class="list hot-main">
+						<div class="more-info" data-num="1" data-track='hot'><a>点击加载更多</a></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="newgames" class="newgame bg list gone">
+			<div class="more-info" data-num="1" data-track='newgame'><a>点击加载更多</a></div>
+		</section>
+		<section class="gift bg gone">
+			<div id="gift-list" class="gift-list list">
+				<div class="more-info" data-num="1" data-track='gift'><a>点击加载更多</a></div>
+			</div>
+		</section>
+		<section class="category gone">
+			<div class="c-search">
+				<form id="form" class="form" action="http://wx.1758.com/game/wxgame/search.html" name="f">
+					<div class="con-wrap">
+						<div class="f-ser">
+							<input id="keyword" name="keyword" type="text" placeholder="请输入游戏名" />
+							<input name="tp" type="hidden" value="full" />
+							<input name="ex1758" type="hidden" value="1" />
+							<input name="title" type="hidden" value="搜索结果" />
+						</div>
+						<div class="f-btn">
+							<button id="su" type="submit" class="pure-button">搜&nbsp;索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div id="c-list" class="c-list">
+				<ul class="pure-g">
+				</ul>
+			</div>
+		</section>
+		<div class="tip gone">
+			<div class="tip-dialog">
+				<div class="tip-wrapper">
+					<div class="tip-content tip-exclusive">
+						<div class="tip-body">
+							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过1758客户端领取</p>
+							<span class="ex-inner">
+							<span class="ex-info">您还没有安装1758客户端？</span>
+							<a class="ex-load" href="http://m.1758.com/game/download.htm">立即下载</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<script src="js/require-2.1.20.min.js" data-main="js/build/index.js?v=201601141949"></script>-->
+		<script src="js/require-2.1.20.min.js" data-main="dist/index/js/index_0_1.js?v=201604201713"></script>
+	</body>
+
+</html>

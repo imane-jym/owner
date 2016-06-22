@@ -24,7 +24,7 @@ define('LOG_FILE_SIZE', 10485760); // 10mb
 define('LOG_DATA_PATH', ROOT_DIR .'log/');
 define('LOG_DATA_FILE_SIZE', 10485760); // 10mb
 define('DS', DIRECTORY_SEPARATOR);
-define('PARA_ARRAY', 0);
+define('PARA_ARRAY', 1);
 
 define('BASE_URL', $config['base_url']);
 
