@@ -22,9 +22,10 @@ class RedisCtrl {
 	            }
 	        break;
 	        case "aso_array":
-	            foreach($key as &$k => $v)
+	            foreach($key as $k => $v)
                 {
-                    $k = $pre . $k;
+                    $key[$pre . $k] = $v;
+					unset($key[$k]);
                 }
 	        break;
 	        default:
@@ -51,7 +52,7 @@ class RedisCtrl {
     {
     	global $config;
     	$this->AddPre($arr, $config["redis_pre"], "aso_array");
-        return $connection->mSet($key);
+        return $connection->mSet($aso_arr);
     }
 
 	public function HashMGet($hName, $arr)
@@ -65,14 +66,14 @@ class RedisCtrl {
     {
  		global $config;
 	    $this->AddPre($hName, $config["redis_pre"], "string");
-		return $connection->hMSet($hName, $arr);
+		return $connection->hMSet($hName, $aso_arr);
     }
 
-	public function ListRPush($lName, $arr)
+	public function ListRPush($lName, $value)
 	{
 	    global $config;
 	    $this->AddPre($lName, $config["redis_pre"], "string");
-		return $connection->rPush($lName, $arr);
+		return $connection->rPush($lName, $value);
 	}
 
     public function ListRPop($lName)

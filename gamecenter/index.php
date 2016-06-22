@@ -22,5 +22,9 @@ require_once(APP_DIR .'helpers/files_helper.php');
 require_once(APP_DIR .'helpers/util.php');
 require_once(APP_DIR .'helpers/log.class.php');
 
+require_once(APP_DIR .'helpers/redis.php');
+require_once(APP_DIR .'models/DBCtrl.php');
+require_once(APP_DIR .'models/DataCtrl.php');
+
 pip();
 ?>
