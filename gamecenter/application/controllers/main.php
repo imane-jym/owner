@@ -2,58 +2,64 @@
 
 class Main extends Controller {
 	
-	function index()
+	function index($para)
 	{
 		global $config;
 
-		require_once(APP_DIR .'models/DBCtrl.php');
-
-		$model = new DBCtrl;
+		$model = new DataCtrl;
 		$model->Init();
-		$module_list = $model->GetModuleByType(1);
+		$data = $model->HandlerGetIndex();
 		
-		$template = $this->loadView('job_list');
+		$template = $this->loadView('index');
 		$template->set('config', $config);
-		$template->set('username', $_SESSION['user_name']);
-		$template->set('active', 0);
-		$template->set('module',$module_list);
+		$template->set('channel', $para['channel']);
+		$template->set('AdHotGame', $data['AdHotGame']);
+		$template->set('AdEditorRecommand', $data['AdHotGame']);
+		$template->set('AdGameInfo', $data['AdGameInfo']);
+		$template->set('HotGame', $data['HotGame']);
+		$template->set('NewGame', $data['NewGame']);
 		$template->render();
 	}
-    
-	function GetResult($id)
+   	
+   	function hotGame($para)
 	{
-		require_once(APP_DIR .'models/DBCtrl.php');
+		global $config;
 
-		$model = new DBCtrl;
-		$model->Init();
-		$result = $model->GetJobContent($id);
-		if (!isset($result))
+		$page = $_REQUEST['page'];
+		$data = array();
+		if (!isset($page)
 		{
+			$data['state'] = 1;
+			$data['errmsg'] = 'page is not set';
+			echo json_encode($data);
 			return;
 		}
-		$row = $result[0];
-		$row[0] = str_replace(PHP_EOL, "<br />", $row[0]);
-		echo $row[0];
-	}
-
-	function GetJob()
-	{
-		require_once(APP_DIR .'models/DBCtrl.php');
-
-		$model = new DBCtrl;
+		$model = new DataCtrl;
 		$model->Init();
-		$result = $model->GetJobList();
-		if (!isset($result))
+		$data = $model->HandlerGetMoreHotGame($page);
+		$data['status'] = 0;
+		echo json_encode($data);
+	}	
+   	
+   	function newGame($para)
+	{
+		global $config;
+
+		$page = $_REQUEST['page'];
+		$data = array();
+		if (!isset($page)
 		{
+			$data['state'] = 1;
+			$data['errmsg'] = 'page is not set';
+			echo json_encode($data);
 			return;
 		}
-
-		foreach($result as &$val)
-		{
-			$val[3] = $model->to_datetime($val[3]);
-		}
-		echo json_encode($result);
-	}
+		$model = new DataCtrl;
+		$model->Init();
+		$data = $model->HandlerGetMoreHotGame($page);
+		$data['status'] = 0;
+		echo json_encode($data);
+	}	
 }
 
 ?>
