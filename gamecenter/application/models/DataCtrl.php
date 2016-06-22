@@ -217,8 +217,8 @@ class DataCtrl {
 		$cache->Init();
 		//ad
 		$ad = $cache->StringMGet(array("AdBigShow", "AdEditorRecommand"));
-		$ad["AdHotGame"] = json_decode($hot["AdBigShow"]);
-		$ad["AdEditorRecommand"] = json_decode($hot["AdEditorRecommand"]);
+		$ad["AdHotGame"] = json_decode($ad["AdBigShow"]);
+		$ad["AdEditorRecommand"] = json_decode($ad["AdEditorRecommand"]);
 
 		$arr1 = implode(",", $ad["AdHotGame"]["game_id_list"]);
 		$game_list = implode(",", $ad["AdHotGame"]["game_id_list"]);

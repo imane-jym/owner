@@ -7,7 +7,6 @@ class Main extends Controller {
 		global $config;
 
 		$model = new DataCtrl;
-		$model->Init();
 		$data = $model->HandlerGetIndex();
 		
 		$template = $this->loadView('index');
@@ -27,7 +26,7 @@ class Main extends Controller {
 
 		$page = $_REQUEST['page'];
 		$data = array();
-		if (!isset($page)
+		if (!isset($page))
 		{
 			$data['state'] = 1;
 			$data['errmsg'] = 'page is not set';
@@ -47,7 +46,7 @@ class Main extends Controller {
 
 		$page = $_REQUEST['page'];
 		$data = array();
-		if (!isset($page)
+		if (!isset($page))
 		{
 			$data['state'] = 1;
 			$data['errmsg'] = 'page is not set';

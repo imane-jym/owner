@@ -197,7 +197,7 @@
 		</div>
 		<!--<script src="js/require-2.1.20.min.js" data-main="js/build/index.js?v=201601141949"></script>-->
 		<!--<script src="js/require-2.1.20.min.js" data-main="dist/index/js/index_0_1.js?v=201604201713"></script>-->
-		<audio controls="controls" style="display: none;"></audio>
+		<!-- <audio controls="controls" style="display: none;"></audio>
 		<section id="base-footer-game" class="base-footer">
         	<div id="base-menu" class="pure-g base-menu">
         	    <div class="pure-u-1-3 cursor">
@@ -216,7 +216,7 @@
         	    	</a>
         	    </div>
         	</div>
-        </section>
+        </section> -->
 	</body>
 
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
