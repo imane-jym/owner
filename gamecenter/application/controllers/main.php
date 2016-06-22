@@ -13,7 +13,7 @@ class Main extends Controller {
 		$template->set('config', $config);
 		$template->set('channel', $para['channel']);
 		$template->set('AdHotGame', $data['AdHotGame']);
-		$template->set('AdEditorRecommand', $data['AdHotGame']);
+		$template->set('AdEditorRecommand', $data['AdEditorRecommand']);
 		$template->set('AdGameInfo', $data['AdGameInfo']);
 		$template->set('HotGame', $data['HotGame']);
 		$template->set('NewGame', $data['NewGame']);

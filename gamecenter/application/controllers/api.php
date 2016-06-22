@@ -7,17 +7,20 @@ class Api extends Controller {
 		global $config;
 		if (!isset($_REQUEST['token']))
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 		if ($_REQUEST['token'] != $config['secure_key'])
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 
 		$model = new DataCtrl;	
 		$model->ResetAdCache();
 		$model->ResetCategoryCache();
 		$model->ResetNewGameCache();
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}
    	
    	function onSaleGame($id)
@@ -25,16 +28,19 @@ class Api extends Controller {
 		global $config;
 		if (!isset($_REQUEST['token']))
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 		if ($_REQUEST['token'] != $config['secure_key'])
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 
 		$model = new DataCtrl;	
 		$model->ResetOnSaleCache($id);
 		$model->ResetGameCache($id);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
    	
    	function offSaleGame($id)
@@ -42,15 +48,18 @@ class Api extends Controller {
 		global $config;
 		if (!isset($_REQUEST['token']))
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 		if ($_REQUEST['token'] != $config['secure_key'])
 		{
-			return -1;
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
 		}
 
 		$model = new DataCtrl;	
 		$model->ResetOffSaleCache($id);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
 }
 

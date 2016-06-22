@@ -22,12 +22,14 @@
 	</head>
 
 	<body>
+	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
-		<span class="head-icon"><a href="http://wx.1758.com/"><img src="./1758hot_files/head-icon.png"></a></span>
+		<span class="head-icon"><a href="http://wx.1758.com/"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
 		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
-		<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>
+		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
+		<a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a>
 	</div>
 	</header>
 		<!-- <span class="count">人气：85964</span> -->
@@ -82,6 +84,22 @@
 						</a>
 					</li>
 				</ul>
+<?php
+$str = "<ul>"
+$arr = implode(',', $AdHotGame['game_id_list']);
+$arr_pic = implode(',', $AdHotGame['ex1']);
+foreach ($arr as $key => $val)
+{
+	$one <<<EOF
+<li>
+						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111858&ex1758=1&tp=full&title=%E5%8F%AC%E5%94%A4%E5%B8%88%E5%AD%A6%E9%99%A2">
+							<img src="http://images.1758.com/article/image/2015/10/23/51491445580815962.jpg" />
+						</a>
+					</li>
+EOF
+}
+$str .= "<ul>"
+?>
 			</div>
 			<div class="ads bg" style="display: none;">
 				<div class="ads-inner">
@@ -95,21 +113,18 @@
 				<div class="lib-inner">
 					<header class="lib-top">
 						<h2>小编推荐</h2>
-						<div id="new-more" class="lib-more">更多<img src="<?php echo $config['base_url'] ?>/static/images/right.png" /></div>
+						<!-- <div id="new-more" class="lib-more">更多<img src="<?php echo $config['base_url'] ?>/static/images/right.png" /></div> -->
 					</header>
 					<div class="new-main">
 						<div id="i-new-game" class="pure-g">
 							<div class="pure-u-1-4">
-								<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113062&title=%E6%88%98%E6%AD%8C&tp=full&ex1758=1"><img src="./1758hot_files/81971465875935232.jpg"><p class="new-title">战歌</p></a>
+							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113062&title=%E6%88%98%E6%AD%8C&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/81971465875935232.jpg"><p class="new-title">战歌</p></a>
 							</div>
 							<div class="pure-u-1-4">
-								<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112884&title=%E4%B9%B1%E6%96%97%E5%B0%81%E7%A5%9E&tp=full&ex1758=1"><img src="./1758hot_files/97741462875332028.png"><p class="new-title">乱斗封神</p></a>
+							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112884&title=%E4%B9%B1%E6%96%97%E5%B0%81%E7%A5%9E&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/97741462875332028.png"><p class="new-title">乱斗封神</p></a>
 							</div>
 							<div class="pure-u-1-4">
-								<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112128&title=%E6%88%98%E7%A5%9E&tp=full&ex1758=1"><img src="./1758hot_files/58771456811646037.png"><p class="new-title">战神</p></a>
-							</div>
-							<div class="pure-u-1-4">
-								<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112470&title=%E6%9A%97%E9%BB%91%E4%B9%8B%E7%8E%8B&tp=full&ex1758=1"><img src="./1758hot_files/69411464143423940.png"><p class="new-title">暗黑之王</p></a>
+							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112128&title=%E6%88%98%E7%A5%9E&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/58771456811646037.png"><p class="new-title">战神</p></a>
 							</div>
 						</div>
 					</div>
@@ -124,7 +139,7 @@
 					<div id="hot-game" class="list hot-main">
 						<div class="item">
 							<a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex1758=1">
-								<figure class="cover"><img src="./1758hot_files/87311463556210206.png"></figure>
+							<figure class="cover"><img src="<?php echo $config['base_url'] ?>/static/game/87311463556210206.png"></figure>
 								<div class="meta"><h3 class="title">口袋妖怪联盟<span class="identification">礼包</span></h3>
 								<div class="desc">经典动漫，全自动挂机，激情无限。</div>
 								</div>
@@ -185,9 +200,9 @@
 				<div class="tip-wrapper">
 					<div class="tip-content tip-exclusive">
 						<div class="tip-body">
-							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过1758客户端领取</p>
+							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过桔子游戏客户端领取</p>
 							<span class="ex-inner">
-							<span class="ex-info">您还没有安装1758客户端？</span>
+							<span class="ex-info">您还没有安装桔子游戏客户端？</span>
 							<a class="ex-load" href="http://m.1758.com/game/download.htm">立即下载</a>
 							</span>
 						</div>
@@ -217,6 +232,20 @@
         	    </div>
         	</div>
         </section> -->
+        <div class="modal-backdrop fade in" style="display: none"></div>
+                <div class="modal-backdrop-trans modal-dialog" role="document" style="display: none">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="barcodeModalLabel">关注“桔子游戏”</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/mp-qrcode.jpg">
+                        </div>
+                        <div class="modal-footer">
+                            <h4 class="modal-title">长按识别二维码</h4>
+                        </div>
+                    </div>
+                </div>
 	</body>
 
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
