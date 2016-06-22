@@ -16,15 +16,15 @@ class DataCtrl {
 		foreach ($category as $key => $val)
 		{
 			$cacheKey = "";
-			if ($val[0] == AdBigShow)
+			if ($val[0] == self::AdBigShow)
 			{
 				$cacheKey = "AdBigShow";
 			}
-			else if ($val[0] == AdEditorRecommand)
+			else if ($val[0] == self::AdEditorRecommand)
 			{
 				$cacheKey = "AdEditorRecommand";
 			}
-			else if ($val[0] == AdHotGame)
+			else if ($val[0] ==self:: AdHotGame)
 			{
 				$cacheKey = "AdHotGame";
 			}
@@ -77,6 +77,7 @@ class DataCtrl {
 		$category = $model->GetNewGameListSortTime();
 		foreach ($category as $key => $val)
 		{
+			//var_dump($val[0], $val[7], "<br />");
 			$cache->ZSetAdd("NewGame", $val[0], $val[7]);
 		}
 		return 0;

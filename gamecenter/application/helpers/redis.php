@@ -13,6 +13,7 @@ class RedisCtrl {
 
 	public function AddPre(&$key, $pre, $type)
 	{
+		//var_dump($key, $pre, $type, "<br/>");
 	    switch($type)
 	    {
 	        case "array":
@@ -22,11 +23,12 @@ class RedisCtrl {
 	            }
 	        break;
 	        case "aso_array":
+				$result = array();
 	            foreach($key as $k => $v)
                 {
-                    $key[$pre . $k] = $v;
-					unset($key[$k]);
+                    $result[$pre . $k] = $v;
                 }
+				$key = $result;
 	        break;
 	        default:
 	            $key = $pre . $key;
@@ -37,7 +39,7 @@ class RedisCtrl {
 	public function Delete($arr)
 	{
 	    global $config;
-	    $this->AddPre($arr, $config["redis_pre"], "array");
+	    $this->AddPre($arr, $config["redis_pre"], "string");
 		return $this->connection->delete($arr);
 	}
 
@@ -51,7 +53,8 @@ class RedisCtrl {
     public function StringMSet($aso_arr)
     {
     	global $config;
-    	$this->AddPre($arr, $config["redis_pre"], "aso_array");
+		//var_dump($aso_arr);
+    	$this->AddPre($aso_arr, $config["redis_pre"], "aso_array");
         return $this->connection->mSet($aso_arr);
     }
 
@@ -94,6 +97,7 @@ class RedisCtrl {
 	{
 	    global $config;
 	    $this->AddPre($zName, $config["redis_pre"], "string");
+		var_dump($zName);
 		return $this->connection->zAdd($zName, $score, $val);
 	}
 
