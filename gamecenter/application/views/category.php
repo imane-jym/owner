@@ -28,6 +28,7 @@ if (isset($channel))
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo $channel ?>" data-category-id="<?php echo $CategoryId ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
@@ -69,7 +70,7 @@ if (isset($channel))
                             </a>
                         </div> -->
 <?php
-$str = "";
+$str = '<div id="category-game-list">';
 foreach ($Category['data'] as $key => $val)
 {
 	$href = $val['url'];
@@ -93,9 +94,10 @@ foreach ($Category['data'] as $key => $val)
 EOF;
 	$str .= $one;
 }
+$str .= '</div>';
 echo $str;
 ?>
-						<div class="more-info" data-num="1" data-track='hot'>
+						<div class="more-info" data-num="1" data-track='category'>
 							<a>点击加载更多</a>
 						</div>
 					</div>

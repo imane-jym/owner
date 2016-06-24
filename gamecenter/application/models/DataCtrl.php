@@ -55,7 +55,7 @@ class DataCtrl {
 		$ad["Category"] = array();
 		foreach ($category as $key => $val)
 		{
-			$ad["Category"][] = array(
+			$ad["Category"][$val[0]] = array(
 				"category_id" => $val[0],
 				"name" => $val[1],
 				"game_id_list" => $val[2],
@@ -223,6 +223,7 @@ class DataCtrl {
 
 		$ret = $cache->StringMGet(array("Category"));
 		$ret = json_decode($ret[0], true);
+		//var_dump($ret, $page, $category_id);
 		$cate = $ret[$category_id];
 
 		$game_list = explode(",", $cate['game_id_list']);
