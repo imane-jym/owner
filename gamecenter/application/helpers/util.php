@@ -32,6 +32,20 @@ class Util{
 	static function afterhook($controller, $action, $segment)
 	{
 	}
+
+	static function errorPage($title, $msg)
+	{
+		echo "<h1>$title</h1>";
+		echo "<p>$msg</p>";
+	}
+
+	static function errorJson($state, $msg)
+	{
+		$data = array();
+		$data['state'] = $state;
+		$data['errmsg'] = $msg;
+		echo json_encode($data);
+	}
 }
 
 ?>

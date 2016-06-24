@@ -133,14 +133,15 @@ class DataCtrl {
 		$cache->Init();
 		$game_info = $cache->HashMGet("GameInfo", $game_list);
 		$game_info_nocache = array();
-		foreach ($GameInfo as $key => $val)
+		foreach ($game_info as $key => $val)
 		{
-			if (isset($val))
+			if ($val != false)
 			{
-				$game_info[$key] = json_decode($val);
+				$game_info[$key] = json_decode($val, true);
 			}
 			else
 			{
+				$game_info[$key] = array();
 				$game_info_nocache[] = $key;
 			}
 		}
@@ -149,7 +150,7 @@ class DataCtrl {
 		{
 			$model = new DBCtrl;
 			$model->Init();
-			$result = $model->GetGameList($game_list_nocache);
+			$result = $model->GetGameList($game_info_nocache);
 			$infoCache = array();
 			foreach ($result as $key => $val)
 			{
@@ -169,6 +170,7 @@ class DataCtrl {
 				$game_info[$info['game_id']] = $info;
 				$infoCache[$info['game_id']] = json_encode($info);
 			}
+			//var_dump($game_info_nocache, $result);
 			$cache->HashMSet("GameInfo", $infoCache);
 		}
 		return $game_info;
@@ -180,13 +182,14 @@ class DataCtrl {
 		$cache = new RedisCtrl;
 		$cache->Init();
 		$hot = $cache->StringMGet(array("AdHotGame"));
-		$hot["AdHotGame"] = json_decode($hot["AdHotGame"]);
-		$game_list = implode(",", $hot["AdHotGame"]["game_id_list"]);
+		$hot = json_decode($hot["0"], true);
+		$game_list = explode(",", $hot["game_id_list"]);
 		$game_list_ret = array_slice($game_list, $page * 10, 11); 
 		$is_more = true;
-		if (count($game_id_ret) < 11)
+		if (count($game_list_ret) < 11)
 			$is_more = false;
-		array_pop($game_list_ret);
+		else
+			array_pop($game_list_ret);
 		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
 		$date = array();
 		$data['data'] = $desc;
@@ -199,15 +202,44 @@ class DataCtrl {
 		$result = array();
 		$cache = new RedisCtrl;
 		$cache->Init();
-		$new = $cache->ZSetRevRange("NewGame", $page * 10, $page * 10 + 11);
+		$new = $cache->ZSetRevRange("NewGame", $page * 10, $page * 10 + 10);
 		$is_more = true;
 		if (count($new) < 11)
 			$is_more = false;
-		array_pop($new);
+		else
+			array_pop($new);
 		$desc = $this->GetAndSetGameInfoCache($new);
 		$date = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
+		return $data;
+	}
+
+	public function HandlerGetMoreCategoryGame($page, $category_id)
+	{
+		$result = array();
+		$cache = new RedisCtrl;
+		$cache->Init();
+
+		$ret = $cache->StringMGet(array("Category"));
+		$ret = json_decode($ret[0], true);
+		$cate = $ret[$category_id];
+
+		$game_list = explode(",", $cate['game_id_list']);
+		$game_list_ret = array_slice($game_list, $page * 10, 11); 
+
+		$is_more = true;
+		if (count($game_list_ret) < 11)
+		{
+			$is_more = false;
+		}
+		else
+			array_pop($game_list_ret);
+		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
+		$date = array();
+		$data['data'] = $desc;
+		$data['isMore'] = $is_more;
+		$data['name'] = $cate['name'];
 		return $data;
 	}
 
@@ -217,17 +249,24 @@ class DataCtrl {
 		$cache = new RedisCtrl;
 		$cache->Init();
 		//ad
-		$ad = $cache->StringMGet(array("AdBigShow", "AdEditorRecommand"));
-		$ad["AdHotGame"] = json_decode($ad["AdBigShow"]);
-		$ad["AdEditorRecommand"] = json_decode($ad["AdEditorRecommand"]);
+		$ad = array();
+		$ret = $cache->StringMGet(array("AdBigShow", "AdEditorRecommand"));
+		$ad["AdHotGame"] = json_decode($ret[0], true);
+		$ad["AdEditorRecommand"] = json_decode($ret[1], true);
+		//var_dump($ad);
+		
+		//category
+		$ret = $cache->StringMGet(array("Category"));
+		$ad["Category"] = json_decode($ret[0], true);
 
-		$arr1 = implode(",", $ad["AdHotGame"]["game_id_list"]);
-		$game_list = implode(",", $ad["AdHotGame"]["game_id_list"]);
-		$game_list = array_merge($arr1, $game_list);
+		$arr1 = explode(",", $ad["AdHotGame"]["game_id_list"]);
+		$game_list = explode(",", $ad["AdEditorRecommand"]["game_id_list"]);
+		$game_list_ret = array_merge($arr1, $game_list);
 
 		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
 		$data = $ad;
 		$data['AdGameInfo'] = $desc;
+		//var_dump($data);
 		
 		//ad hot game list and new game list
 		$data['HotGame'] = $this->HandlerGetMoreHotGame(0);

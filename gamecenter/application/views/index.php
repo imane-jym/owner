@@ -1,3 +1,8 @@
+<?php
+$home = $config['base_url'] . "/main/index";
+if (isset($channel))
+	$home .= "/" . Url_helper::arrayToSegment(array('channel' => $channel));
+?>
 <!doctype html>
 <html lang="en">
 
@@ -23,10 +28,11 @@
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo $channel ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
-		<span class="head-icon"><a href="http://wx.1758.com/"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
+		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
 		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
 		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
 		<a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a>
@@ -67,7 +73,7 @@
 		</section>
 		<section class="hot gone">
 			<div class="flexslider">
-				<ul class="slides">
+				<!-- <ul class="slides">
 					<li>
 						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111834&ex1758=1&tp=full&title=%E6%88%91%E6%AC%B2%E5%B0%81%E5%A4%A9web&r=lb">
 							<img src="http://images.1758.com/article/image/2015/10/20/21651445329561114.jpg" />
@@ -83,22 +89,28 @@
 							<img src="http://images.1758.com/article/image/2015/10/23/51491445580815962.jpg" />
 						</a>
 					</li>
-				</ul>
+				</ul> -->
 <?php
-$str = "<ul>"
-$arr = implode(',', $AdHotGame['game_id_list']);
-$arr_pic = implode(',', $AdHotGame['ex1']);
+$str = '<ul class="slides">';
+$arr = explode(',', $AdHotGame['game_id_list']);
+$arr_pic = explode(',', $AdHotGame['ex1']);
 foreach ($arr as $key => $val)
 {
-	$one <<<EOF
+	$href = $AdGameInfo[$val]['url'];
+	if (isset($channel))
+		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
+	$imeSrc = $arr_pic[$key];
+	$one= <<<EOF
 <li>
-						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111858&ex1758=1&tp=full&title=%E5%8F%AC%E5%94%A4%E5%B8%88%E5%AD%A6%E9%99%A2">
-							<img src="http://images.1758.com/article/image/2015/10/23/51491445580815962.jpg" />
-						</a>
-					</li>
-EOF
+	<a href="$href">
+		<img src="$imeSrc" />
+	</a>
+</li>
+EOF;
+	$str .= $one;
 }
-$str .= "<ul>"
+$str .= "</ul>";
+echo $str;
 ?>
 			</div>
 			<div class="ads bg" style="display: none;">
@@ -116,7 +128,7 @@ $str .= "<ul>"
 						<!-- <div id="new-more" class="lib-more">更多<img src="<?php echo $config['base_url'] ?>/static/images/right.png" /></div> -->
 					</header>
 					<div class="new-main">
-						<div id="i-new-game" class="pure-g">
+						<!-- <div id="i-new-game" class="pure-g">
 							<div class="pure-u-1-4">
 							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113062&title=%E6%88%98%E6%AD%8C&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/81971465875935232.jpg"><p class="new-title">战歌</p></a>
 							</div>
@@ -126,7 +138,27 @@ $str .= "<ul>"
 							<div class="pure-u-1-4">
 							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112128&title=%E6%88%98%E7%A5%9E&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/58771456811646037.png"><p class="new-title">战神</p></a>
 							</div>
-						</div>
+						</div> -->
+<?php
+$str = '<div id="i-new-game" class="pure-g">';
+$arr = explode(',', $AdEditorRecommand['game_id_list']);
+foreach ($arr as $key => $val)
+{
+	$href = $AdGameInfo[$val]['url'];
+	if (isset($channel))
+		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
+	$imgSrc = $AdGameInfo[$val]['icon'];
+	$name = $AdGameInfo[$val]['title'];
+	$one= <<<EOF
+							<div class="pure-u-1-4">
+							<a href="$href"><img src="$imgSrc"><p class="new-title">$name</p></a>
+							</div>
+EOF;
+	$str .= $one;
+}
+$str .= "</div>";
+echo $str;
+?>
 					</div>
 				</div>
 			</div>
@@ -137,7 +169,7 @@ $str .= "<ul>"
 						<!--<div class="lib-more">更多<img src="images/right.png"/></div>-->
 					</header>
 					<div id="hot-game" class="list hot-main">
-						<div class="item">
+						<!-- <div class="item">
 							<a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex1758=1">
 							<figure class="cover"><img src="<?php echo $config['base_url'] ?>/static/game/87311463556210206.png"></figure>
 								<div class="meta"><h3 class="title">口袋妖怪联盟<span class="identification">礼包</span></h3>
@@ -147,7 +179,35 @@ $str .= "<ul>"
 							<a href="http://w.g1758.cn/kdyglm/index.html?tp=fs&ex1758=1&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F">
 								<div class="play-btn"><i class="icon-right"></i>开始</div>
                             </a>
+                        </div> -->
+<?php
+$str = '<div id="hot-game-list">';
+foreach ($HotGame['data'] as $key => $val)
+{
+	$href = $val['url'];
+	if (isset($channel))
+		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
+	$imgSrc = $val['icon'];
+	$name = $val['title'];
+	$brief = $val['brief'];
+	$one= <<<EOF
+						<div class="item">
+							<a class="i-info" href="$href">
+							<figure class="cover"><img src="$imgSrc"></figure>
+								<div class="meta"><h3 class="title">$name</h3>
+								<div class="desc">$brief</div>
+								</div>
+							</a>
+							<a href="$href">
+								<div class="play-btn"><i class="icon-right"></i>开始</div>
+                            </a>
                         </div>
+EOF;
+	$str .= $one;
+}
+$str .= '</div>';
+echo $str;
+?>
 						<div class="more-info" data-num="1" data-track='hot'>
 							<a>点击加载更多</a>
 						</div>
@@ -156,10 +216,28 @@ $str .= "<ul>"
 			</div>
 		</section>
 		<section id="newgames" class="newgame bg list gone">
-		    <div class="item"><a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113078&title=%E6%90%9C%E7%A5%9E%E8%AE%B0&tp=full&ex1758=1"><figure class="cover"><img src="./1758hot_files/91681465194588397.gif"></figure><div class="meta"><h3 class="title">搜神记</h3><div class="desc">手握神兵美女在怀，搜神记等你来战！</div></div></a><a href="http://w.g1758.cn/soushenji/index.html?tp=fs&ex1758=1&title=%E6%90%9C%E7%A5%9E%E8%AE%B0"><div class="play-btn"><i class="icon-right"></i>开始</div></a></div>
+		    <!-- <div class="item"><a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113078&title=%E6%90%9C%E7%A5%9E%E8%AE%B0&tp=full&ex1758=1"><figure class="cover"><img src="./1758hot_files/91681465194588397.gif"></figure><div class="meta"><h3 class="title">搜神记</h3><div class="desc">手握神兵美女在怀，搜神记等你来战！</div></div></a><a href="http://w.g1758.cn/soushenji/index.html?tp=fs&ex1758=1&title=%E6%90%9C%E7%A5%9E%E8%AE%B0"><div class="play-btn"><i class="icon-right"></i>开始</div></a></div> -->
+<?php
+$str = '<div id="new-game">';
+foreach ($NewGame['data'] as $key => $val)
+{
+	$href = $val['url'];
+	if (isset($channel))
+		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
+	$imgSrc = $val['icon'];
+	$name = $val['title'];
+	$brief = $val['brief'];
+	$one= <<<EOF
+		    <div class="item"><a class="i-info" href="$href"><figure class="cover"><img src="$imgSrc"></figure><div class="meta"><h3 class="title">$name</h3><div class="desc">$brief</div></div></a><a href="$href"><div class="play-btn"><i class="icon-right"></i>开始</div></a></div>
+EOF;
+	$str .= $one;
+}
+$str .= '</div>';
+echo $str;
+?>
 			<div class="more-info" data-num="1" data-track='newgame'><a>点击加载更多</a></div>
 		</section>
-		<section class="gift bg gone">
+		<!-- <section class="gift bg gone">
 			<div id="gift-list" class="gift-list list">
 				<div class="item">
 				    <a class="i-info" href="http://wx.1758.com/game/h5/giftinfo.htm?aid=113148&tp=full&ex1758=1&title=%E9%A2%86%E5%8F%96%E7%A4%BC%E5%8C%85">
@@ -169,9 +247,9 @@ $str .= "<ul>"
 				</div>
 				<div class="more-info" data-num="1" data-track='gift'><a>点击加载更多</a></div>
 			</div>
-		</section>
+		</section> -->
 		<section class="category gone">
-			<div class="c-search">
+			<!-- <div class="c-search">
 				<form id="form" class="form" action="http://wx.1758.com/game/wxgame/search.html" name="f">
 					<div class="con-wrap">
 						<div class="f-ser">
@@ -185,14 +263,36 @@ $str .= "<ul>"
 						</div>
 					</div>
 				</form>
-			</div>
+			</div> -->
 			<div id="c-list" class="c-list">
-				<ul class="pure-g">
+				<!-- <ul class="pure-g">
                     <li class="pure-u-1-2">
                         <div><a href="http://wx.1758.com/game/h5/page/singlegamelist.htm?cid=111&ex1758=1&tp=full&yn=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F&title=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F"><img src="./1758hot_files/82651465210403601.jpg" width="100%"><div class="title"><div class="t">点击游戏</div><div class="n">43款</div></div></a>
                         </div>
                     </li>
-				</ul>
+				</ul> -->
+<?php
+$str = '<ul class="pure-g">';
+foreach ($Category as $key => $val)
+{
+	$arr = explode(',', $val['game_id_list']);
+	$href = $config['base_url'] . "category/index";
+	if (isset($channel))
+		$href .= "/" . Url_helper::arrayToSegment(array('channel' => $channel, 'category_id' => $key));
+	$imgSrc = $val['pic'];
+	$name = $val['name'];
+	$cnt = count($arr);
+	$one= <<<EOF
+                    <li class="pure-u-1-2">
+                        <div><a href="$href"><img src="$imgSrc" width="100%"><div class="title"><div class="t">$name</div><div class="n">$cnt 款</div></div></a>
+                        </div>
+                    </li>
+EOF;
+	$str .= $one;
+}
+$str .= "</ul>";
+echo $str;
+?>
 			</div>
 		</section>
 		<div class="tip gone">

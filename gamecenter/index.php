@@ -21,6 +21,7 @@ require_once(APP_DIR .'helpers/auth_helper.php');
 require_once(APP_DIR .'helpers/files_helper.php');
 require_once(APP_DIR .'helpers/util.php');
 require_once(APP_DIR .'helpers/log.class.php');
+require_once(APP_DIR .'helpers/url_helper.php');
 
 require_once(APP_DIR .'helpers/redis.php');
 require_once(APP_DIR .'models/DBCtrl.php');
