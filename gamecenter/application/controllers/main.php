@@ -9,14 +9,17 @@ class Main extends Controller {
 		$model = new DataCtrl;
 		$data = $model->HandlerGetIndex();
 		
+		//var_dump($data);
 		$template = $this->loadView('index');
 		$template->set('config', $config);
-		$template->set('channel', $para['channel']);
+		if (isset($para['channel']))
+			$template->set('channel', $para['channel']);
 		$template->set('AdHotGame', $data['AdHotGame']);
 		$template->set('AdEditorRecommand', $data['AdEditorRecommand']);
 		$template->set('AdGameInfo', $data['AdGameInfo']);
 		$template->set('HotGame', $data['HotGame']);
 		$template->set('NewGame', $data['NewGame']);
+		$template->set('Category', $data['Category']);
 		$template->render();
 	}
    	
@@ -26,15 +29,12 @@ class Main extends Controller {
 
 		$page = $_REQUEST['page'];
 		$data = array();
-		if (!isset($page))
+		if (!isset($page) && !is_numeric($page))
 		{
-			$data['state'] = 1;
-			$data['errmsg'] = 'page is not set';
-			echo json_encode($data);
+			Util::errorJson("1", 'page is not set');
 			return;
 		}
 		$model = new DataCtrl;
-		$model->Init();
 		$data = $model->HandlerGetMoreHotGame($page);
 		$data['status'] = 0;
 		echo json_encode($data);
@@ -46,16 +46,13 @@ class Main extends Controller {
 
 		$page = $_REQUEST['page'];
 		$data = array();
-		if (!isset($page))
+		if (!isset($page) && !is_numeric($page))
 		{
-			$data['state'] = 1;
-			$data['errmsg'] = 'page is not set';
-			echo json_encode($data);
+			Util::errorJson("1", 'page is not set');
 			return;
 		}
 		$model = new DataCtrl;
-		$model->Init();
-		$data = $model->HandlerGetMoreHotGame($page);
+		$data = $model->HandlerGetMoreNewGame($page);
 		$data['status'] = 0;
 		echo json_encode($data);
 	}	

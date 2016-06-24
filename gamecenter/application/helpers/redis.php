@@ -97,7 +97,7 @@ class RedisCtrl {
 	{
 	    global $config;
 	    $this->AddPre($zName, $config["redis_pre"], "string");
-		var_dump($zName);
+		//var_dump($zName);
 		return $this->connection->zAdd($zName, $score, $val);
 	}
 

@@ -65,16 +65,105 @@ $(document).on("click", ".dk", function () {
 	h(o);
 })
 $(document).on("click", ".more-info", function () {
-	var t = $(this).attr("data-track"), n = $(this).attr("data-num");
-	switch (t) {
-		case"hot":
-			//					y(n);
-			break;
-		case"newgame":
-			//					v(n);
-			break;
-		case"gift":
-			//					m(n)
-	}
+	$(this).html('加载中...');
+	var t = $(this).parents('.more-info').attr("data-track"), page = $(this).parents('.more-info').attr("data-num");
+	GameLoad($(this));
 })
+
+function GameLoad(target)
+{
+	var url = $("#home").attr('data-url');
+	var channel = parseInt($("#home").attr('data-channel'));
+	var more = target;
+	var page = parseInt(more.attr('data-num'));
+	var type = more.attr('data-track');
+	switch(type)
+	{
+		case "hot":
+			url += "/main/hotGame";
+			if (channel)
+				url += "/channel/" + channel;
+			url += "?page=" + page;
+			break;
+		case "newgame":
+			url += "/main/newGame";
+			if (channel)
+				url += "/channel/" + channel;
+			url += "?page=" + page;
+			break;
+		default:
+			return;
+	}
+	$.get(url, function(data){
+		var str = '';
+		if (data.status != 0)
+			return;
+		switch(type)
+		{
+			case "hot":
+				for(var i in data['data'])
+				{
+					var item = data['data'][i];
+					var href = item['url'];
+					if (href.indexOf("?"))
+					{
+						href += "&channel=" + channel;
+					}
+					else
+					{
+						href += "?channel=" + channel;
+					}
+					str += '<div class="item">';
+					str += '<a class="i-info" href="' + href + '">';
+					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
+					str += '<div class="meta"><h3 class="title">' + item['title'] + '</h3>';
+					str += '<div class="desc">' + item['brief'] + '</div>';
+					str += '</div>';
+					str += '</a>';
+					str += '<a href="' + href + '">';
+					str += '<div class="play-btn"><i class="icon-right"></i>开始</div>';
+        		    str += '</a>';
+        		    str += '</div>';
+				}
+				$("#hot-game-list").append(str);
+				break;
+			case "newgame":
+				for(var i in data['data'])
+				{
+					var item = data['data'][i];
+					var href = item['url'];
+					if (href.indexOf("?"))
+					{
+						href += "&channel=" + channel;
+					}
+					else
+					{
+						href += "?channel=" + channel;
+					}
+					str += '<div class="item">';
+					str += '<a class="i-info" href="' + href + '">';
+					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
+					str += '<div class="meta"><h3 class="title">' + item['title'] + '</h3>';
+					str += '<div class="desc">' + item['brief'] + '</div>';
+					str += '</div>';
+					str += '</a>';
+					str += '<a href="' + href + '">';
+					str += '<div class="play-btn"><i class="icon-right"></i>开始</div>';
+        		    str += '</a>';
+        		    str += '</div>';
+				}
+				$("#new-game").append(str);
+				break;
+			default:
+				return;
+		}
+		more.attr('data-num', page + 1);
+		target.html('点击加载更多');
+		if (!data.isMore)
+		{
+			more.css('display', 'none');
+		}
+	},"json");
+}
+
 h("hot");

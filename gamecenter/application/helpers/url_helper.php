@@ -2,13 +2,13 @@
 
 class Url_helper {
 
-	function base_url()
+	public static function base_url()
 	{
 		global $config;
 		return $config['base_url'];
 	}
 	
-	function segment($seg)
+	public static function segment($seg)
 	{
 		if(!is_int($seg)) return false;
 		
@@ -16,7 +16,7 @@ class Url_helper {
 	    return isset($parts[$seg]) ? $parts[$seg] : false;
 	}
 	
-	function arrayToSegment($arr)
+	public static function arrayToSegment($arr)
 	{
 		$result = array();
 		foreach($arr as $key => $value)
@@ -24,10 +24,10 @@ class Url_helper {
 			$result[] = $key;
 			$result[] = $value;
 		}
-		return implode("/", $arr);
+		return implode("/", $result);
 	}	
 
-	function segmentsToArray($seg)
+	public static function segmentsToArray($seg)
 	{
 		$segments = explode('/', $url);
 		$result = array();
@@ -37,6 +37,19 @@ class Url_helper {
 				$result[$segments[$i]] = $segments[$i + 1];
 		}	
 		return $result;
+	}
+
+	public static function urlAddPara($url, $array)
+	{
+		$data = parse_url($url);
+		$para = $data['query'];
+		if (isset($para) && !empty($array))
+		{
+			$para .= "&" . http_build_query($array);
+		}
+		if (!empty($para))
+			$para = "?" . $para;
+		return $data['scheme'] . "://" . (isset($data['user']) ? ($data['user'] . ":" . $data['pass'] . "@" ) : "") . $data['host'] . $data['path'] . $para . (isset($data['anchor']) ? "#" . $data['anchor'] : "");
 	}
 }
 
