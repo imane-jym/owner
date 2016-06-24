@@ -20,6 +20,7 @@ class Category extends Controller {
 		if (isset($para['channel']))
 			$template->set('channel', $para['channel']);
 		$template->set('Category', $data);
+		$template->set('CategoryId', $para['category_id']);
 		$template->render();
 	}
 

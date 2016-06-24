@@ -91,6 +91,13 @@ function GameLoad(target)
 				url += "/channel/" + channel;
 			url += "?page=" + page;
 			break;
+		case "category":
+			url += "/category/categoryGame";
+			if (channel)
+				url += "/channel/" + channel;
+			url += "?page=" + page;
+			url += '&category_id=' + $("#home").attr('data-category-id');
+			break;
 		default:
 			return;
 	}
@@ -153,6 +160,33 @@ function GameLoad(target)
         		    str += '</div>';
 				}
 				$("#new-game").append(str);
+				break;
+			case "category":
+				for(var i in data['data'])
+				{
+					var item = data['data'][i];
+					var href = item['url'];
+					if (href.indexOf("?"))
+					{
+						href += "&channel=" + channel;
+					}
+					else
+					{
+						href += "?channel=" + channel;
+					}
+					str += '<div class="item">';
+					str += '<a class="i-info" href="' + href + '">';
+					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
+					str += '<div class="meta"><h3 class="title">' + item['title'] + '</h3>';
+					str += '<div class="desc">' + item['brief'] + '</div>';
+					str += '</div>';
+					str += '</a>';
+					str += '<a href="' + href + '">';
+					str += '<div class="play-btn"><i class="icon-right"></i>开始</div>';
+        		    str += '</a>';
+        		    str += '</div>';
+				}
+				$("#category-game-list").append(str);
 				break;
 			default:
 				return;
