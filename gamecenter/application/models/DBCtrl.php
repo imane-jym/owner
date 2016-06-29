@@ -84,6 +84,14 @@ class DBctrl extends Model {
 					 ex3 varchar(5000) not null default ''
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
+		if (!$this->ExistTable("channel_info"))
+		{
+			$this->execute(
+					"create table channel_info(                           
+					 channel_id int unsigned primary key auto_increment,
+					 focus_button smallint unsigned not null default 1 comment '0:defailt hidden 1: show'
+					 )engine=innodb DEFAULT charset=utf8;");              
+		}
 	}
 
 	public function GetNewGameListSortTime()
@@ -113,7 +121,7 @@ class DBctrl extends Model {
 		$strCondition = "";
 		if (is_array($mixId))
 		{
-			$strCondition = "in ('" . implode(",", $mixId) . "')";
+			$strCondition = "in (" . implode(",", $mixId) . ")";
 		}
 		else if (is_numeric($mixId))
 		{
@@ -140,6 +148,35 @@ class DBctrl extends Model {
 		$id = $this->escapeString($id);
 		return $this->query("select hot_id,game_id_list,ex1,ex2,ex3 from hot_info where hot_id = {$id}");
 	}
+
+	public function GetChannelInfo($id)
+	{
+		$id = $this->escapeString($id);
+		return $this->query("select channel_id,focus_button from channel_info where channel_id = {$id}");
+	}
+
+	public function GetChannelInfoList()
+	{
+		return $this->query("select channel_id,focus_button from channel_info");
+	}
+
+	public function GetChannelInfoListByChoose($mixId)
+	{
+		$strCondition = "";
+		if (is_array($mixId))
+		{
+			$strCondition = "in ('" . implode(",", $mixId) . "')";
+		}
+		else if (is_numeric($mixId))
+		{
+			$strCondition = "='" . $mixId . "'"; 	
+		}
+		else
+			return array();
+
+		return $this->query("select channel_id,focus_button from channel_info where channel_id " . $strCondition);
+	}
+
 }
 
 ?>

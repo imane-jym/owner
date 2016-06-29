@@ -11,16 +11,21 @@ class Category extends Controller {
 			Util::errorPage('404', 'category_id is not set');
 			return;
 		}
+		$channel = 1;
+		if (isset($para['channel']))
+			$channel = $para['channel'];
 		$model = new DataCtrl;
 		$data = $model->HandlerGetMoreCategoryGame(0, $para['category_id']);
+		//$channelInfo = $model->HandlerGetChannelInfo($channel);
 		
 		//var_dump($data);
 		$template = $this->loadView('category');
 		$template->set('config', $config);
-		if (isset($para['channel']))
-			$template->set('channel', $para['channel']);
+		if ($channel != 1)
+			$template->set('channel', $channel);
 		$template->set('Category', $data);
 		$template->set('CategoryId', $para['category_id']);
+		//$template->set('ChannelInfo', $channelInfo);
 		$template->render();
 	}
 

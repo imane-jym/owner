@@ -127,11 +127,29 @@ class DataCtrl {
 		return 0;
 	}
 
-	public function GetAndSetGameInfoCache($game_list)
+	public function ResetChannelCache()
+	{
+		$model = new DBCtrl;
+		$model->Init();
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$result = $model->GetChannelInfoList();
+		foreach($result as $key => $val)
+		{
+			$info = array(
+				'channel_id' => $val[0],
+				'focus_button' => $val[1]
+			);
+			$cache->HashMSet("ChannelInfo", array($info['channel_id'] => json_encode($info)));
+		}
+		return 0;
+	}
+
+	public function GetAndSetChannelInfoCache($channel_list)
 	{
 		$cache = new RedisCtrl;
 		$cache->Init();
-		$game_info = $cache->HashMGet("GameInfo", $game_list);
+		$game_info = $cache->HashMGet("ChannelInfo", $channel_list);
 		$game_info_nocache = array();
 		foreach ($game_info as $key => $val)
 		{
@@ -150,7 +168,50 @@ class DataCtrl {
 		{
 			$model = new DBCtrl;
 			$model->Init();
+			$result = $model->GetChannelInfoListByChoose($game_info_nocache);
+			$infoCache = array();
+			foreach ($result as $key => $val)
+			{
+				$info = array(
+					'channel_id' => $val[0],
+					'focus_button' => $val[1]
+				);
+				$game_info[$info['channel_id']] = $info;
+				$infoCache[$info['channel_id']] = json_encode($info);
+			}
+			//var_dump($game_info_nocache, $result);
+			$cache->HashMSet("ChannelInfo", $infoCache);
+		}
+		return $game_info;
+	}
+
+	public function GetAndSetGameInfoCache($game_list)
+	{
+		$cache = new RedisCtrl;
+		$cache->Init();
+		$game_info = $cache->HashMGet("GameInfo", $game_list);
+		$game_info_nocache = array();
+		//var_dump($game_list, $game_info);
+		foreach ($game_info as $key => $val)
+		{
+			if ($val != false)
+			{
+				$game_info[$key] = json_decode($val, true);
+			}
+			else
+			{
+				$game_info[$key] = array();
+				$game_info_nocache[] = $key;
+			}
+		}
+
+		//var_dump($game_list, $game_info, $game_info_nocache);
+		if (!empty($game_info_nocache))
+		{
+			$model = new DBCtrl;
+			$model->Init();
 			$result = $model->GetGameList($game_info_nocache);
+			//var_dump($result);
 			$infoCache = array();
 			foreach ($result as $key => $val)
 			{
@@ -173,6 +234,7 @@ class DataCtrl {
 			//var_dump($game_info_nocache, $result);
 			$cache->HashMSet("GameInfo", $infoCache);
 		}
+		//var_dump($game_info, $game_info_nocache);
 		return $game_info;
 	}
 
@@ -244,7 +306,19 @@ class DataCtrl {
 		return $data;
 	}
 
-	public function HandlerGetIndex()
+	public function HandlerGetChannelInfo($channel)
+	{
+		if (isset($channel))
+		{
+			$data = $this->GetAndSetChannelInfoCache(array($channel));
+			return $data[$channel];
+		}
+		else
+			return array();
+	}
+
+
+	public function HandlerGetIndex($channel)
 	{
 		$result = array();
 		$cache = new RedisCtrl;
@@ -272,6 +346,7 @@ class DataCtrl {
 		//ad hot game list and new game list
 		$data['HotGame'] = $this->HandlerGetMoreHotGame(0);
 		$data['NewGame'] = $this->HandlerGetMoreNewGame(0);
+		$data['ChannelInfo'] = $this->HandlerGetChannelInfo($channel);
 		return $data;
 	}
 }

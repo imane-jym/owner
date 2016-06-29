@@ -7,19 +7,23 @@ class Main extends Controller {
 		global $config;
 
 		$model = new DataCtrl;
-		$data = $model->HandlerGetIndex();
+		$channel = 1;
+		if (isset($para['channel']))
+			$channel = $para['channel'];
+		$data = $model->HandlerGetIndex($channel);
 		
 		//var_dump($data);
 		$template = $this->loadView('index');
 		$template->set('config', $config);
-		if (isset($para['channel']))
-			$template->set('channel', $para['channel']);
+		if ($channel != 1)
+			$template->set('channel', $channel);
 		$template->set('AdHotGame', $data['AdHotGame']);
 		$template->set('AdEditorRecommand', $data['AdEditorRecommand']);
 		$template->set('AdGameInfo', $data['AdGameInfo']);
 		$template->set('HotGame', $data['HotGame']);
 		$template->set('NewGame', $data['NewGame']);
 		$template->set('Category', $data['Category']);
+		$template->set('ChannelInfo', $data['ChannelInfo']);
 		$template->render();
 	}
    	

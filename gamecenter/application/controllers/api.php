@@ -22,6 +22,26 @@ class Api extends Controller {
 		$model->ResetNewGameCache();
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}
+
+   	function onFlushChannel()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+
+		$model = new DataCtrl;	
+		$model->ResetChannelCache();
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
+	}	
+   	
    	
    	function onSaleGame($id)
 	{
