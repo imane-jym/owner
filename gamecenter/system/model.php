@@ -53,6 +53,7 @@ class Model {
 	
 	public function query($qry)
 	{
+		//var_dump($qry);
 		$result = mysql_query($qry) or die('MySQL Error: '. mysql_error());
 		$resultObjects = array();
 

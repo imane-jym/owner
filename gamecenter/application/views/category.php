@@ -1,5 +1,5 @@
 <?php
-$home = $config['base_url'] . "/main/index";
+$home = $config['base_url'] . "main/index";
 if (isset($channel))
 	$home .= "/" . Url_helper::arrayToSegment(array('channel' => $channel));
 ?>
@@ -28,14 +28,14 @@ if (isset($channel))
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
-	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo $channel ?>" data-category-id="<?php echo $CategoryId ?>"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo isset($channel) ? $channel : ''; ?>" data-category-id="<?php echo $CategoryId ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
 		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
 		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
 		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
-		<a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a>
+		<!-- <a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a> -->
 	</div>
 	</header>
 		<!-- <span class="count">人气：85964</span> -->
