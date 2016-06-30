@@ -42,6 +42,30 @@ class Api extends Controller {
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
    	
+   	function getGameInfo()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if (!isset($_REQUEST['gameId']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'gameId unvalid'));
+			return;
+		}
+
+		$model = new DataCtrl;	
+		$data = $model->GetAndSetGameInfoCache(array($_REQUEST['gameId']));
+		echo json_encode(array('status' => 0, 'errmsg' => 'success', 'data' => $data[$_REQUEST['gameId']]));
+	}	
+   	
    	
    	function onSaleGame($id)
 	{
