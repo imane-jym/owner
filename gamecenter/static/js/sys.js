@@ -77,6 +77,7 @@ function GameLoad(target)
 	var more = target;
 	var page = parseInt(more.attr('data-num'));
 	var type = more.attr('data-track');
+	var login_enter = more.attr('data-game-center');
 	switch(type)
 	{
 		case "hot":
@@ -111,15 +112,17 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = item['url'];
-					if (href.indexOf("?"))
-					{
+					var href = login_enter + "?gameid=" + i;
+					if (channel)
 						href += "&channel=" + channel;
-					}
-					else
-					{
-						href += "?channel=" + channel;
-					}
+					//if (href.indexOf("?"))
+					//{
+						//href += "&channel=" + channel;
+					//}
+					//else
+					//{
+						//href += "?channel=" + channel;
+					//}
 					str += '<div class="item">';
 					str += '<a class="i-info" href="' + href + '">';
 					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
@@ -138,15 +141,9 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = item['url'];
-					if (href.indexOf("?"))
-					{
+					var href = login_enter + "?gameid=" + i;
+					if (channel)
 						href += "&channel=" + channel;
-					}
-					else
-					{
-						href += "?channel=" + channel;
-					}
 					str += '<div class="item">';
 					str += '<a class="i-info" href="' + href + '">';
 					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
@@ -165,15 +162,9 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = item['url'];
-					if (href.indexOf("?"))
-					{
+					var href = login_enter + "?gameid=" + i;
+					if (channel)
 						href += "&channel=" + channel;
-					}
-					else
-					{
-						href += "?channel=" + channel;
-					}
 					str += '<div class="item">';
 					str += '<a class="i-info" href="' + href + '">';
 					str += '<figure class="cover"><img src="' + item['icon'] + '"></figure>';
