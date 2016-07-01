@@ -16,6 +16,7 @@ $config['redis_pre'] = 'CenterGame';
 
 $config['login_user'] = 'imane'; //user name http auth use
 $config['login_passwd'] = 'imane'; // user password http auth use
+$config['login_enter'] = 'http://login.jvziyouxi.com/auth'; // user password http auth use
 
 $config['secure_key'] = 'asEg38s3l94'; //backport secure key
 
