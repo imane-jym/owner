@@ -28,7 +28,7 @@ if (isset($channel))
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
-	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo (isset($channel) ? $channel : ""); ?>"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo (isset($channel) ? $channel : ""); ?>" data-game-enter="<?php echo $config['login_enter'] ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
@@ -101,7 +101,7 @@ $arr = explode(',', $AdHotGame['game_id_list']);
 $arr_pic = explode(',', $AdHotGame['ex1']);
 foreach ($arr as $key => $val)
 {
-	$href = $AdGameInfo[$val]['url'];
+	$href = $config['login_enter'] . "?gameId=" . $val;
 	if (isset($channel))
 		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
 	$imeSrc = $arr_pic[$key];
@@ -149,7 +149,7 @@ $str = '<div id="i-new-game" class="pure-g">';
 $arr = explode(',', $AdEditorRecommand['game_id_list']);
 foreach ($arr as $key => $val)
 {
-	$href = $AdGameInfo[$val]['url'];
+	$href = $config['login_enter'] . "?gameId=" . $val;
 	if (isset($channel))
 		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
 	$imgSrc = $AdGameInfo[$val]['icon'];
@@ -189,7 +189,7 @@ echo $str;
 $str = '<div id="hot-game-list">';
 foreach ($HotGame['data'] as $key => $val)
 {
-	$href = $val['url'];
+	$href = $config['login_enter'] . "?gameId=" . $key;
 	if (isset($channel))
 		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
 	$imgSrc = $val['icon'];
@@ -226,7 +226,7 @@ echo $str;
 $str = '<div id="new-game">';
 foreach ($NewGame['data'] as $key => $val)
 {
-	$href = $val['url'];
+	$href = $config['login_enter'] . "?gameId=" . $key;
 	if (isset($channel))
 		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
 	$imgSrc = $val['icon'];
