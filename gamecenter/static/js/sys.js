@@ -77,7 +77,7 @@ function GameLoad(target)
 	var more = target;
 	var page = parseInt(more.attr('data-num'));
 	var type = more.attr('data-track');
-	var login_enter = more.attr('data-game-center');
+	var login_enter = $("#home").attr('data-enter');
 	switch(type)
 	{
 		case "hot":
@@ -112,7 +112,7 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = login_enter + "?gameid=" + i;
+					var href = login_enter + "?gameId=" + i;
 					if (channel)
 						href += "&channel=" + channel;
 					//if (href.indexOf("?"))
@@ -141,7 +141,7 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = login_enter + "?gameid=" + i;
+					var href = login_enter + "?gameId=" + i;
 					if (channel)
 						href += "&channel=" + channel;
 					str += '<div class="item">';
@@ -162,7 +162,7 @@ function GameLoad(target)
 				for(var i in data['data'])
 				{
 					var item = data['data'][i];
-					var href = login_enter + "?gameid=" + i;
+					var href = login_enter + "?gameId=" + i;
 					if (channel)
 						href += "&channel=" + channel;
 					str += '<div class="item">';
