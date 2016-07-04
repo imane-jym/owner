@@ -1,18 +1,18 @@
 <?php 
 
-$config['base_url'] = 'http://game.jvziyouxi.com/'; // Base URL including trailing slash (e.g. http://localhost/)
+$config['base_url'] = 'http://172.16.0.89/test/'; // Base URL including trailing slash (e.g. http://localhost/)
 
 $config['default_controller'] = 'main'; // Default controller to load
 $config['error_controller'] = 'error'; // Controller used for errors (e.g. 404, 500 etc)
 
-$config['db_host'] = '10.105.6.168'; // Database host (e.g. localhost)
+$config['db_host'] = '172.16.0.89'; // Database host (e.g. localhost)
 $config['db_name'] = 'game_center'; // Database name
 $config['db_username'] = 'game'; // Database username
 $config['db_password'] = '123456'; // Database password
 
-$config['redis_ip'] = '10.105.6.168'; //redis ip, this redis is used for cache
+$config['redis_ip'] = '127.0.0.1'; //redis ip, this redis is used for cache
 $config['redis_port'] = '6379'; // redis port
-$config['redis_pre'] = 'GameCenter';
+$config['redis_pre'] = 'CenterGame';
 
 $config['login_user'] = 'imane'; //user name http auth use
 $config['login_passwd'] = 'imane'; // user password http auth use
