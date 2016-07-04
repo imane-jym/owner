@@ -20,6 +20,7 @@ class Api extends Controller {
 		$model->ResetAdCache();
 		$model->ResetCategoryCache();
 		$model->ResetNewGameCache();
+		$model->ResetChannelCache();
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}
 
