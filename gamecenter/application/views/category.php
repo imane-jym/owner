@@ -28,7 +28,7 @@ if (isset($channel))
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
-	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo isset($channel) ? $channel : ''; ?>" data-category-id="<?php echo $CategoryId ?>"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo isset($channel) ? $channel : ''; ?>" data-category-id="<?php echo $CategoryId ?>" data-enter="<?php echo $config['login_enter'] ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
@@ -73,7 +73,7 @@ if (isset($channel))
 $str = '<div id="category-game-list">';
 foreach ($Category['data'] as $key => $val)
 {
-	$href = $val['url'];
+	$href = $config['login_enter'] . "?gameId=" . $val['game_id'];
 	if (isset($channel))
 		$href = Url_helper::urlAddPara($href, array('channel' => $channel));
 	$imgSrc = $val['icon'];
