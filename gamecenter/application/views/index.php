@@ -28,7 +28,7 @@ if (isset($channel))
 
 	<body>
 	<div id="share_logo" style="margin:0 auto;display:none;"><img src="http://cdn.11h5.com/static/image/share_logo.jpg"></div>
-	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-channel="<?php echo (isset($channel) ? $channel : ""); ?>" data-game-enter="<?php echo $config['login_enter'] ?>"></div>
+	<div id="home" style="margin:0 auto;display:none;" data-url="<?php echo $config['base_url'] ?>" data-enter="<?php echo $config['login_enter'] ?>" data-channel="<?php echo (isset($channel) ? $channel : ''); ?>"></div>
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
