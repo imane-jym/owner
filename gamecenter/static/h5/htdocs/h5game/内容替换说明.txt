@@ -4,7 +4,7 @@
 
 2、对整个目录查找“game.jvziyouxi.com”,然后全部替换成你的游戏访问地址（注意不要用http://开头）
 
-3、 对整个目录查找“http://mp.weixin.qq.com/s?__biz=MzAxMjM0NTQ1Ng==&mid=205575255&idx=1&sn=403bc47901154183b851e7fe84f67691#rd”，然后全部替换成你自己的关注链接
+3、 对整个目录查找“http://mp.weixin.qq.com/s?__biz=MzIxMDQxOTU4OA==&mid=100000004&idx=1&sn=673d5a570646267667c095ca55c96558&scene=18#wechat_redirect”，然后全部替换成你自己的关注链接
 
 4、对整个目录查找“158369_weixin”，然后替换成你自己的微信号。
 
