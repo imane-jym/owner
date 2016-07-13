@@ -22,7 +22,7 @@ if (isset($channel))
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="cache" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
-		<link rel="shortcut icon " href="http://images.1758.com/images/48.ico">
+		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/jvzi.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo $config['base_url'] ?>/static/style/build/index.css?v=201511301259" />
 <script>
 var _hmt = _hmt || [];
