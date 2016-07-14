@@ -25,14 +25,14 @@ if (isset($channel))
 		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/boluo.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo $config['base_url'] ?>/static/style/build/index.css?v=201511301259" />
 <script>
-var _hmt = _hmt || [];
+var _hmt = _hmt || [];                                             
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?2e9d0558286de38654cdd2dcf234b680";
-  var s = document.getElementsByTagName("script")[0]; 
+  hm.src = "//hm.baidu.com/hm.js?5019ab270a11b6476124163508fbf896";
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
-</script>
+</script> 
 
 	</head>
 
