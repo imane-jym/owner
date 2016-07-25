@@ -90,7 +90,7 @@ class DataCtrl {
 		$one = $model->GetGameList(intval($game_id));
 		if (empty($one))
 			return;
-		$onsale_time = $one[7];
+		$onsale_time = $one[0][7];
 		$cache = new RedisCtrl;
 		$cache->Init();
 		$cache->ZSetAdd("NewGame", $game_id, $onsale_time);

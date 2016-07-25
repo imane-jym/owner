@@ -83,8 +83,8 @@ class Api extends Controller {
 		}
 
 		$model = new DataCtrl;	
-		$model->ResetOnSaleCache($id);
-		$model->ResetGameCache($id);
+		$model->ResetOnSaleCache($id['id']);
+		$model->ResetGameCache($id['id']);
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
    	
@@ -103,7 +103,7 @@ class Api extends Controller {
 		}
 
 		$model = new DataCtrl;	
-		$model->ResetOffSaleCache($id);
+		$model->ResetOffSaleCache($id['id']);
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
 }
