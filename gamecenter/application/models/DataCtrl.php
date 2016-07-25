@@ -83,8 +83,14 @@ class DataCtrl {
 		return 0;
 	}
 
-	public function ResetOnSaleCache($game_id, $onsale_time)
+	public function ResetOnSaleCache($game_id)
 	{
+		$model = new DBCtrl;
+		$model->Init();
+		$one = $model->GetGameList(intval($game_id));
+		if (empty($one))
+			return;
+		$onsale_time = $one[7];
 		$cache = new RedisCtrl;
 		$cache->Init();
 		$cache->ZSetAdd("NewGame", $game_id, $onsale_time);
