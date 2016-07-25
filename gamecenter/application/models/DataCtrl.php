@@ -253,7 +253,7 @@ class DataCtrl {
 		else
 			array_pop($game_list_ret);
 		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
-		$date = array();
+		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
 		return $data;
@@ -271,7 +271,7 @@ class DataCtrl {
 		else
 			array_pop($new);
 		$desc = $this->GetAndSetGameInfoCache($new);
-		$date = array();
+		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
 		return $data;
@@ -299,7 +299,7 @@ class DataCtrl {
 		else
 			array_pop($game_list_ret);
 		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
-		$date = array();
+		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
 		$data['name'] = $cate['name'];
