@@ -115,20 +115,21 @@ class DataCtrl {
 		{
 			return -1;
 		}
+		$one = $info[0];
 		$info = array(
-			'game_id' => $info[0],
-			'icon' => $info[1],
-			'url' => $info[2],
-			'title' => $info[3],
-			'brief' => $info[4],
-			'content' => $info[5],
-			'create_time' => $info[6],
-			'onsale_time' => $info[7],
-			'big_pic' => $info[8],
-			'status' => $info[9],
-			'is_login' => $info[10]
+			'game_id' => $one[0],
+			'icon' => $one[1],
+			'url' => $one[2],
+			'title' => $one[3],
+			'brief' => $one[4],
+			'content' => $one[5],
+			'create_time' => $one[6],
+			'onsale_time' => $one[7],
+			'big_pic' => $one[8],
+			'status' => $one[9],
+			'is_login' => $one[10]
 		);
-		$cache->HashMSet("GameInfo", array($info[0] => json_encode($info))
+		$cache->HashMSet("GameInfo", array($info['game_id'] => json_encode($info))
 						);
 		return 0;
 	}
