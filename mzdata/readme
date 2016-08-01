@@ -1,0 +1,28 @@
+apt-get install php5
+apt-get install mysql
+apt-get install php5-mysql
+
+开启 apache mod_rewrite模块
+sudo a2enmod rewrite
+
+sudo vim /etc/apache2/sites-enabled/000-default
+
+将其中的：
+
+AllowOverride None
+
+修改为：
+
+AllowOverride All
+
+/etc/init.d/apache2 restart
+
+安装opteration system
+创建 数据库
+修改 application/config/config.php 配置文件
+
+user 插入用户
+insert into user(username, password) values('imane', 'imane');
+module  插入模块 main_param 是shell 脚本
+insert into module(type, main_param, content) values(1, 'ls', '查看目录');
+
