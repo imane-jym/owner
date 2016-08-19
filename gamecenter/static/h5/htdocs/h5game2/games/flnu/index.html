@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>粉蓝男女</title>
+    <link rel="icon" type="image/GIF" href="res/favicon.ico"/>
+    <meta name="viewport" content="width=321,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        body, canvas, div {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+    <script src="game.min.js"></script>
+</head>
+<body style="padding:0; margin: 0; background: #000;">
+	<canvas id="gameCanvas" style=" height: 100%;width: 100%;margin: 0;padding: 0;display: block;"></canvas>
+	<script language=javascript>
+		var mebtnopenurl = 'http://mp.weixin.qq.com/s?__biz=MzA5MzU2MjU3Mw==&mid=218850712&idx=1&sn=53bfed8c43391843a6268706ccda8eb2&scene=1&key=1936e2bc22c2ceb5b8b45ee0ef26a5cc01639c3411c2cfd0bd74efb6f0a180003056abc9700e348732a0a5c963462d2f&ascene=1&uin=MjgxMTA4MTUwMQ%3D%3D&devicetype=Windows+7&version=61000721&pass_ticket=w4kQ%2FSFhaY2mmOE87ChVgbTRWP%2BctOhqXukbldnl%2FXb4%2BOxgCyIxSdzUjax%2FUmHK';
+		window.shareData = {
+		        "imgUrl": "http://www.51tingweikeji.com/youxi/icon/flnu.png",
+		        "timeLineLink": "http://www.51tingweikeji.com/youxi/games/flnu/index.html",
+		        "tTitle": "粉蓝男女-杭州吃喝玩乐",
+		        "tContent": "粉蓝男女-杭州吃喝玩乐"
+		};
+				
+		function goHome(){
+			window.location=mebtnopenurl;
+		}
+		function clickMore(){
+			if((window.location+"").indexOf("f=zf",1)>0){
+				window.location = "http://www.51tingweikeji.com/youxi/games/flnu/index.html";
+			 }
+			 else{
+				goHome();
+			 }
+		}
+		function dp_share(){
+			document.getElementById("share").style.display="";
+			
+		}
+		function dp_Ranking(){
+			window.location=mebtnopenurl;
+		}
+
+		function showAd(){
+		}
+		function hideAd(){
+		}
+		document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+		    
+		    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+		        WeixinJSBridge.invoke('sendAppMessage', {
+		            "img_url": window.shareData.imgUrl,
+		            "link": window.shareData.timeLineLink,
+		            "desc": window.shareData.tContent,
+		            "title": window.shareData.tTitle
+		        }, onShareComplete);
+		    });
+
+		    WeixinJSBridge.on('menu:share:timeline', function(argv) {
+		        WeixinJSBridge.invoke('shareTimeline', {
+		            "img_url": window.shareData.imgUrl,
+		            "img_width": "640",
+		            "img_height": "640",
+		            "link": window.shareData.timeLineLink,
+		            "desc": window.shareData.tContent,
+		            "title": window.shareData.tTitle
+		        }, onShareComplete);
+		    });
+		}, false);
+		</script>
+		<div id=share style="display: none">
+			<img width="100%" src="./share.png"
+				style="position: fixed; z-index: 9999; top: 0; left: 0; display: "
+				ontouchstart="document.getElementById('share').style.display='none';" />
+		</div>
+			<script type="text/javascript">
+            var myData = { gameid: "flnu" };
+			 // var domain = ["oixm.cn", "hiemma.cn", "peagame.net"][parseInt(Math.random() * 3)];
+			window.shareData.timeLineLink = "http://www.51tingweikeji.com/youxi/games/flnu/index.html";
+			function dp_submitScore(score){
+						myData.score = parseInt(score);
+						myData.scoreName ="桃花运指数"+score+"分";		
+						document.title = window.shareData.tTitle ="我的桃花运指数是"+score+"分,小伙伴们快来试试你们的花桃运吧！";
+			}
+			function onShareComplete(res) {
+                if (localStorage.myuid && myData.score != undefined) {
+                    setTimeout(function(){
+                        if (confirm("要将成绩提交到9G游戏排行榜吗？")) {
+                            window.location = "http://www.51tingweikeji.com/youxi/games/flnu/index.html";
+                        }
+                        else {
+                            document.location.href = mebtnopenurl;
+                        }
+                    }, 500);
+                }
+				else {
+		        	document.location.href = mebtnopenurl;
+				}
+	        }
+			</script>
+			<div style="display: none;">
+				<script type="text/javascript" src="http://tajs.qq.com/stats?sId=36313548" charset="UTF-8"></script>
+			</div>
+			<script type="text/javascript" src="./js/game9g.utils.js"></script>
+</body>
+</html>

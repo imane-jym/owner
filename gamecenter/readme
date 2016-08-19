@@ -1,0 +1,50 @@
+安装redis
+sudo apt-get install redis-server
+需要 phpize
+sudo apt-get install php5-dev
+网站
+https://github.com/phpredis/phpredis
+git clone https://github.com/phpredis/phpredis.git
+phpize
+./configure
+make && sudo make install
+
+but you still need to enable the module in the PHP config file. To do so, either edit your php.ini or add a redis.ini file in /etc/php5/conf.d with the following contents: extension=redis.so.
+
+安装php mysql
+php5-mysql
+sudo apt-get install php5-mysql
+
+编辑文件
+cd /etc/php5/conf.d
+touch redis.ini
+=====================
+sudo cat redis.ini 
+extension=redis.so
+=====================
+
+重启apache2
+
+apt-get install php5
+apt-get install mysql
+apt-get install php5-mysql
+
+开启 apache mod_rewrite模块
+sudo a2enmod rewrite
+
+sudo vim /etc/apache2/sites-enabled/000-default
+
+将其中的：
+
+AllowOverride None
+
+修改为：
+
+AllowOverride All
+
+/etc/init.d/apache2 restart
+
+安装opteration system
+创建 数据库
+修改 application/config/config.php 配置文件
+./daemon.php
