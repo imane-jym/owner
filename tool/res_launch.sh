@@ -53,39 +53,9 @@ fi
 address=''
 password=''
 case $2 in
-	"imo" )
-		address="jiangyiming@123.59.67.237:/var/www/res"
-		password="yim@821.me";;
 	"inner" )
 		address="ime@172.16.0.89:/home/ime/packet"
 		password="ime@server";;
-	"outer" )
-		address="jiangyiming@203.12.203.22:/home/jiangyiming/update"
-		password="yim@821.me";;
-	"xd_imo" )
-		address="jiangyiming@119.29.86.114:/var/www/res"
-		password="yim@821.me";;
-	"xd_choose" )
-		address="jiangyiming@119.29.86.114:/var/www/res"
-		password="yim@821.me";;
-	"zhw_imo" )
-		address="jiangyiming@210.59.246.45:/var/www/res"
-		password="yim@821.me";;
-	"zhw_choose" )
-		address="jiangyiming@210.59.246.45:/var/www/res"
-		password="yim@821.me";;
-	"bm_imo" )
-                address="jiangyiming@107.150.99.112:/var/www/res"
-                password="yim@821.me";;
-	"bm_choose" )
-                address="jiangyiming@107.150.99.112:/var/www/res"
-                password="yim@821.me";;
-	"xm_choose" )
-                address="jiangyiming@54.254.245.24:/var/www/res"
-                password="yim@821.me";;
-	"xm_imo" )
-                address="jiangyiming@54.254.245.24:/var/www/res"
-                password="yim@821.me";;
 	* )
 		echo "zone para must be [imo, inner, outer, xd_imo, zhw_imo]"
 		exit 1

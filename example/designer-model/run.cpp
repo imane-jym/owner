@@ -21,6 +21,9 @@
 #include "product.h"
 #include "factory.h"
 
+#include "abstract_factory.h"
+
+#include "command.h"
 #include "facade.h"
 
 #include "flyweight.h"
@@ -45,6 +48,21 @@ int main(int argc, char *argv[])
 	Product *p1 = fact->createProduct();
 	p1->display();
 
+	AbstractFactory *abs1One = new Group1Factory();
+	abs1One->createProductA();
+	abs1One->createProductB();
+
+	AbstractFactory *abs2One = new Group2Factory();
+	abs2One->createProductA();
+	abs2One->createProductB();
+
+	Reciever *pRev = new Reciever();
+	Command *pComm = new SubCommand(pRev);
+	Invoke in(pComm);
+	in.Action();
+
+	Command *pComm2 = new SimpleCommand<Reciever>(pRev, &Reciever::Action);
+	pComm2->act();
 	cout << "<<< Facade pattern >>>" << endl;
 	Facade *fa = new Facade();
 	fa->operate();

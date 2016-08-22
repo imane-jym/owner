@@ -18,6 +18,7 @@
 
 #ifndef __PRODUCT_H__
 #define __PRODUCT_H__
+
 class Product
 {
 	public:
@@ -33,5 +34,49 @@ class Bike: public Product
 		Bike();
 		~Bike();
 		void display();
+};
+
+class ProductA
+{
+	public:
+		virtual ~ProductA(){}
+	protected:
+		ProductA() {}
+};
+
+class ProductA1: public ProductA
+{
+	public:
+		~ProductA1();
+		ProductA1();
+};
+
+class ProductA2: public ProductA
+{
+	public:
+		~ProductA2();
+		ProductA2();
+};
+
+class ProductB
+{
+	public:
+		virtual ~ProductB(){}
+	protected:
+		ProductB() {}
+};
+
+class ProductB1: public ProductB
+{
+	public:
+		~ProductB1();
+		ProductB1();
+};
+
+class ProductB2: public ProductB
+{
+	public:
+		~ProductB2();
+		ProductB2();
 };
 #endif

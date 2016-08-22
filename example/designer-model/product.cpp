@@ -44,3 +44,43 @@ void Bike::display()
 {
 	cout << "it is bike" << endl;
 }
+
+ProductA1::ProductA1()
+{
+	cout << "ProductA1 construct" << endl;
+}
+
+ProductA1::~ProductA1()
+{
+	cout << "ProductA1 destruct" << endl;
+}
+
+ProductA2::ProductA2()
+{
+	cout << "ProductA2 construct" << endl;
+}
+
+ProductA2::~ProductA2()
+{
+	cout << "ProductA2 destruct" << endl;
+}
+
+ProductB1::ProductB1()
+{
+	cout << "ProductB1 construct" << endl;
+}
+
+ProductB1::~ProductB1()
+{
+	cout << "ProductB1 destruct" << endl;
+}
+
+ProductB2::ProductB2()
+{
+	cout << "ProductB2 construct" << endl;
+}
+
+ProductB2::~ProductB2()
+{
+	cout << "ProductB2 destruct" << endl;
+}
