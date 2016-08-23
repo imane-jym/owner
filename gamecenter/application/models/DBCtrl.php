@@ -89,7 +89,8 @@ class DBctrl extends Model {
 			$this->execute(
 					"create table channel_info(                           
 					 channel_id int unsigned primary key auto_increment,
-					 focus_button smallint unsigned not null default 1 comment '0:defailt hidden 1: show'
+					 focus_button smallint unsigned not null default 1 comment '0:defailt hidden 1: show',
+					 content varchar(5000) not null default ''           
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
 	}
