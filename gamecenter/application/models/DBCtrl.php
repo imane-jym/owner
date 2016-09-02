@@ -178,6 +178,48 @@ class DBctrl extends Model {
 		return $this->query("select channel_id,focus_button from channel_info where channel_id " . $strCondition);
 	}
 
+	public function UpsertGameInfo($game)
+	{
+		$game_id = $this->escapeString($game['game_id']);
+		$icon = $this->escapeString($game['icon']);
+		$url = $this->escapeString($game['url']);
+		$title = $this->escapeString($game['title']);
+		$brief = $this->escapeString($game['brief']);
+		$content = $this->escapeString($game['content']);
+		$create_time = $this->escapeString($game['create_time']);
+		$onsale_time = $this->escapeString($game['onsale_time']);
+		$big_pic = $this->escapeString($game['big_pic']);
+		$status = $this->escapeString($game['status']);
+		$is_login = $this->escapeString($game['is_login']);
+		$str = "insert into game_info(game_id, icon, url, title, brief, content, create_time, onsale_time, big_pic, status, is_login) values({$game_id}, '{$icon}', '{$url}', '{$title}', '{$brief}', '{$content}', {$create_time}, {$onsale_time}, '{$big_pic}', {$game['status']}, '{$game['is_login']}') ON DUPLICATE KEY UPDATE icon = '{$icon}', url = '{$url}', title = '{$title}', brief = '{$brief}', content = '{$content}', create_time = {$create_time}, onsale_time = {$onsale_time}, big_pic = '{$big_pic}', status = {$status}, is_login = '{$is_login}'";
+		return $this->execute($str);
+	}
+
+	public function UpsertCategoryInfo($info)
+	{
+		$name = $this->escapeString($info['name']);
+		$game_id_list = $this->escapeString($info['game_id_list']);
+		$pic = $this->escapeString($info['pic']);
+		$str = "insert into category_info(category_id, name, game_id_list, pic) values({$info['category_id']}, '{$name}', '{$game_id_list}', '{$pic}') ON DUPLICATE KEY UPDATE name = '{$name}', game_id_list = '{$game_id_list}', pic = '{$pic}'";
+		return $this->execute($str);
+	}
+
+	public function UpsertAdInfo($info)
+	{
+		$game_id_list = $this->escapeString($info['game_id_list']);
+		$ex1 = $this->escapeString($info['ex1']);
+		$ex2 = $this->escapeString($info['ex2']);
+		$ex3 = $this->escapeString($info['ex3']);
+		$str = "insert into hot_info(hot_id, game_id_list, ex1, ex2, ex3) values({$info['hot_id']}, '{$game_id_list}', '{$ex1}', '{$ex2}', '{$ex3}') ON DUPLICATE KEY UPDATE game_id_list = '{$game_id_list}', ex1 = '{$ex1}', ex2 = '{$ex2}', ex3 = '{$ex3}'";
+		return $this->execute($str);
+	}
+
+	public function UpsertChannelInfo($info)
+	{
+		$content = $this->escapeString($info['content']);
+		$str = "insert into channel_info(channel_id, focus_button, content) values({$info['channel_id']}, '{$focus_button}', '{$content}') ON DUPLICATE KEY UPDATE focus_button = '{$focus_button}', content = '{$content}'";
+		return $this->execute($str);
+	}
 }
 
 ?>

@@ -192,7 +192,7 @@ class DataCtrl {
 		return $game_info;
 	}
 
-	public function GetAndSetGameInfoCache($game_list)
+	public function GetAndSetGameInfoCache($game_list, $isOnsale = false)
 	{
 		$cache = new RedisCtrl;
 		$cache->Init();
@@ -222,6 +222,11 @@ class DataCtrl {
 			$infoCache = array();
 			foreach ($result as $key => $val)
 			{
+				if ($isOnsale)
+				{
+					if ($val[9] != 3)
+						continue;
+				}
 				$info = array(
 					'game_id' => $val[0],
 					'icon' => $val[1],
@@ -259,7 +264,7 @@ class DataCtrl {
 			$is_more = false;
 		else
 			array_pop($game_list_ret);
-		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
+		$desc = $this->GetAndSetGameInfoCache($game_list_ret, true);
 		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
@@ -305,7 +310,7 @@ class DataCtrl {
 		}
 		else
 			array_pop($game_list_ret);
-		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
+		$desc = $this->GetAndSetGameInfoCache($game_list_ret, true);
 		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
@@ -345,16 +350,26 @@ class DataCtrl {
 		$game_list = explode(",", $ad["AdEditorRecommand"]["game_id_list"]);
 		$game_list_ret = array_merge($arr1, $game_list);
 
-		$desc = $this->GetAndSetGameInfoCache($game_list_ret);
+		$desc = $this->GetAndSetGameInfoCache($game_list_ret, true);
 		$data = $ad;
 		$data['AdGameInfo'] = $desc;
 		//var_dump($data);
 		
 		//ad hot game list and new game list
-		$data['HotGame'] = $this->HandlerGetMoreHotGame(0);
-		$data['NewGame'] = $this->HandlerGetMoreNewGame(0);
+		$data['HotGame'] = $this->HandlerGetMoreHotGame(0, true);
+		$data['NewGame'] = $this->HandlerGetMoreNewGame(0, true);
 		$data['ChannelInfo'] = $this->HandlerGetChannelInfo($channel);
 		return $data;
+	}
+
+	public function UpsertGame($info)
+	{
+		$model = new DBCtrl;
+		$model->Init();
+		$model->UpsertGameInfo($info);
+		$model->ResetOnSaleCache($info['game_id']);
+		$model->ResetGameCache($info['game_id']);
+		return true;
 	}
 }
 

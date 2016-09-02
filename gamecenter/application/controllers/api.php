@@ -106,6 +106,35 @@ class Api extends Controller {
 		$model->ResetOffSaleCache($id['id']);
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
+   	
+   	function UpsertGame()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if (!is_numeric($_REQUEST['game_id']) || !is_numeric($_REQUEST['create_time']) || !is_numeric($_REQUEST['onsale_time']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'game_id create_time or onsale_time unvalid'));
+			return;
+		}
+		if (!is_numeric($_REQUEST['status']) || !is_numeric($_REQUEST['is_login']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'status is_login unvalid'));
+			return;
+		}
+
+		$model = new DataCtrl;	
+		$model->UpsertGame($_REQUEST);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
+	}	
 }
 
 ?>
