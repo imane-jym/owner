@@ -135,6 +135,83 @@ class Api extends Controller {
 		$model->UpsertGame($_REQUEST);
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
+   	
+   	function UpsertCategory()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if (!is_numeric($_REQUEST['category_id']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'category_id unvalid'));
+			return;
+		}
+
+		$model = new DataCtrl;	
+		$model->UpsertCategory($_REQUEST);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
+	}	
+
+   	function UpsertAd()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		foreach($_REQUEST as $k => $v)
+		{
+			if (!is_numeric($v['hot_id']))
+			{
+				echo json_encode(array('status' => -1, 'errmsg' => 'game_id create_time or onsale_time unvalid'));
+				return;
+			}
+		}
+
+		$model = new DataCtrl;	
+		$model->UpsertGame($_REQUEST);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
+	}	
+
+   	function UpsertChannel()
+	{
+		global $config;
+		if (!isset($_REQUEST['token']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if ($_REQUEST['token'] != $config['secure_key'])
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
+			return;
+		}
+		if (!is_numeric($v['channel_id']))
+		{
+			echo json_encode(array('status' => -1, 'errmsg' => 'channel_id unvalid'));
+			return;
+		}
+
+		$model = new DataCtrl;	
+		$model->UpsertChannel($_REQUEST);
+		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
+	}	
+   	
+   	
 }
 
 ?>

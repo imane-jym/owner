@@ -371,6 +371,36 @@ class DataCtrl {
 		$model->ResetGameCache($info['game_id']);
 		return true;
 	}
+
+	public function UpsertCategory($info)
+	{
+		$model = new DBCtrl;
+		$model->Init();
+		$model->UpsertCategoryInfo($info);
+		$model->ResetCategoryCache();
+		return true;
+	}
+
+	public function UpsertAd($info)
+	{
+		$model = new DBCtrl;
+		$model->Init();
+		foreach($info as $k => $v)
+		{
+			$model->UpsertAdInfo($v);
+		}
+		$model->ResetAdCache();
+		return true;
+	}
+
+	public function UpsertChannel($info)
+	{
+		$model = new DBCtrl;
+		$model->Init();
+		$model->UpsertChannelInfo($info);
+		$model->ResetChannelCache();
+		return true;
+	}
 }
 
 ?>

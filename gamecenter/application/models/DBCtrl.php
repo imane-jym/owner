@@ -197,27 +197,30 @@ class DBctrl extends Model {
 
 	public function UpsertCategoryInfo($info)
 	{
+		$category_id = $this->escapeString($info['category_id']);
 		$name = $this->escapeString($info['name']);
 		$game_id_list = $this->escapeString($info['game_id_list']);
 		$pic = $this->escapeString($info['pic']);
-		$str = "insert into category_info(category_id, name, game_id_list, pic) values({$info['category_id']}, '{$name}', '{$game_id_list}', '{$pic}') ON DUPLICATE KEY UPDATE name = '{$name}', game_id_list = '{$game_id_list}', pic = '{$pic}'";
+		$str = "insert into category_info(category_id, name, game_id_list, pic) values({$category_id}, '{$name}', '{$game_id_list}', '{$pic}') ON DUPLICATE KEY UPDATE name = '{$name}', game_id_list = '{$game_id_list}', pic = '{$pic}'";
 		return $this->execute($str);
 	}
 
 	public function UpsertAdInfo($info)
 	{
+		$hot_id = $this->escapeString($info['hot_id']);
 		$game_id_list = $this->escapeString($info['game_id_list']);
 		$ex1 = $this->escapeString($info['ex1']);
 		$ex2 = $this->escapeString($info['ex2']);
 		$ex3 = $this->escapeString($info['ex3']);
-		$str = "insert into hot_info(hot_id, game_id_list, ex1, ex2, ex3) values({$info['hot_id']}, '{$game_id_list}', '{$ex1}', '{$ex2}', '{$ex3}') ON DUPLICATE KEY UPDATE game_id_list = '{$game_id_list}', ex1 = '{$ex1}', ex2 = '{$ex2}', ex3 = '{$ex3}'";
+		$str = "insert into hot_info(hot_id, game_id_list, ex1, ex2, ex3) values({$hot_id}, '{$game_id_list}', '{$ex1}', '{$ex2}', '{$ex3}') ON DUPLICATE KEY UPDATE game_id_list = '{$game_id_list}', ex1 = '{$ex1}', ex2 = '{$ex2}', ex3 = '{$ex3}'";
 		return $this->execute($str);
 	}
 
 	public function UpsertChannelInfo($info)
 	{
+		$channel_id = $this->escapeString($info['channel_id']);
 		$content = $this->escapeString($info['content']);
-		$str = "insert into channel_info(channel_id, focus_button, content) values({$info['channel_id']}, '{$focus_button}', '{$content}') ON DUPLICATE KEY UPDATE focus_button = '{$focus_button}', content = '{$content}'";
+		$str = "insert into channel_info(channel_id, focus_button, content) values({$channel_id}, '{$focus_button}', '{$content}') ON DUPLICATE KEY UPDATE focus_button = '{$focus_button}', content = '{$content}'";
 		return $this->execute($str);
 	}
 }
