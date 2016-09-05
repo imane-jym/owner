@@ -43,6 +43,7 @@ class Category extends Controller {
 		}
 		$model = new DataCtrl;
 		$data = $model->HandlerGetMoreCategoryGame($page, $category_id);
+		//var_dump($data);
 		$data['status'] = 0;
 		echo json_encode($data);
 	}

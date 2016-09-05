@@ -43,8 +43,8 @@ var _hmt = _hmt || [];
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
 		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
-		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
-		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
+		<!--<span class="head-icon"><a href="http://wx.8888.com"><img style="width: 200px;" src="http://images.8888.com/ranking/8888yearicon.png"></a></span>-->
+		<!--<span class="head-dowload"><a href="http://wx.wx8888.com/game/download.htm">安装8888</a></span>-->
 <?php
 	if (isset($ChannelInfo['focus_button']) && $ChannelInfo['focus_button'])
 	{
@@ -90,18 +90,18 @@ var _hmt = _hmt || [];
 			<div class="flexslider">
 				<!-- <ul class="slides">
 					<li>
-						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111834&ex1758=1&tp=full&title=%E6%88%91%E6%AC%B2%E5%B0%81%E5%A4%A9web&r=lb">
-							<img src="http://images.1758.com/article/image/2015/10/20/21651445329561114.jpg" />
+						<a href="http://wx.8888.com/game/wxapp/content.html?focus=0&aid=111834&ex8888=1&tp=full&title=%E6%88%91%E6%AC%B2%E5%B0%81%E5%A4%A9web&r=lb">
+							<img src="http://images.8888.com/article/image/2015/10/20/21651445329561114.jpg" />
 						</a>
 					</li>
 					<li>
-						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111639&r=lb">
-							<img src="http://images.1758.com/images/lbyugong.jpg" />
+						<a href="http://wx.8888.com/game/wxapp/content.html?focus=0&aid=111639&r=lb">
+							<img src="http://images.8888.com/images/lbyugong.jpg" />
 						</a>
 					</li>
 					<li>
-						<a href="http://wx.1758.com/game/wxapp/content.html?focus=0&aid=111858&ex1758=1&tp=full&title=%E5%8F%AC%E5%94%A4%E5%B8%88%E5%AD%A6%E9%99%A2">
-							<img src="http://images.1758.com/article/image/2015/10/23/51491445580815962.jpg" />
+						<a href="http://wx.8888.com/game/wxapp/content.html?focus=0&aid=111858&ex8888=1&tp=full&title=%E5%8F%AC%E5%94%A4%E5%B8%88%E5%AD%A6%E9%99%A2">
+							<img src="http://images.8888.com/article/image/2015/10/23/51491445580815962.jpg" />
 						</a>
 					</li>
 				</ul> -->
@@ -145,13 +145,13 @@ echo $str;
 					<div class="new-main">
 						<!-- <div id="i-new-game" class="pure-g">
 							<div class="pure-u-1-4">
-							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113062&title=%E6%88%98%E6%AD%8C&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/81971465875935232.jpg"><p class="new-title">战歌</p></a>
+							<a href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=113062&title=%E6%88%98%E6%AD%8C&tp=full&ex8888=1"><img src="<?php echo $config['base_url'] ?>/static/game/81971465875935232.jpg"><p class="new-title">战歌</p></a>
 							</div>
 							<div class="pure-u-1-4">
-							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112884&title=%E4%B9%B1%E6%96%97%E5%B0%81%E7%A5%9E&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/97741462875332028.png"><p class="new-title">乱斗封神</p></a>
+							<a href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=112884&title=%E4%B9%B1%E6%96%97%E5%B0%81%E7%A5%9E&tp=full&ex8888=1"><img src="<?php echo $config['base_url'] ?>/static/game/97741462875332028.png"><p class="new-title">乱斗封神</p></a>
 							</div>
 							<div class="pure-u-1-4">
-							<a href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112128&title=%E6%88%98%E7%A5%9E&tp=full&ex1758=1"><img src="<?php echo $config['base_url'] ?>/static/game/58771456811646037.png"><p class="new-title">战神</p></a>
+							<a href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=112128&title=%E6%88%98%E7%A5%9E&tp=full&ex8888=1"><img src="<?php echo $config['base_url'] ?>/static/game/58771456811646037.png"><p class="new-title">战神</p></a>
 							</div>
 						</div> -->
 <?php
@@ -185,13 +185,13 @@ echo $str;
 					</header>
 					<div id="hot-game" class="list hot-main">
 						<!-- <div class="item">
-							<a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex1758=1">
+							<a class="i-info" href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex8888=1">
 							<figure class="cover"><img src="<?php echo $config['base_url'] ?>/static/game/87311463556210206.png"></figure>
 								<div class="meta"><h3 class="title">口袋妖怪联盟<span class="identification">礼包</span></h3>
 								<div class="desc">经典动漫，全自动挂机，激情无限。</div>
 								</div>
 							</a>
-							<a href="http://w.g1758.cn/kdyglm/index.html?tp=fs&ex1758=1&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F">
+							<a href="http://w.g8888.cn/kdyglm/index.html?tp=fs&ex8888=1&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F">
 								<div class="play-btn"><i class="icon-right"></i>开始</div>
                             </a>
                         </div> -->
@@ -231,7 +231,7 @@ echo $str;
 			</div>
 		</section>
 		<section id="newgames" class="newgame bg list gone">
-		    <!-- <div class="item"><a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=113078&title=%E6%90%9C%E7%A5%9E%E8%AE%B0&tp=full&ex1758=1"><figure class="cover"><img src="./1758hot_files/91681465194588397.gif"></figure><div class="meta"><h3 class="title">搜神记</h3><div class="desc">手握神兵美女在怀，搜神记等你来战！</div></div></a><a href="http://w.g1758.cn/soushenji/index.html?tp=fs&ex1758=1&title=%E6%90%9C%E7%A5%9E%E8%AE%B0"><div class="play-btn"><i class="icon-right"></i>开始</div></a></div> -->
+		    <!-- <div class="item"><a class="i-info" href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=113078&title=%E6%90%9C%E7%A5%9E%E8%AE%B0&tp=full&ex8888=1"><figure class="cover"><img src="./8888hot_files/91681465194588397.gif"></figure><div class="meta"><h3 class="title">搜神记</h3><div class="desc">手握神兵美女在怀，搜神记等你来战！</div></div></a><a href="http://w.g8888.cn/soushenji/index.html?tp=fs&ex8888=1&title=%E6%90%9C%E7%A5%9E%E8%AE%B0"><div class="play-btn"><i class="icon-right"></i>开始</div></a></div> -->
 <?php
 $str = '<div id="new-game">';
 foreach ($NewGame['data'] as $key => $val)
@@ -255,9 +255,9 @@ echo $str;
 		<!-- <section class="gift bg gone">
 			<div id="gift-list" class="gift-list list">
 				<div class="item">
-				    <a class="i-info" href="http://wx.1758.com/game/h5/giftinfo.htm?aid=113148&tp=full&ex1758=1&title=%E9%A2%86%E5%8F%96%E7%A4%BC%E5%8C%85">
-				        <figure class="cover"><img src="./1758hot_files/69411464143423940.png"></figure>
-				        <div class="meta"><h3 class="title">暗黑之王:1758父亲节礼包(1-4000)</h3><span class="g-fail">开放时间   </span>&nbsp;<span class="g-fail-day">今日  17:58</span> </div></a><a class="notime-btn" data-num="113148" data-value="0" data-time="1465898280000">未开放
+				    <a class="i-info" href="http://wx.8888.com/game/h5/giftinfo.htm?aid=113148&tp=full&ex8888=1&title=%E9%A2%86%E5%8F%96%E7%A4%BC%E5%8C%85">
+				        <figure class="cover"><img src="./8888hot_files/69411464143423940.png"></figure>
+				        <div class="meta"><h3 class="title">暗黑之王:8888父亲节礼包(1-4000)</h3><span class="g-fail">开放时间   </span>&nbsp;<span class="g-fail-day">今日  17:58</span> </div></a><a class="notime-btn" data-num="113148" data-value="0" data-time="1465898280000">未开放
 				    </a>
 				</div>
 				<div class="more-info" data-num="1" data-track='gift'><a>点击加载更多</a></div>
@@ -265,12 +265,12 @@ echo $str;
 		</section> -->
 		<section class="category gone">
 			<!-- <div class="c-search">
-				<form id="form" class="form" action="http://wx.1758.com/game/wxgame/search.html" name="f">
+				<form id="form" class="form" action="http://wx.8888.com/game/wxgame/search.html" name="f">
 					<div class="con-wrap">
 						<div class="f-ser">
 							<input id="keyword" name="keyword" type="text" placeholder="请输入游戏名" />
 							<input name="tp" type="hidden" value="full" />
-							<input name="ex1758" type="hidden" value="1" />
+							<input name="ex8888" type="hidden" value="1" />
 							<input name="title" type="hidden" value="搜索结果" />
 						</div>
 						<div class="f-btn">
@@ -282,7 +282,7 @@ echo $str;
 			<div id="c-list" class="c-list">
 				<!-- <ul class="pure-g">
                     <li class="pure-u-1-2">
-                        <div><a href="http://wx.1758.com/game/h5/page/singlegamelist.htm?cid=111&ex1758=1&tp=full&yn=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F&title=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F"><img src="./1758hot_files/82651465210403601.jpg" width="100%"><div class="title"><div class="t">点击游戏</div><div class="n">43款</div></div></a>
+                        <div><a href="http://wx.8888.com/game/h5/page/singlegamelist.htm?cid=111&ex8888=1&tp=full&yn=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F&title=%E7%82%B9%E5%87%BB%E6%B8%B8%E6%88%8F"><img src="./8888hot_files/82651465210403601.jpg" width="100%"><div class="title"><div class="t">点击游戏</div><div class="n">43款</div></div></a>
                         </div>
                     </li>
 				</ul> -->
@@ -320,7 +320,7 @@ echo $str;
 							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过桔子游戏客户端领取</p>
 							<span class="ex-inner">
 							<span class="ex-info">您还没有安装桔子游戏客户端？</span>
-							<a class="ex-load" href="http://m.1758.com/game/download.htm">立即下载</a>
+							<a class="ex-load" href="http://m.8888.com/game/download.htm">立即下载</a>
 							</span>
 						</div>
 					</div>
@@ -334,17 +334,17 @@ echo $str;
         	<div id="base-menu" class="pure-g base-menu">
         	    <div class="pure-u-1-3 cursor">
         	    	<a>
-        	    		<img src="./1758hot_files/wyxy.png">
+        	    		<img src="./8888hot_files/wyxy.png">
         	    	</a>
         	    </div>
         	    <div class="pure-u-1-3">
-        	    	<a href="http://wx.1758.com/game/h5/newsfeed.htm">
-        	    		<img src="./1758hot_files/wsqw.png">
+        	    	<a href="http://wx.8888.com/game/h5/newsfeed.htm">
+        	    		<img src="./8888hot_files/wsqw.png">
         	    	</a>
         	    </div>
         	    <div class="pure-u-1-3">
-        	    	<a href="http://wx.1758.com/game/h5/user.htm">
-        	    		<img src="./1758hot_files/wdw.png">
+        	    	<a href="http://wx.8888.com/game/h5/user.htm">
+        	    		<img src="./8888hot_files/wdw.png">
         	    	</a>
         	    </div>
         	</div>

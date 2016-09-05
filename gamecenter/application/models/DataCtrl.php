@@ -203,11 +203,20 @@ class DataCtrl {
 		{
 			if ($val != false)
 			{
-				$game_info[$key] = json_decode($val, true);
+				$d = json_decode($val, true);
+				if ($isOnsale)
+				{
+					if ($d['status'] != 3)
+					{
+						unset($game_info[$key]);
+						continue;
+					}
+				}
+				$game_info[$key] = $d;
 			}
 			else
 			{
-				$game_info[$key] = array();
+				//$game_info[$key] = array();
 				$game_info_nocache[] = $key;
 			}
 		}
@@ -225,7 +234,10 @@ class DataCtrl {
 				if ($isOnsale)
 				{
 					if ($val[9] != 3)
+					{
+						unset($game_info[$val[0]]);
 						continue;
+					}
 				}
 				$info = array(
 					'game_id' => $val[0],
