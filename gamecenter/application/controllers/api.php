@@ -107,7 +107,7 @@ class Api extends Controller {
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
    	
-   	function UpsertGame()
+   	function upsertGame()
 	{
 		global $config;
 		if (!isset($_REQUEST['token']))
@@ -136,7 +136,7 @@ class Api extends Controller {
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
    	
-   	function UpsertCategory()
+   	function upsertCategory()
 	{
 		global $config;
 		if (!isset($_REQUEST['token']))
@@ -160,7 +160,7 @@ class Api extends Controller {
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
 
-   	function UpsertAd()
+   	function upsertAd()
 	{
 		global $config;
 		if (!isset($_REQUEST['token']))
@@ -173,13 +173,10 @@ class Api extends Controller {
 			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
 			return;
 		}
-		foreach($_REQUEST as $k => $v)
+		if (!is_numeric($_REQUEST['hot_id']))
 		{
-			if (!is_numeric($v['hot_id']))
-			{
-				echo json_encode(array('status' => -1, 'errmsg' => 'game_id create_time or onsale_time unvalid'));
-				return;
-			}
+			echo json_encode(array('status' => -1, 'errmsg' => 'game_id create_time or onsale_time unvalid'));
+			return;
 		}
 
 		$model = new DataCtrl;	
@@ -187,7 +184,7 @@ class Api extends Controller {
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
 
-   	function UpsertChannel()
+   	function upsertChannel()
 	{
 		global $config;
 		if (!isset($_REQUEST['token']))

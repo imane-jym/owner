@@ -8,7 +8,7 @@ if (isset($channel))
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>菠萝游戏</title>
+		<title>桔子游戏</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="format-detection" content="telephone=no">
@@ -22,7 +22,7 @@ if (isset($channel))
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="cache" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
-		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/boluo.ico">
+		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/jvzi.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo $config['base_url'] ?>/static/style/build/index.css?v=201511301259" />
 	</head>
 
@@ -32,9 +32,9 @@ if (isset($channel))
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
-		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/boluo-head-icon.png"></a></span>
-		<!--<span class="head-icon"><a href="http://wx.8888.com"><img style="width: 200px;" src="http://images.8888.com/ranking/8888yearicon.png"></a></span>-->
-		<!--<span class="head-dowload"><a href="http://wx.wx8888.com/game/download.htm">安装8888</a></span>-->
+		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
+		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
+		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
 		<!-- <a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a> -->
 	</div>
 	</header>
@@ -59,13 +59,13 @@ if (isset($channel))
 					</header>
 					<div id="hot-game" class="list hot-main">
 						<!-- <div class="item">
-							<a class="i-info" href="http://wx.8888.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex8888=1">
+							<a class="i-info" href="http://wx.1758.com/game/h5/game.htm?focus=0&aid=112815&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F&tp=full&ex1758=1">
 							<figure class="cover"><img src="<?php echo $config['base_url'] ?>/static/game/87311463556210206.png"></figure>
 								<div class="meta"><h3 class="title">口袋妖怪联盟<span class="identification">礼包</span></h3>
 								<div class="desc">经典动漫，全自动挂机，激情无限。</div>
 								</div>
 							</a>
-							<a href="http://w.g8888.cn/kdyglm/index.html?tp=fs&ex8888=1&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F">
+							<a href="http://w.g1758.cn/kdyglm/index.html?tp=fs&ex1758=1&title=%E5%8F%A3%E8%A2%8B%E5%A6%96%E6%80%AA%E8%81%94%E7%9B%9F">
 								<div class="play-btn"><i class="icon-right"></i>开始</div>
                             </a>
                         </div> -->
@@ -112,7 +112,7 @@ echo $str;
 							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过桔子游戏客户端领取</p>
 							<span class="ex-inner">
 							<span class="ex-info">您还没有安装桔子游戏客户端？</span>
-							<a class="ex-load" href="http://m.8888.com/game/download.htm">立即下载</a>
+							<a class="ex-load" href="http://m.1758.com/game/download.htm">立即下载</a>
 							</span>
 						</div>
 					</div>
@@ -126,17 +126,17 @@ echo $str;
         	<div id="base-menu" class="pure-g base-menu">
         	    <div class="pure-u-1-3 cursor">
         	    	<a>
-        	    		<img src="./8888hot_files/wyxy.png">
+        	    		<img src="./1758hot_files/wyxy.png">
         	    	</a>
         	    </div>
         	    <div class="pure-u-1-3">
-        	    	<a href="http://wx.8888.com/game/h5/newsfeed.htm">
-        	    		<img src="./8888hot_files/wsqw.png">
+        	    	<a href="http://wx.1758.com/game/h5/newsfeed.htm">
+        	    		<img src="./1758hot_files/wsqw.png">
         	    	</a>
         	    </div>
         	    <div class="pure-u-1-3">
-        	    	<a href="http://wx.8888.com/game/h5/user.htm">
-        	    		<img src="./8888hot_files/wdw.png">
+        	    	<a href="http://wx.1758.com/game/h5/user.htm">
+        	    		<img src="./1758hot_files/wdw.png">
         	    	</a>
         	    </div>
         	</div>

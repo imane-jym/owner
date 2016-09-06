@@ -397,10 +397,7 @@ class DataCtrl {
 	{
 		$model = new DBCtrl;
 		$model->Init();
-		foreach($info as $k => $v)
-		{
-			$model->UpsertAdInfo($v);
-		}
+		$model->UpsertAdInfo($info);
 		$model->ResetAdCache();
 		return true;
 	}

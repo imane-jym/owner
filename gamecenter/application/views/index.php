@@ -8,7 +8,7 @@ if (isset($channel))
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>菠萝游戏</title>
+		<title>桔子游戏</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="format-detection" content="telephone=no">
@@ -22,17 +22,17 @@ if (isset($channel))
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="cache" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
-		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/boluo.ico">
+		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/jvzi.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo $config['base_url'] ?>/static/style/build/index.css?v=201511301259" />
 <script>
-var _hmt = _hmt || [];                                             
+var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?5019ab270a11b6476124163508fbf896";
-  var s = document.getElementsByTagName("script")[0];
+  hm.src = "//hm.baidu.com/hm.js?2e9d0558286de38654cdd2dcf234b680";
+  var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-</script> 
+</script>
 
 	</head>
 
@@ -42,8 +42,7 @@ var _hmt = _hmt || [];
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
-		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/boluo-head-icon.png"></a></span>
-		<!-- <span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span> -->
+		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
 		<!--<span class="head-icon"><a href="http://wx.8888.com"><img style="width: 200px;" src="http://images.8888.com/ranking/8888yearicon.png"></a></span>-->
 		<!--<span class="head-dowload"><a href="http://wx.wx8888.com/game/download.htm">安装8888</a></span>-->
 <?php
@@ -318,9 +317,9 @@ echo $str;
 				<div class="tip-wrapper">
 					<div class="tip-content tip-exclusive">
 						<div class="tip-body">
-							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过菠萝游戏客户端领取</p>
+							<p class="ex-con"><span style="color: #71A540;">专属礼包</span>需通过桔子游戏客户端领取</p>
 							<span class="ex-inner">
-							<span class="ex-info">您还没有安装菠萝游戏客户端？</span>
+							<span class="ex-info">您还没有安装桔子游戏客户端？</span>
 							<a class="ex-load" href="http://m.8888.com/game/download.htm">立即下载</a>
 							</span>
 						</div>
@@ -354,10 +353,10 @@ echo $str;
                 <div class="modal-backdrop-trans modal-dialog" role="document" style="display: none">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="barcodeModalLabel">关注“菠萝游戏”</h4>
+                            <h4 class="modal-title" id="barcodeModalLabel">关注“桔子游戏”</h4>
                         </div>
                         <div class="modal-body">
-                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/boluo-qrcode.jpg">
+                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/mp-qrcode.jpg">
                         </div>
                         <div class="modal-footer">
                             <h4 class="modal-title">长按识别二维码</h4>
