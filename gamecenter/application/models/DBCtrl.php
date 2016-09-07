@@ -219,6 +219,7 @@ class DBctrl extends Model {
 	public function UpsertChannelInfo($info)
 	{
 		$channel_id = $this->escapeString($info['channel_id']);
+		$focus_button = $this->escapeString($info['focus_button']);
 		$content = $this->escapeString($info['content']);
 		$str = "insert into channel_info(channel_id, focus_button, content) values({$channel_id}, '{$focus_button}', '{$content}') ON DUPLICATE KEY UPDATE focus_button = '{$focus_button}', content = '{$content}'";
 		return $this->execute($str);

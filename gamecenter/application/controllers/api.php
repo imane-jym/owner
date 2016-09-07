@@ -180,7 +180,7 @@ class Api extends Controller {
 		}
 
 		$model = new DataCtrl;	
-		$model->UpsertGame($_REQUEST);
+		$model->UpsertAd($_REQUEST);
 		echo json_encode(array('status' => 0, 'errmsg' => 'success'));
 	}	
 

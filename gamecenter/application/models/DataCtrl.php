@@ -379,8 +379,8 @@ class DataCtrl {
 		$model = new DBCtrl;
 		$model->Init();
 		$model->UpsertGameInfo($info);
-		$model->ResetOnSaleCache($info['game_id']);
-		$model->ResetGameCache($info['game_id']);
+		$this->ResetOnSaleCache($info['game_id']);
+		$this->ResetGameCache($info['game_id']);
 		return true;
 	}
 
@@ -389,7 +389,7 @@ class DataCtrl {
 		$model = new DBCtrl;
 		$model->Init();
 		$model->UpsertCategoryInfo($info);
-		$model->ResetCategoryCache();
+		$this->ResetCategoryCache();
 		return true;
 	}
 
@@ -398,7 +398,7 @@ class DataCtrl {
 		$model = new DBCtrl;
 		$model->Init();
 		$model->UpsertAdInfo($info);
-		$model->ResetAdCache();
+		$this->ResetAdCache();
 		return true;
 	}
 
@@ -407,7 +407,7 @@ class DataCtrl {
 		$model = new DBCtrl;
 		$model->Init();
 		$model->UpsertChannelInfo($info);
-		$model->ResetChannelCache();
+		$this->ResetChannelCache();
 		return true;
 	}
 }
