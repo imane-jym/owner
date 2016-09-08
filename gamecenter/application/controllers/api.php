@@ -197,7 +197,7 @@ class Api extends Controller {
 			echo json_encode(array('status' => -1, 'errmsg' => 'token unvalid'));
 			return;
 		}
-		if (!is_numeric($v['channel_id']))
+		if (!is_numeric($_REQUEST['channel_id']))
 		{
 			echo json_encode(array('status' => -1, 'errmsg' => 'channel_id unvalid'));
 			return;
