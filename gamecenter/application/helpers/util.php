@@ -46,6 +46,49 @@ class Util{
 		$data['errmsg'] = $msg;
 		echo json_encode($data);
 	}
+
+	static function getUrl($url)
+	{
+		return file_get_contents($url);
+	}
+
+	static function get($url, $para)
+	{
+		if (isset($para))
+		{
+			$p = http_build_query($para);;
+			$url = $url . "?" . $p; 
+		}   
+		return file_get_contents($url);
+	}   
+
+	static function post($url, $para)
+	{   
+		$data = http_build_query($para);
+
+		$opts = array (
+			'http' => array (
+				'method' => 'POST',
+				'header'=> "Content-type: application/x-www-form-urlencoded\r\n" . 
+				"Content-Length: " . strlen($data) . "\r\n",
+					'content' => $data,
+					'timeout' => 60
+				)   
+			);  
+
+		$context = stream_context_create($opts);
+		return file_get_contents($url, false, $context);
+	}   
+
+	static function getGo($url, $para)
+	{   
+		$var = http_build_query($para);
+		if (strpos($url, '?') === false)
+			$url = $url . "?" . $var;
+		else
+			$url = $url . "&" . $var;
+		header("Location: $url"); 
+	}   
 }
 
 ?>
