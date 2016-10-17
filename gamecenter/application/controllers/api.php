@@ -135,8 +135,8 @@ class Api extends Controller {
 		$model->UpsertGame($_REQUEST);
 		$ret = Util::post($config['account_api'] . 'upsertGameInfo', array('gameId' => $_REQUEST['game_id'],
 			'shareUrl' => $_REQUEST['share_url'],
-			'recharge_url' => $_REQUEST['recharge_url'],
-			'private_key' => $_REQUEST['private_key'],
+			'rechargeUrl' => $_REQUEST['recharge_url'],
+			'privateKey' => $_REQUEST['private_key'],
 			'shop' => $_REQUEST['shop']
 		));
 		$ret = json_decode($ret, true);
