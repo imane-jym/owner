@@ -294,7 +294,7 @@ class DataCtrl {
 			$is_more = false;
 		else
 			array_pop($new);
-		$desc = $this->GetAndSetGameInfoCache($new);
+		$desc = $this->GetAndSetGameInfoCache($new, true);
 		$data = array();
 		$data['data'] = $desc;
 		$data['isMore'] = $is_more;
