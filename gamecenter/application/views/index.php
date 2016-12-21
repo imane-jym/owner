@@ -356,7 +356,7 @@ echo $str;
                             <h4 class="modal-title" id="barcodeModalLabel">关注“桔子游戏”</h4>
                         </div>
                         <div class="modal-body">
-                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/mp-qrcode.jpg">
+                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/qrcode_mghy.jpg">
                         </div>
                         <div class="modal-footer">
                             <h4 class="modal-title">长按识别二维码</h4>
