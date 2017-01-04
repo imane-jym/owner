@@ -353,7 +353,7 @@ echo $str;
                 <div class="modal-backdrop-trans modal-dialog" role="document" style="display: none">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="barcodeModalLabel">关注“桔子游戏”</h4>
+                            <h4 class="modal-title" id="barcodeModalLabel">关注“萌果互娱”</h4>
                         </div>
                         <div class="modal-body">
                             <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/qrcode_mghy.jpg">
