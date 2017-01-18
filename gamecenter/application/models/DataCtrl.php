@@ -127,7 +127,8 @@ class DataCtrl {
 			'onsale_time' => $one[7],
 			'big_pic' => $one[8],
 			'status' => $one[9],
-			'is_login' => $one[10]
+			'is_login' => $one[10],
+			'orientation' => $one[11]
 		);
 		$cache->HashMSet("GameInfo", array($info['game_id'] => json_encode($info))
 						);
@@ -250,7 +251,8 @@ class DataCtrl {
 					'onsale_time' => $val[7],
 					'big_pic' => $val[8],
 					'status' => $val[9],
-					'is_login' => $val[10]
+					'is_login' => $val[10],
+					'orientation' => $val[11]
 				);
 				$game_info[$info['game_id']] = $info;
 				$infoCache[$info['game_id']] = json_encode($info);
