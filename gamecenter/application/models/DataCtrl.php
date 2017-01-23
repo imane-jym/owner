@@ -199,7 +199,14 @@ class DataCtrl {
 		$cache->Init();
 		$game_info = $cache->HashMGet("GameInfo", $game_list);
 		$game_info_nocache = array();
-		//var_dump($game_list, $game_info);
+		if ($game_info == false)
+		{
+			foreach($game_list as $key => $val)
+				$game_info_nocache[] = $val;
+		}
+		else
+		{
+			//var_dump($game_list, $game_info);
 		foreach ($game_info as $key => $val)
 		{
 			if ($val != false)
@@ -220,6 +227,7 @@ class DataCtrl {
 				//$game_info[$key] = array();
 				$game_info_nocache[] = $key;
 			}
+		}
 		}
 
 		//var_dump($game_list, $game_info, $game_info_nocache);
