@@ -202,7 +202,10 @@ class DataCtrl {
 		if ($game_info == false)
 		{
 			foreach($game_list as $key => $val)
+			{
+				if ($val)
 				$game_info_nocache[] = $val;
+			}
 		}
 		else
 		{
