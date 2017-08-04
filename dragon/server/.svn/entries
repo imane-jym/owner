@@ -1,0 +1,83 @@
+10
+
+dir
+718
+http://172.16.0.2/svn/dragon/trunk/server
+http://172.16.0.2/svn/dragon
+
+
+
+2014-06-19T08:33:01.714408Z
+714
+imane
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ba758e4b-f1a0-ba4d-9ccb-bd2b16dd41f3
+
+doc
+dir
+
+dep
+dir
+
+CMakeLists.txt
+file
+
+
+
+
+2014-04-14T10:41:43.469208Z
+fa17c5cd20a4a57213b6a51145223a82
+2014-04-14T12:56:29.414549Z
+72
+imane
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+267
+
+pitayaserver
+dir
+
+loginserver
+dir
+
+build
+dir
+
+test
+dir
+
+gameserver
+dir
+

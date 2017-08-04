@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release
+END
+moc_replicaislandplugin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/moc_replicaislandplugin.cpp
+END
+qrc_replicaisland.obj
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/qrc_replicaisland.obj
+END
+replicaisland.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/replicaisland.intermediate.manifest
+END
+moc_replicaislandplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/moc_replicaislandplugin.obj
+END
+qrc_replicaisland.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/qrc_replicaisland.cpp
+END
+replicaislandplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/replicaisland/release/replicaislandplugin.obj
+END

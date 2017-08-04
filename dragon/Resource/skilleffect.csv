@@ -1,0 +1,6 @@
+ID,objlist,objname,effectplist,effectname,帧数,飞行速度,持续时间,每秒播放帧数
+1,0,0,effects/skills/fireball.plist,fireball/%d.png,8,400,0,8
+2,effects/skills/arrow.plist,arrow/arrow.png,effects/skills/arrow.plist,arrow/%d.png,10,400,0,10
+3,0,0,effects/skills/poisonball.plist,poisonball/%d.png,5,400,0,5
+4,0,0,effects/skills/lightning1.plist,lightning1/%d.png,8,400,0,8
+5,0,0,effects/skills/lightning2.plist,lightning2/%d.png,5,400,0,5

@@ -1,0 +1,673 @@
+﻿/*
+ * =====================================================================================
+ *
+ *       Filename:  CommonConfig.cpp
+ *
+ *    Description:  
+ *
+ *        Version:  1.0
+ *        Created:  2013年05月24日 05时11分06秒
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  imane (), imanecr@gmail.com
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+
+#include "CommonConfig.h"
+
+#include "ConfigReader.h"
+#include <stdlib.h>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <string>
+#include "EnumDefines.h"
+#include "Log.h"
+
+#if ( CC_PLATFORM_WIN32 == CC_TARGET_PLATFORM ) || ( CC_PLATFORM_IOS == CC_TARGET_PLATFORM ) || ( CC_PLATFORM_ANDROID == CC_TARGET_PLATFORM )
+#else
+#include "Util.h"
+#endif
+
+#define READER_INT(value) \
+		do{\
+		value = atol(reader.cell(i, j++).c_str());\
+		}while(0)
+
+#define READER_FLOAT(value) \
+	do{\
+	value = atof(reader.cell(i, j++).c_str());\
+	}while(0)
+
+#define READER_STR(value) \
+	do{\
+		value = reader.cell(i, j++);\
+	}while(0)
+
+#define IS_READER_ERROR \
+        do{\
+            if (reader.is_error()) \
+            {\
+            IME_ERROR("LOAD CONF ERROR"); \
+            return false;\
+            }\
+        }while(0)
+
+
+/////////////////////////////////////////////////
+CConfItem::MapData CConfItem::m_mapData;
+bool CConfItem::Init( const std::string& strFilePath )
+{
+	m_mapData.clear();
+	return ReadConfig(strFilePath, m_mapData);
+}
+
+bool CConfItem::ReadConfig(const std::string& strFilePath, MapData &map)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_ITEM info;
+		READER_INT(info.dwIndex);
+		READER_INT(info.wType);
+		READER_INT(info.wDisplayType);
+		READER_STR(info.strTitle);
+		READER_STR(info.strContent);
+		READER_INT(info.wStar);
+		READER_INT(info.dwUseLevel);
+		READER_INT(info.wProfession);
+		READER_INT(info.dwInitAttack);
+		READER_INT(info.dwAttackGrow);
+		READER_INT(info.dwInitDefence);
+		READER_INT(info.dwDefenceGrow);
+		READER_INT(info.dwInitStrength);
+		READER_INT(info.dwStrengthGrow);
+		READER_INT(info.dwInitHeal);
+		READER_INT(info.dwHealGrow);
+		READER_INT(info.dwInitPowerRecover);
+		READER_INT(info.dwPowerRecoverGrow);
+		READER_INT(info.dwAttackSpeed);
+		READER_INT(info.dwAttackTime);
+		READER_INT(info.dwDodge);
+		READER_INT(info.dwCritPro);
+		READER_INT(info.dwCritPower);
+		READER_INT(info.dwHit);
+		READER_INT(info.dwSuckBlood);
+		READER_INT(info.dwHarm);
+		READER_INT(info.dwDefaultSkillCol[0]);
+		READER_INT(info.dwDefaultSkillCol[1]);
+		READER_INT(info.dwRandSkillCol[0]);
+		READER_INT(info.dwRandSkillCol[1]);
+		READER_INT(info.dwSuitSkill);
+		for (unsigned n = 0; n < MAX_UPGRADE_COMBINE_NUMBER; n++)
+		{
+			READER_INT(info.dwCombineItem[n]);
+			READER_INT(info.dwNumber[n]);
+		}
+		READER_INT(info.dwCombineTime);
+		READER_INT(info.dwCombineConsumeCoin);
+		READER_INT(info.dwDropMission[0]);
+		READER_INT(info.dwDropMission[1]);
+		READER_INT(info.dwDropMission[2]);
+		READER_STR(info.strPicPath);
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF ITEM [Size=%lu]", map.size());
+	return true;
+}
+
+bool CConfItem::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	if (!ReadConfig(strFilePath, map))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	return true;
+}
+
+STC_CONF_ITEM* CConfItem::Find( uint32 wTestId )
+{
+	MapData::iterator it = m_mapData.find(wTestId);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+// vip conf
+CConfVip::MapData CConfVip::m_mapData;
+std::vector<uint32_t> CConfVip::m_vecExpToLevel;
+
+bool CConfVip::Init(const std::string& strFilePath )
+{
+	m_mapData.clear();
+	m_vecExpToLevel.clear();
+	return ReadConfig(strFilePath, m_mapData, m_vecExpToLevel);
+}
+
+bool CConfVip::ReadConfig(const std::string &strFilePath, MapData &map, std::vector<uint32_t> &vec)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	if (nRow <= 1)
+	{
+		IME_ERROR("the row is small than 1 rowCount %u", nRow);
+		return false;
+	}
+	uint32_t ExpLimit = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_VIP info;
+		READER_INT(info.dwIndex);
+		unsigned int check = i - 1 + INIT_VIP_LEVEL;
+		if (check != info.dwIndex)
+		{
+			IME_ERROR("ERROR CONF UNORDER [INDEX = %u]", info.dwIndex);
+			return false;
+		}
+		READER_INT(info.dwExpInterval);
+		ExpLimit += info.dwExpInterval;
+		info.dwExpLimit = ExpLimit;
+//		IME_ERROR("explimit %u", info.dwExpLimit);
+
+		vec.push_back(ExpLimit);
+
+		IS_READER_ERROR;
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF VIP [Size=%ld]", m_mapData.size());
+
+	return true;
+}
+
+bool CConfVip::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	std::vector<uint32_t> vec;
+	if (!ReadConfig(strFilePath, map, vec))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	m_vecExpToLevel = vec;
+	return true;
+}
+
+STC_CONF_VIP* CConfVip::Find(uint32 dwIndex)
+{
+	MapData::iterator it = m_mapData.find(dwIndex);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+uint32_t CConfVip::FindLevel(uint32_t dwExp)
+{
+	std::vector<uint32_t>::iterator low;
+	uint32_t level;
+	low = lower_bound(m_vecExpToLevel.begin(), m_vecExpToLevel.end(), dwExp + 1);
+	if (low == m_vecExpToLevel.end())
+	{
+		level = m_vecExpToLevel.size();
+	}
+	else
+	{
+		level = (int)(low - m_vecExpToLevel.begin()) + 1;
+	}
+	return level;
+}
+
+uint32_t CConfVip::GetMaxExp()
+{
+	if (m_vecExpToLevel.size() == 0)
+		return 0;
+	std::vector<uint32_t>::iterator it = m_vecExpToLevel.end();
+	it--;
+	it--;
+	return *it;
+}
+
+uint32_t CConfVip::GetMaxExpIntervalLv(uint32_t lv)
+{
+	if (m_mapData.find(lv) == m_mapData.end())
+	{
+		IME_ERROR("can not find this lv %u record", lv);
+		return 0;
+	}
+	else
+	{
+		return m_mapData[lv].dwExpInterval;
+	}
+	return 0;
+}
+
+uint32_t CConfVip::GetMaxLevel()
+{
+	MapData::iterator it = m_mapData.end();
+	if (it != m_mapData.begin())
+	{
+		it--;
+		return it->second.dwIndex;
+	}	
+	else
+	{
+		return 0;
+	}
+}
+
+void CConfVip::GetResult(uint32_t lv, uint32_t exp, uint32_t &newlv, uint32_t &newexp)
+{
+	while(1)
+	{
+		newlv = lv;
+		newexp = exp;
+		if (lv >= GetMaxLevel())
+		{
+			return;
+		}
+		if (m_mapData.find(lv) == m_mapData.end())
+		{
+			IME_ERROR("can not find this lv %u record", lv);
+			return;
+		}
+		if (exp < m_mapData[lv].dwExpInterval)
+		{
+			return;
+		}
+		exp -= m_mapData[lv].dwExpInterval;
+		lv++;
+	}
+}
+
+CConfHero::MapData CConfHero::datas;
+CConfHero::VecData CConfHero::vecDatas;
+
+bool CConfHero::Init( const std::string &path )
+{
+	datas.clear();
+	vecDatas.clear();
+
+	bool bRet = false;
+	do 
+	{
+		CConfigReader reader;
+
+		if( !reader.init( path ) )
+		{
+			break;
+		}
+
+		uint32_t nRow = reader.rowCount();
+
+		for ( uint32_t i = 1; i < nRow; ++i )
+		{
+			uint32_t j = 0;
+			_STC_CONF_HERO db;
+
+			READER_INT( db.dwId );
+			READER_STR( db.strName );
+			READER_STR( db.strDesc );
+			READER_INT( db.dwPos );
+			READER_INT( db.dwJob );
+			READER_INT( db.dwExp );
+			READER_INT( db.dwLevelLimit );
+			READER_INT( db.dwAttack );
+			READER_INT( db.dwAttackGrow );
+			READER_INT( db.dwDefence );
+			READER_INT( db.dwDefenceGrow );
+			READER_INT( db.dwStrong );
+			READER_INT( db.dwStrongGrow );
+			READER_INT( db.dwLifereconver );
+			READER_INT( db.dwLifereconverGrow );
+			READER_INT( db.dwRecover );
+			READER_INT( db.dwRecoverGrow );
+			READER_INT( db.dwAttackSpeed );
+			READER_INT( db.dwAttackInterval );
+			READER_INT( db.dwDodge );
+			READER_INT( db.dwCrit );
+			READER_INT( db.dwCritValue );
+			READER_INT( db.dwHitratio );
+			READER_INT( db.dwSuckblood );
+			READER_INT( db.dwSkillId[0] );
+			READER_INT( db.dwSkillId[1] );
+			READER_INT( db.dwSkillId[2] );
+			READER_INT( db.dwSkillId[3] );
+			READER_INT( db.dwAvatarId );
+
+			datas.insert( MapData::value_type( db.dwId, db ) );
+			vecDatas.push_back( &datas[db.dwId] );
+		}
+		bRet = true;
+	} while ( 0 );
+
+	return bRet;
+}
+
+const STC_CONF_HERO* CConfHero::Find( uint32_t Id )
+{
+	MapData::iterator it = datas.find( Id );
+	return it != datas.end() ? &(it->second) : NULL;
+}
+
+const STC_CONF_HERO* CConfHero::At( uint32 idx )
+{
+	if ( idx >= VecSize() )
+	{
+		return nullptr;
+	}
+
+	return vecDatas[idx];
+}
+
+CConfSkill::MapData CConfSkill::datas;
+
+bool CConfSkill::Init( const char *path )
+{
+	datas.clear();
+
+	bool bRet = false;
+	do 
+	{
+		CConfigReader reader;
+		if ( !reader.init( path ) )
+		{
+			break;
+		}
+
+		uint32_t nRow = reader.rowCount();
+
+		for ( uint32_t i = 1; i < nRow; ++i )
+		{
+			uint32_t j = 0;
+			STC_CONF_SKILL db;
+
+			READER_INT( db.dwId );
+			READER_STR( db.strName );
+			READER_STR( db.strDesc );
+			READER_INT( db.dwAttribute );
+			READER_INT( db.dwJob );
+			READER_INT( db.dwLimitLevel );
+			READER_INT( db.dwUseType );// 1 MT 2 AT
+			READER_INT( db.dwType );
+			READER_INT( db.dwDamage );
+			READER_INT( db.dwTargetRule );
+			READER_INT( db.dwAttackRange[0] );
+			READER_INT( db.dwAttackRange[1] );
+			READER_INT( db.dwSettlementRule );
+			READER_INT( db.dwImpactCount );
+			READER_INT( db.dwAttackDistance );
+			READER_STR( db.strSingMotion );
+			READER_STR( db.strSingEffect );
+			READER_INT( db.dwPerBreak );
+			READER_STR( db.strMotion );
+			READER_INT( db.dwPostBreak );
+			READER_INT( db.dwAttackEffect );
+			READER_INT( db.dwBeatEffect );
+			READER_INT( db.dwCD );
+			READER_INT( db.dwRageCost );
+			READER_INT( db.dwSuckBlood );
+			READER_INT( db.dwTargetOffsetX );
+			READER_INT( db.dwTargetOffsetY );
+			READER_INT( db.dwHitPer );
+			READER_INT( db.dwTargetBuff );
+			READER_INT( db.dwSpecialBuff );
+			READER_STR( db.strIcon );
+			READER_INT( db.dwAddPerLevelDamage );
+			READER_INT( db.dwAddPerLevelCure );
+			READER_INT( db.dwAddPerLevelHitPer );
+			READER_INT( db.dwAddPerLevelBuffHitPer );
+
+			datas.insert( MapData::value_type( db.dwId, db ) );
+		}
+
+		bRet = true;
+	} while ( 0 );
+
+	return bRet;
+}
+
+const STC_CONF_SKILL* CConfSkill::Find( uint32_t Id )
+{
+	MapData::const_iterator it = datas.find( Id );
+	return it != datas.end() ? &(it->second) : NULL;
+}
+
+//upgrade
+CConfUpgrade::MapData CConfUpgrade::m_mapData;
+bool CConfUpgrade::Init( const std::string& strFilePath )
+{
+	m_mapData.clear();
+	return ReadConfig(strFilePath, m_mapData);
+}
+
+bool CConfUpgrade::ReadConfig(const std::string& strFilePath, MapData &map)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	int n = 1;
+	uint32_t olditem = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_UPGRADE info;
+		READER_INT(info.wLevel);
+		READER_INT(info.dwIndex);
+		if (info.dwIndex != olditem)
+		{
+			olditem = info.dwIndex;
+			n = 1;
+		}
+		if ((unsigned int)n != info.wLevel)
+		{
+			IME_ERROR("ERROR CONF UNORDER [INDEX = %u]", info.wLevel);
+			return false;
+		}
+		for (unsigned int ii = 0; ii < MAX_UPGRADE_COMBINE_NUMBER; ii++)
+		{
+			READER_INT(info.dwCombineItem[ii]);
+			READER_INT(info.dwNumber[ii]);
+		}
+		READER_INT(info.dwCombineTime);
+		READER_INT(info.dwCombineConsumeCoin);
+
+		if (map.insert(std::make_pair(GET_UPGRADE_COMBINE_ID(info.wLevel, info.dwIndex), info)).second == false)
+		{
+			IME_ERROR("ERROR CONF TEST DUPLICATE [ChestId=%u]", GET_UPGRADE_COMBINE_ID(info.wLevel, info.dwIndex));
+			return false;
+		}
+		n++;
+	}
+
+	IME_LOG("LOAD CONF UPGRADE [Size=%lu]", map.size());
+	return true;
+}
+
+bool CConfUpgrade::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	if (!ReadConfig(strFilePath, map))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	return true;
+}
+
+const STC_CONF_UPGRADE* CConfUpgrade::Find( uint32 wTestId )
+{
+	MapData::iterator it = m_mapData.find(wTestId);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+//area
+CConfArea::MapData CConfArea::m_mapData;
+bool CConfArea::Init( const std::string& strFilePath )
+{
+	m_mapData.clear();
+	return ReadConfig(strFilePath, m_mapData);
+}
+
+bool CConfArea::ReadConfig(const std::string& strFilePath, MapData &map)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+//	int n = 1;
+//	uint32_t olditem = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_AREA info;
+		READER_INT(info.dwIndex);
+		READER_INT(info.wArea);
+		READER_INT(info.wDiffculty);
+		READER_STR(info.strName);
+		READER_STR(info.strContent);
+		READER_INT(info.wType);
+		READER_INT(info.wLevelLimit);
+		READER_INT(info.dwNeedTaskIndex);
+		READER_INT(info.dwCD);
+		READER_INT(info.wEnergyConsume);
+		READER_INT(info.dwChallengeNumber);
+		READER_INT(info.dwRoleExp);
+		READER_INT(info.dwHeroExp);
+		READER_INT(info.dwCoin);
+		for (unsigned int ii = 0; ii < MAX_AREA_FIRST_DROP; ii++)
+		{
+			READER_INT(info.dwFirstDropIndex[ii]);
+			READER_INT(info.dwFirstNumber[ii]);
+		}
+		READER_STR(info.strBackGroud);
+		READER_STR(info.strStory);
+		READER_INT(info.dwNextIndex);
+		for (unsigned int ii = 0; ii < MAX_AREA_NPC; ii++)
+		{
+			READER_INT(info.dwNPCId[ii]);
+		}
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF TEST DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF UPGRADE [Size=%lu]", map.size());
+	return true;
+}
+
+bool CConfArea::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	if (!ReadConfig(strFilePath, map))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	return true;
+}
+
+const STC_CONF_AREA* CConfArea::Find( uint32 wTestId )
+{
+	MapData::iterator it = m_mapData.find(wTestId);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+//npc
+CConfNPC::MapData CConfNPC::m_mapData;
+bool CConfNPC::Init( const std::string& strFilePath )
+{
+	m_mapData.clear();
+	return ReadConfig(strFilePath, m_mapData);
+}
+
+bool CConfNPC::ReadConfig(const std::string& strFilePath, MapData &map)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+//	int n = 1;
+//	uint32_t olditem = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_NPC info;
+		READER_INT(info.dwIndex);
+		READER_INT(info.wLevel);
+		for (unsigned int ii = 0; ii < MAX_NPC_MONSTER; ii++)
+		{
+			READER_INT(info.dwNPCId[ii]);
+			READER_INT(info.wPos[ii]);
+			READER_INT(info.dwAttack[ii]);
+			READER_INT(info.dwDefence[ii]);
+			READER_INT(info.dwHealth[ii]);
+			READER_INT(info.dwPro[ii]);
+			READER_INT(info.dwDropIndex[ii]);
+			READER_INT(info.dwDropNumber[ii]);
+		}
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF TEST DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF UPGRADE [Size=%lu]", map.size());
+	return true;
+}
+
+bool CConfNPC::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	if (!ReadConfig(strFilePath, map))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	return true;
+}
+
+const STC_CONF_NPC* CConfNPC::Find( uint32 wTestId )
+{
+	MapData::iterator it = m_mapData.find(wTestId);
+	return it == m_mapData.end() ? NULL : &it->second;
+}

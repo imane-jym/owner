@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/dragon/!svn/ver/390/trunk/server/loginserver
+END
+GmCommandExt.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/34/trunk/server/loginserver/GmCommandExt.h
+END
+LoginGroup.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/34/trunk/server/loginserver/LoginGroup.h
+END
+CenterDBCtrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/360/trunk/server/loginserver/CenterDBCtrl.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/34/trunk/server/loginserver/CMakeLists.txt
+END
+Handler.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/390/trunk/server/loginserver/Handler.cpp
+END
+CenterDBCtrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/34/trunk/server/loginserver/CenterDBCtrl.h
+END
+Handler.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/390/trunk/server/loginserver/Handler.h
+END
+GmCommandExt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/360/trunk/server/loginserver/GmCommandExt.cpp
+END
+LoginGroup.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dragon/!svn/ver/360/trunk/server/loginserver/LoginGroup.cpp
+END
+GmCommand.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/360/trunk/server/loginserver/GmCommand.h
+END

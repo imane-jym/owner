@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/dragon/!svn/ver/34/trunk/server/dep/include/zlib
+END
+zconf.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/34/trunk/server/dep/include/zlib/zconf.h
+END
+zlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/include/zlib/zlib.h
+END

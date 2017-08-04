@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini
+END
+inifile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/inifile.cpp
+END
+allocator.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/allocator.cpp
+END
+log.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/log.cpp
+END
+globals.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/globals.cpp
+END
+inisection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/inisection.cpp
+END
+tester.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/tester.cpp
+END
+benchmark.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/benchmark.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/miniini/CMakeLists.txt
+END

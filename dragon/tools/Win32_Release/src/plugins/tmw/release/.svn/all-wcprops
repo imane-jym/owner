@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/tmw/release
+END
+moc_tmwplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/tmw/release/moc_tmwplugin.obj
+END
+tmwplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/tmw/release/tmwplugin.obj
+END
+moc_tmwplugin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/tmw/release/moc_tmwplugin.cpp
+END
+tmw.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/tmw/release/tmw.intermediate.manifest
+END

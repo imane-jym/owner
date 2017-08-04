@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/17/trunk/tools/Win32_Release/src/automappingconverter/release
+END
+main.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/17/trunk/tools/Win32_Release/src/automappingconverter/release/main.obj
+END
+moc_converterwindow.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/moc_converterwindow.cpp
+END
+convertercontrol.obj
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/convertercontrol.obj
+END
+moc_converterdatamodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/moc_converterdatamodel.cpp
+END
+moc_converterwindow.obj
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/moc_converterwindow.obj
+END
+converterwindow.obj
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/converterwindow.obj
+END
+moc_converterdatamodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/moc_converterdatamodel.obj
+END
+automappingconverter.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/automappingconverter.intermediate.manifest
+END
+converterdatamodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/automappingconverter/release/converterdatamodel.obj
+END

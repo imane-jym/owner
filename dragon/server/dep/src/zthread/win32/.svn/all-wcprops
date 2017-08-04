@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32
+END
+AtomicFastRecursiveLock.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/AtomicFastRecursiveLock.h
+END
+FastRecursiveLock.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/FastRecursiveLock.h
+END
+AtomicCount.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/AtomicCount.cxx
+END
+Monitor.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/Monitor.cxx
+END
+AtomicFastLock.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/AtomicFastLock.h
+END
+PerformanceCounterStrategy.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/PerformanceCounterStrategy.h
+END
+ThreadOps.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/ThreadOps.cxx
+END
+FastLock.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/FastLock.h
+END
+Monitor.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/Monitor.h
+END
+TSS.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/TSS.h
+END
+ThreadOps.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zthread/win32/ThreadOps.h
+END

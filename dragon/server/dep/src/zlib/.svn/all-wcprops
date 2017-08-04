@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib
+END
+gzio.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/gzio.c
+END
+deflate.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/deflate.h
+END
+crc32.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/crc32.c
+END
+zutil.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/zutil.h
+END
+inftrees.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inftrees.c
+END
+crc32.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/crc32.h
+END
+inflate.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inflate.c
+END
+trees.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/trees.c
+END
+uncompr.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/uncompr.c
+END
+inftrees.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inftrees.h
+END
+zconf.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/zconf.h
+END
+inflate.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inflate.h
+END
+trees.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/trees.h
+END
+inffast.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inffast.c
+END
+example.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/example.c
+END
+compress.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/compress.c
+END
+adler32.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/adler32.c
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/CMakeLists.txt
+END
+infback.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/infback.c
+END
+inffast.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inffast.h
+END
+inffixed.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/inffixed.h
+END
+deflate.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/deflate.c
+END
+zlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/zlib.h
+END
+zutil.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/34/trunk/server/dep/src/zlib/zutil.c
+END

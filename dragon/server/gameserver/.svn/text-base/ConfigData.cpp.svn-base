@@ -1,0 +1,488 @@
+/*
+ * ConfigData.cpp
+ *
+ *  Created on: 2011-7-5
+ *      Author: yq
+ */
+
+#include "ConfigData.h"
+#include "ConfigReader.h"
+#include "Log.h"
+#include <stdlib.h>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <string>
+#include "Role.h"
+#include "Util.h"
+#include "EnumDefines.h"
+#include "CommonConfig.h"
+#include "DBCtrl.h"
+#include "World.h"
+
+#define READER_INT(value) \
+		do{\
+		value = atol(reader.cell(i, j++).c_str());\
+		}while(0)
+
+#define READER_FLOAT(value) \
+	do{\
+	value = atof(reader.cell(i, j++).c_str());\
+	}while(0)
+
+#define READER_STR(value) \
+	do{\
+		value = reader.cell(i, j++);\
+	}while(0)
+
+#define IS_READER_ERROR \
+        do{\
+            if (reader.is_error()) \
+            {\
+            IME_ERROR("LOAD CONF ERROR"); \
+            return false;\
+            }\
+        }while(0)
+
+std::map<std::string, FuncInit> mapInit;
+std::map<std::string, FuncValid> mapValid;
+std::map<std::string, FuncInit> mapReload;
+
+#define INIT_CONFIG(table, func) \
+	mapInit[table] = func;
+#define VALID_RELOAD_CONFIG(table, validfunc, reloadfunc) \
+	mapValid[table] = validfunc;\
+	mapReload[table] = reloadfunc;
+
+bool ConfInit(std::string strpath)
+{
+//	INIT_CONFIG("test.csv", CConfTest::Init);
+	INIT_CONFIG("exp.csv", CConfRole::Init);
+	INIT_CONFIG("item.csv", CConfItem::Init);
+	INIT_CONFIG("vip.csv", CConfVip::Init);
+	INIT_CONFIG("heroexp.csv", CConfHeroExp::Init);
+	INIT_CONFIG("hero.csv", CConfHero::Init);
+	INIT_CONFIG("upgrade.csv", CConfUpgrade::Init);
+	INIT_CONFIG("area.csv", CConfArea::Init);
+	INIT_CONFIG("npc.csv", CConfNPC::Init);
+//	VALID_RELOAD_CONFIG("test.csv", CConfTest::Valid, CConfTest::Init);
+	VALID_RELOAD_CONFIG("exp.csv", CConfRole::Valid, CConfRole::Init);
+	VALID_RELOAD_CONFIG("item.csv", CConfItem::Valid, CConfItem::Init);
+	VALID_RELOAD_CONFIG("vip.csv", CConfVip::Valid, CConfVip::Init);
+	VALID_RELOAD_CONFIG("upgrade.csv", CConfUpgrade::Valid, CConfUpgrade::Init);
+	VALID_RELOAD_CONFIG("area.csv", CConfArea::Valid, CConfArea::Init);
+	VALID_RELOAD_CONFIG("npc.csv", CConfNPC::Valid, CConfNPC::Init);
+	
+	for (std::map<std::string, FuncInit>::iterator it = mapInit.begin(); it != mapInit.end(); it++)
+	{
+		if ( !(it->second(strpath + it->first)))
+		{
+			IME_ERROR("init table %s fail", it->first.c_str());
+			return false;
+		}
+	}
+    return true;
+}
+
+bool ConfValid(std::string strpath, std::string strTable)
+{
+	std::map<std::string, FuncValid>::iterator it = mapValid.find(strTable);
+	if (it != mapValid.end())
+	{
+		if ( !(it->second(strpath + it->first)) )
+		{
+			IME_ERROR("valid table %s fail", it->first.c_str());
+			return false;
+		}
+		return true;	
+	}
+	else
+	{
+		IME_ERROR("this csv table %s valid do not supported", strTable.c_str());
+		return false;
+	}
+}
+
+bool ConfReload(std::string strpath, std::string strTable)
+{
+	std::map<std::string, FuncInit>::iterator it = mapReload.find(strTable);
+	if (it != mapReload.end())
+	{
+		if ( !(it->second(strpath + it->first)) )
+		{
+			IME_ERROR("reload table %s fail", it->first.c_str());
+			return false;
+		}
+		return true;	
+	}
+	else
+	{
+		IME_ERROR("this csv table %s reload do not supported", strTable.c_str());
+		return false;
+	}
+}
+
+/////////////////////////////////////////////////
+CConfTest::MapData CConfTest::m_mapData;
+bool CConfTest::Init( const std::string& strFilePath )
+{
+	m_mapData.clear();
+	return ReadConfig(strFilePath, m_mapData);
+}
+
+bool CConfTest::ReadConfig(const std::string& strFilePath, MapData &map)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_TEST info;
+		READER_INT(info.wTestId);
+		if (!info.wTestId)
+		{
+			continue;
+		}
+
+		if (map.insert(std::make_pair(info.wTestId, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF TEST DUPLICATE [ChestId=%u]", info.wTestId);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF TEST [Size=%lu]", map.size());
+	return true;
+}
+
+bool CConfTest::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	if (!ReadConfig(strFilePath, map))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	return true;
+}
+
+STC_CONF_TEST* CConfTest::Find( uint16 wTestId )
+{
+	MapData::iterator it = m_mapData.find(wTestId);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+// role conf
+CConfRole::MapData CConfRole::m_mapData;
+std::vector<uint32_t> CConfRole::m_vecExpToLevel;
+
+bool CConfRole::Init(const std::string& strFilePath )
+{
+	m_mapData.clear();
+	m_vecExpToLevel.clear();
+	return ReadConfig(strFilePath, m_mapData, m_vecExpToLevel);
+}
+
+bool CConfRole::ReadConfig(const std::string &strFilePath, MapData &map, std::vector<uint32_t> &vec)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	if (nRow <= 1)
+	{
+		IME_ERROR("the row is small than 1 rowCount %u", nRow);
+		return false;
+	}
+	uint32_t ExpLimit = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_ROLE info;
+		READER_INT(info.dwIndex);
+		if ((unsigned int)i != info.dwIndex)
+		{
+			IME_ERROR("ERROR CONF UNORDER [INDEX = %u]", info.dwIndex);
+			return false;
+		}
+		READER_INT(info.dwExpInterval);
+		ExpLimit += info.dwExpInterval;
+		info.dwExpLimit = ExpLimit;
+//		IME_ERROR("explimit %u", info.dwExpLimit);
+
+		vec.push_back(ExpLimit);
+
+		READER_INT(info.dwEnergyLimit);
+		READER_INT(info.dwFriendLimit);
+		IS_READER_ERROR;
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF EXP [Size=%ld]", m_mapData.size());
+
+	return true;
+}
+
+bool CConfRole::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	std::vector<uint32_t> vec;
+	if (!ReadConfig(strFilePath, map, vec))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	m_vecExpToLevel = vec;
+	return true;
+}
+
+STC_CONF_ROLE* CConfRole::Find(uint32 dwIndex)
+{
+	MapData::iterator it = m_mapData.find(dwIndex);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+uint32_t CConfRole::FindLevel(uint32_t dwExp)
+{
+	std::vector<uint32_t>::iterator low;
+	uint32_t level;
+	low = lower_bound(m_vecExpToLevel.begin(), m_vecExpToLevel.end(), dwExp + 1);
+	if (low == m_vecExpToLevel.end())
+	{
+		level = m_vecExpToLevel.size();
+	}
+	else
+	{
+		level = (int)(low - m_vecExpToLevel.begin()) + 1;
+	}
+	return level;
+}
+
+uint32_t CConfRole::GetMaxExp()
+{
+	if (m_vecExpToLevel.size() == 0)
+		return 0;
+	std::vector<uint32_t>::iterator it = m_vecExpToLevel.end();
+	it--;
+	it--;
+	return *it;
+}
+
+uint32_t CConfRole::GetMaxExpIntervalLv(uint32_t lv)
+{
+	if (m_mapData.find(lv) == m_mapData.end())
+	{
+		IME_ERROR("can not find this lv %u record", lv);
+		return 0;
+	}
+	else
+	{
+		return m_mapData[lv].dwExpInterval;
+	}
+	return 0;
+}
+
+uint32_t CConfRole::GetMaxLevel()
+{
+	MapData::iterator it = m_mapData.end();
+	if (it != m_mapData.begin())
+	{
+		it--;
+		return it->second.dwIndex;
+	}	
+	else
+	{
+		return 0;
+	}
+}
+
+void CConfRole::GetResult(uint32_t lv, uint32_t exp, uint32_t &newlv, uint32_t &newexp)
+{
+	while(1)
+	{
+		newlv = lv;
+		newexp = exp;
+		if (lv >= GetMaxLevel())
+		{
+			return;
+		}
+		if (m_mapData.find(lv) == m_mapData.end())
+		{
+			IME_ERROR("can not find this lv %u record", lv);
+			return;
+		}
+		if (exp < m_mapData[lv].dwExpInterval)
+		{
+			return;
+		}
+		exp -= m_mapData[lv].dwExpInterval;
+		lv++;
+	}
+}
+
+// hero conf
+CConfHeroExp::MapData CConfHeroExp::m_mapData;
+std::vector<uint32_t> CConfHeroExp::m_vecExpToLevel;
+
+bool CConfHeroExp::Init(const std::string& strFilePath )
+{
+	m_mapData.clear();
+	m_vecExpToLevel.clear();
+	return ReadConfig(strFilePath, m_mapData, m_vecExpToLevel);
+}
+
+bool CConfHeroExp::ReadConfig(const std::string &strFilePath, MapData &map, std::vector<uint32_t> &vec)
+{
+	CConfigReader reader;
+	if (!reader.init(strFilePath))
+	{
+		return false;
+	}
+	int nRow = reader.rowCount();
+	if (nRow <= 1)
+	{
+		IME_ERROR("the row is small than 1 rowCount %u", nRow);
+		return false;
+	}
+	uint32_t ExpLimit = 0;
+	for (int i = 1; i < nRow; ++i)
+	{
+		int j = 0;
+		STC_CONF_HERO_EXP info;
+		READER_INT(info.dwIndex);
+		if ((unsigned int)i != info.dwIndex)
+		{
+			IME_ERROR("ERROR CONF UNORDER [INDEX = %u]", info.dwIndex);
+			return false;
+		}
+		READER_INT(info.dwExpInterval);
+		ExpLimit += info.dwExpInterval;
+		info.dwExpLimit = ExpLimit;
+//		IME_ERROR("explimit %u", info.dwExpLimit);
+
+		vec.push_back(ExpLimit);
+
+		IS_READER_ERROR;
+
+		if (map.insert(std::make_pair(info.dwIndex, info)).second == false)
+		{
+			IME_ERROR("ERROR CONF DUPLICATE [ChestId=%u]", info.dwIndex);
+			return false;
+		}
+	}
+
+	IME_LOG("LOAD CONF HERO EXP [Size=%ld]", m_mapData.size());
+
+	return true;
+}
+
+bool CConfHeroExp::Valid(const std::string& strFilePath)
+{
+	MapData map;
+	std::vector<uint32_t> vec;
+	if (!ReadConfig(strFilePath, map, vec))
+	{
+		IME_ERROR("valid config %s fail", strFilePath.c_str());
+		return false;
+	}
+	m_mapData = map;
+	m_vecExpToLevel = vec;
+	return true;
+}
+
+STC_CONF_HERO_EXP* CConfHeroExp::Find(uint32 dwIndex)
+{
+	MapData::iterator it = m_mapData.find(dwIndex);
+	return it == m_mapData.end() ? NULL : &it->second;
+}
+
+//uint32_t CConfHeroExp::FindLevel(uint32_t dwExp)
+//{
+//	std::vector<uint32_t>::iterator low;
+//	uint32_t level;
+//	low = lower_bound(m_vecExpToLevel.begin(), m_vecExpToLevel.end(), dwExp + 1);
+//	if (low == m_vecExpToLevel.end())
+//	{
+//		level = m_vecExpToLevel.size();
+//	}
+//	else
+//	{
+//		level = (int)(low - m_vecExpToLevel.begin()) + 1;
+//	}
+//	return level;
+//}
+
+uint32_t CConfHeroExp::GetMaxExp(float grow)
+{
+	if (m_vecExpToLevel.size() == 0)
+		return 0;
+	std::vector<uint32_t>::iterator it = m_vecExpToLevel.end();
+	it--;
+	it--;
+	return *it * grow;
+}
+
+uint32_t CConfHeroExp::GetMaxExpIntervalLv(uint32_t lv, float grow)
+{
+	if (m_mapData.find(lv) == m_mapData.end())
+	{
+		IME_ERROR("can not find this lv %u record", lv);
+		return 0;
+	}
+	else
+	{
+		return m_mapData[lv].dwExpInterval * grow;
+	}
+	return 0;
+}
+
+uint32_t CConfHeroExp::GetMaxLevel()
+{
+	MapData::iterator it = m_mapData.end();
+	if (it != m_mapData.begin())
+	{
+		it--;
+		return it->second.dwIndex;
+	}	
+	else
+	{
+		return 0;
+	}
+}
+
+void CConfHeroExp::GetResult(uint32_t lv, uint32_t exp, uint32_t &newlv, uint32_t &newexp, float grow)
+{
+	while(1)
+	{
+		newlv = lv;
+		newexp = exp;
+		if (lv >= GetMaxLevel())
+		{
+			return;
+		}
+		if (m_mapData.find(lv) == m_mapData.end())
+		{
+			IME_ERROR("can not find this lv %u record", lv);
+			return;
+		}
+		if (exp < m_mapData[lv].dwExpInterval * grow)
+		{
+			return;
+		}
+		exp -= m_mapData[lv].dwExpInterval * grow;
+		lv++;
+	}
+}

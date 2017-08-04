@@ -1,0 +1,6 @@
+ID,名称,偏移x,偏移y,角度,节点名称,资源plist,每秒/帧,帧名称,特效后置
+1,战士特效,5.67,-75.86,166.46,left_weapon,effects/weapons/warrior2.plist,8,warrior2/%d.png,0
+2,弓箭手特效,0,0,0,0,0,0,0,0
+3,法师特效,13.44,-89.15,151.12,left_weapon,effects/weapons/mage.plist,8,mage/%d.png,0
+4,诗人特效,-12.17,-42.26,134.13,left_weapon,effects/weapons/poet.plist,8,poet/%d.png,0
+5,精灵王,47.64,-142.87,180.43,left_weapon,effects/weapons/elfking.plist,5,elfking/%d.png,0

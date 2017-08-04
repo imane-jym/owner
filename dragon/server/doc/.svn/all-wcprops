@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/dragon/!svn/ver/34/trunk/server/doc
+END
+loginserver.ini
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/34/trunk/server/doc/loginserver.ini
+END
+readme
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/dragon/!svn/ver/34/trunk/server/doc/readme
+END
+gameserver.ini
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/34/trunk/server/doc/gameserver.ini
+END

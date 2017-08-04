@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/droidcraft
+END
+Makefile.Debug
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/droidcraft/Makefile.Debug
+END
+Makefile.Release
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/droidcraft/Makefile.Release
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/droidcraft/Makefile
+END
