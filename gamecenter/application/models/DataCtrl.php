@@ -312,7 +312,7 @@ class DataCtrl {
 		//var_dump($ret, $page, $category_id);
 		$cate = $ret[$category_id];
 
-		$game_list = explode(",", $cate['game_id_list']);
+		$game_list = array_reverse(explode(",", $cate['game_id_list']));
 		$game_list_ret = array_slice($game_list, $page * 10, 11); 
 
 		$is_more = true;

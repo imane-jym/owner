@@ -8,7 +8,7 @@ if (isset($channel))
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>桔子游戏</title>
+		<title>菠萝游戏</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="format-detection" content="telephone=no">
@@ -22,7 +22,7 @@ if (isset($channel))
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="cache" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
-		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/jvzi.ico">
+		<link rel="shortcut icon " href="<?php echo $config['base_url'] ?>/static/images/boluo.ico">
 		<link rel="stylesheet" type="text/css" href="<?php echo $config['base_url'] ?>/static/style/build/index.css?v=201511301259" />
 	</head>
 
@@ -32,7 +32,7 @@ if (isset($channel))
 	<header id="head" class="base-head">
 	<div class="head-menu">
 		<span class="head-search"><a></a></span>
-		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/head-icon.png"></a></span>
+		<span class="head-icon"><a href="<?php echo $home ?>"><img src="<?php echo $config['base_url'] ?>/static/images/boluo-head-icon.png"></a></span>
 		<!--<span class="head-icon"><a href="http://wx.1758.com"><img style="width: 200px;" src="http://images.1758.com/ranking/1758yearicon.png"></a></span>-->
 		<!--<span class="head-dowload"><a href="http://wx.wx1758.com/game/download.htm">安装1758</a></span>-->
 		<!-- <a onclick="onFollowClick()" role="button" class="follow-button" data-toggle="modal" data-target="#barcodeModal"><img src="<?php echo $config['base_url'] ?>/static/images/btn-follow.png"></a> -->

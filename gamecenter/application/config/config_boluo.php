@@ -5,7 +5,7 @@ $config['base_url'] = 'http://game.guolaiwanba.com/'; // Base URL including trai
 $config['default_controller'] = 'main'; // Default controller to load
 $config['error_controller'] = 'error'; // Controller used for errors (e.g. 404, 500 etc)
 
-$config['db_host'] = '10.144.20.124'; // Database host (e.g. localhost)
+$config['db_host'] = '10.25.111.24'; // Database host (e.g. localhost)
 $config['db_name'] = 'game_center'; // Database name
 $config['db_username'] = 'game'; // Database username
 $config['db_password'] = '123456'; // Database password
@@ -20,7 +20,7 @@ $config['login_enter'] = 'http://www.guolaiwanba.com/login/'; // user password h
 
 $config['secure_key'] = 'asEg38s3l94'; //backport secure key
 
-$config['account_api'] = 'http://10.144.20.124:8887/'; // user info api url related account and recharge
+$config['account_api'] = 'http://10.25.111.24:8887/'; // user info api url related account and recharge
 
 define('LOG_PATH', ROOT_DIR .'log/');
 define('LOG_FILE_SIZE', 10485760); // 10mb
