@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release
+END
+mapreader.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/mapreader.obj
+END
+compression.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/compression.obj
+END
+orthogonalrenderer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/orthogonalrenderer.obj
+END
+maprenderer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/maprenderer.obj
+END
+mapobject.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/mapobject.obj
+END
+tiled.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/tiled.intermediate.manifest
+END
+gidmapper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/gidmapper.obj
+END
+tileset.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/tileset.obj
+END
+mapwriter.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/mapwriter.obj
+END
+layer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/layer.obj
+END
+map.obj
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/map.obj
+END
+imagelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/imagelayer.obj
+END
+objectgroup.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/objectgroup.obj
+END
+isometricrenderer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/isometricrenderer.obj
+END
+tilelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/tilelayer.obj
+END
+staggeredrenderer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/staggeredrenderer.obj
+END
+properties.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/properties.obj
+END
+tile.obj
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/libtiled/release/tile.obj
+END

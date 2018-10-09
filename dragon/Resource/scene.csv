@@ -1,0 +1,7 @@
+场景id,描述,json路径,plist路径1,plist路径2,plist路径3
+1,主界面,ui/Json/Main.json,ui/main0.plist,0,0
+2,小屋,ui/Json/Home.json,ui/home0.plist,ui/home1.plist,0
+3,战斗,ui/Json/Battle.json,ui/battle0.plist,ui/main0.plist,0
+4,工坊,ui/Json/Factory.json,ui/factory0.plist,0,0
+5,技能小屋,ui/Json/jineng.json,ui/jineng0.plist,0,0
+6,世界地图,ui/Json/Area.json,ui/tuitu0.plist,ui/main0.plist,0

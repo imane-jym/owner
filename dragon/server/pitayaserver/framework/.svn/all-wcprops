@@ -1,0 +1,401 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/681/trunk/server/pitayaserver/framework
+END
+SessCtrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/SessCtrl.cpp
+END
+WorldDb.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/WorldDb.h
+END
+NameChecker.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NameChecker.cpp
+END
+Trie.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Trie.h
+END
+QueryResult.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/QueryResult.h
+END
+ShardingDB.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ShardingDB.h
+END
+Server.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Server.h
+END
+Client.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Client.cpp
+END
+Log.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Log.cpp
+END
+IDCtrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/IDCtrl.cpp
+END
+UserSession.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/UserSession.cpp
+END
+Defines.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Defines.h
+END
+CsvReader.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/CsvReader.h
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/main.cpp
+END
+SocketBuffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/SocketBuffer.h
+END
+ObjAdmin.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ObjAdmin.h
+END
+AnyType.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/AnyType.cpp
+END
+NetClient.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NetClient.h
+END
+Set.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Set.cpp
+END
+DynamicStruct.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/DynamicStruct.h
+END
+QueryResultMysql.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/QueryResultMysql.h
+END
+ByteBuffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/681/trunk/server/pitayaserver/framework/ByteBuffer.h
+END
+Server.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Server.cpp
+END
+RelayClientRunnable.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/RelayClientRunnable.h
+END
+NameChecker.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NameChecker.h
+END
+NetRunnable.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NetRunnable.cpp
+END
+CsvReader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/CsvReader.cpp
+END
+CmdInnerDefine.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/CmdInnerDefine.h
+END
+StressTestClient.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/StressTestClient.c
+END
+SocketBuffer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/SocketBuffer.cpp
+END
+WorldRunnable.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/WorldRunnable.h
+END
+WorldPacket.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/WorldPacket.h
+END
+IDCtrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/IDCtrl.h
+END
+Log.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Log.h
+END
+QueryResultMysql.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/QueryResultMysql.cpp
+END
+ConfigReader.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ConfigReader.h
+END
+AnyType.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/AnyType.h
+END
+Set.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Set.h
+END
+RelayClientRunnable.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/RelayClientRunnable.cpp
+END
+PlayerSession.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/PlayerSession.h
+END
+LuaScript.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/LuaScript.h
+END
+Util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Util.cpp
+END
+WorldRunnable.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/WorldRunnable.cpp
+END
+RelayClientSession.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/RelayClientSession.cpp
+END
+NetRunnable.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NetRunnable.h
+END
+Field.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Field.cpp
+END
+md5.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/md5.cpp
+END
+LuaState.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/LuaState.h
+END
+ConfigReader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ConfigReader.cpp
+END
+WorldDb.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/WorldDb.cpp
+END
+DatabaseMysql.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/DatabaseMysql.h
+END
+PlayerSession.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/PlayerSession.cpp
+END
+ShardingDB.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ShardingDB.cpp
+END
+LuaScript.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/LuaScript.cpp
+END
+SessCtrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/SessCtrl.h
+END
+Util.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Util.h
+END
+Client.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Client.h
+END
+ObjAdmin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/ObjAdmin.cpp
+END
+RelayClientSession.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/RelayClientSession.h
+END
+NetClient.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/NetClient.cpp
+END
+Timer.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dragon/!svn/ver/360/trunk/server/pitayaserver/framework/Timer.h
+END
+UserSession.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/UserSession.h
+END
+Field.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Field.h
+END
+md5.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/md5.h
+END
+Version.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/Version.h
+END
+DatabaseMysql.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dragon/!svn/ver/34/trunk/server/pitayaserver/framework/DatabaseMysql.cpp
+END

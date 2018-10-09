@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tmxrasterizer/release
+END
+tmxrasterizer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tmxrasterizer/release/tmxrasterizer.obj
+END
+main.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tmxrasterizer/release/main.obj
+END
+tmxrasterizer.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tmxrasterizer/release/tmxrasterizer.intermediate.manifest
+END

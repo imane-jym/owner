@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/dragon/!svn/ver/360/trunk/server/test
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/360/trunk/server/test/CMakeLists.txt
+END
+test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/dragon/!svn/ver/360/trunk/server/test/test.cpp
+END
+MailDetailInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/72/trunk/server/test/MailDetailInfo.php
+END

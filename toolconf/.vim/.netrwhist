@@ -1,8 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/data/TGSServer/login/share'
-let g:netrw_dirhist_2='/data/3d_client/trunk/server/build/lobby/log'
-let g:netrw_dirhist_3='/home/imane/WorkArea/test/node_modules'
-let g:netrw_dirhist_4='/data/3d_client/branches/server_1.2/loginserver'
-let g:netrw_dirhist_5='/data/3d_client/trunk/server'
-let g:netrw_dirhist_6='/data/3d_client/trunk/server/build/lobby/log'
+let g:netrw_dirhist_cnt =0

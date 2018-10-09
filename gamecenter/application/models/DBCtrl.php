@@ -60,7 +60,8 @@ class DBctrl extends Model {
 					 onsale_time int unsigned not null default 0,
 					 big_pic varchar(255) not null default '',           
 					 status smallint unsigned not null default 0 comment '0:defailt no pass 1: pass 2: test 3: onsale 4: offsale',
-					 is_login smallint unsigned not null default 0 comment '0:defailt no 1: need'
+					 is_login smallint unsigned not null default 0 comment '0:defailt no 1: need',
+					 orientation smallint unsigned not null default 0 comment '0:vertical 1:horizontal'
 					 )engine=innodb DEFAULT charset=utf8;");              
 		}
 		if (!$this->ExistTable("category_info"))
@@ -131,7 +132,7 @@ class DBctrl extends Model {
 		else
 			return array();
 
-		return $this->query("select game_id,icon,url,title,brief,content,create_time,onsale_time,big_pic,status,is_login from game_info where game_id " . $strCondition);
+		return $this->query("select game_id,icon,url,title,brief,content,create_time,onsale_time,big_pic,status,is_login,orientation from game_info where game_id " . $strCondition);
 	}
 
 	public function GetCategoryInfoList()

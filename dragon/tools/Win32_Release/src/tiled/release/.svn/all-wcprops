@@ -1,0 +1,1421 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/dragon/!svn/ver/32/trunk/tools/Win32_Release/src/tiled/release
+END
+minimapdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/minimapdock.obj
+END
+objecttypes.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objecttypes.obj
+END
+moc_mapobjectmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapobjectmodel.cpp
+END
+moc_createobjecttool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_createobjecttool.cpp
+END
+moc_editpolygontool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_editpolygontool.cpp
+END
+moc_mapscene.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapscene.cpp
+END
+changeproperties.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changeproperties.obj
+END
+changeimagelayerproperties.obj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changeimagelayerproperties.obj
+END
+moc_tilesetmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetmanager.obj
+END
+moc_mapview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapview.obj
+END
+qrc_tiled.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/qrc_tiled.obj
+END
+moc_terrainbrush.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainbrush.obj
+END
+newmapdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/newmapdialog.obj
+END
+moc_resizehelper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_resizehelper.cpp
+END
+moc_tileselectiontool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tileselectiontool.cpp
+END
+moc_mappropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mappropertiesdialog.obj
+END
+changetileselection.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changetileselection.obj
+END
+moc_imagelayerpropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_imagelayerpropertiesdialog.obj
+END
+moc_mapdocument.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapdocument.obj
+END
+moc_propertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_propertiesdialog.obj
+END
+command.obj
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/command.obj
+END
+moc_zoomable.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_zoomable.cpp
+END
+moc_tiledapplication.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tiledapplication.obj
+END
+moc_eraser.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_eraser.cpp
+END
+createobjecttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/createobjecttool.obj
+END
+moc_tilesetmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetmodel.obj
+END
+mapscene.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapscene.obj
+END
+moc_commanddialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commanddialog.obj
+END
+moc_terrainview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainview.obj
+END
+layermodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/layermodel.obj
+END
+moc_filesystemwatcher.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_filesystemwatcher.obj
+END
+resizehelper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/resizehelper.obj
+END
+moc_minimapdock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_minimapdock.cpp
+END
+brushitem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/brushitem.obj
+END
+terraindock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/terraindock.obj
+END
+moc_newmapdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_newmapdialog.obj
+END
+automappingutils.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/automappingutils.obj
+END
+moc_toolmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_toolmanager.obj
+END
+moc_commandbutton.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commandbutton.obj
+END
+moc_colorbutton.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_colorbutton.obj
+END
+moc_tilesetdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetdock.obj
+END
+zoomable.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/zoomable.obj
+END
+documentmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/documentmanager.obj
+END
+tilelayeritem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilelayeritem.obj
+END
+moc_mainwindow.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mainwindow.obj
+END
+moc_saveasimagedialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_saveasimagedialog.cpp
+END
+automapper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/automapper.obj
+END
+automapperwrapper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/automapperwrapper.obj
+END
+automappingmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/automappingmanager.obj
+END
+moc_bucketfilltool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_bucketfilltool.obj
+END
+tiled.res
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tiled.res
+END
+moc_mapobjectmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapobjectmodel.obj
+END
+moc_layerdock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_layerdock.cpp
+END
+moc_command.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_command.cpp
+END
+moc_createobjecttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_createobjecttool.obj
+END
+moc_mapscene.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapscene.obj
+END
+moc_editpolygontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_editpolygontool.obj
+END
+minimap.obj
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/minimap.obj
+END
+movemapobject.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/movemapobject.obj
+END
+imagelayeritem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/imagelayeritem.obj
+END
+moc_abstractobjecttool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstractobjecttool.cpp
+END
+resizelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/resizelayer.obj
+END
+commanddialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/commanddialog.obj
+END
+moc_resizehelper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_resizehelper.obj
+END
+moc_tileselectiontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tileselectiontool.obj
+END
+filesystemwatcher.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/filesystemwatcher.obj
+END
+objectgroupitem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objectgroupitem.obj
+END
+movelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/movelayer.obj
+END
+moc_zoomable.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_zoomable.obj
+END
+moc_abstracttool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstracttool.cpp
+END
+moc_objectpropertiesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectpropertiesdialog.cpp
+END
+changemapobject.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changemapobject.obj
+END
+commandbutton.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/commandbutton.obj
+END
+selectionrectangle.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/selectionrectangle.obj
+END
+moc_terraindock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terraindock.cpp
+END
+moc_undodock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_undodock.cpp
+END
+moc_eraser.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_eraser.obj
+END
+moc_documentmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_documentmanager.cpp
+END
+moc_tileselectionitem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tileselectionitem.cpp
+END
+moc_minimapdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_minimapdock.obj
+END
+pluginmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/pluginmanager.obj
+END
+aboutdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/aboutdialog.obj
+END
+addremovemapobject.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/addremovemapobject.obj
+END
+geometry.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/geometry.obj
+END
+moc_stampbrush.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_stampbrush.cpp
+END
+erasetiles.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/erasetiles.obj
+END
+utils.obj
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/utils.obj
+END
+moc_minimap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_minimap.cpp
+END
+abstracttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/abstracttool.obj
+END
+tileselectiontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tileselectiontool.obj
+END
+preferences.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/preferences.obj
+END
+moc_saveasimagedialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_saveasimagedialog.obj
+END
+commandlineparser.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/commandlineparser.obj
+END
+addremovelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/addremovelayer.obj
+END
+offsetmapdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/offsetmapdialog.obj
+END
+tilesetmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilesetmanager.obj
+END
+renamelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/renamelayer.obj
+END
+tilesetview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilesetview.obj
+END
+undodock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/undodock.obj
+END
+movemapobjecttogroup.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/movemapobjecttogroup.obj
+END
+moc_layerdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_layerdock.obj
+END
+imagelayerpropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/imagelayerpropertiesdialog.obj
+END
+moc_command.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_command.obj
+END
+languagemanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/languagemanager.obj
+END
+objectgrouppropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objectgrouppropertiesdialog.obj
+END
+mapobjectitem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/32/trunk/tools/Win32_Release/src/tiled/release/mapobjectitem.obj
+END
+offsetlayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/offsetlayer.obj
+END
+moc_abstractobjecttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstractobjecttool.obj
+END
+moc_preferencesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_preferencesdialog.cpp
+END
+objectsdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objectsdock.obj
+END
+moc_abstracttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstracttool.obj
+END
+moc_aboutdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_aboutdialog.cpp
+END
+moc_clipboardmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_clipboardmanager.cpp
+END
+changemapproperties.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changemapproperties.obj
+END
+moc_objectpropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectpropertiesdialog.obj
+END
+moc_terraindock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terraindock.obj
+END
+moc_layermodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_layermodel.cpp
+END
+moc_undodock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_undodock.obj
+END
+saveasimagedialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/saveasimagedialog.obj
+END
+moc_preferences.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_preferences.cpp
+END
+moc_documentmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_documentmanager.obj
+END
+moc_mapsdock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapsdock.cpp
+END
+moc_tilesetview.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetview.cpp
+END
+moc_offsetmapdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_offsetmapdialog.cpp
+END
+objectselectiontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objectselectiontool.obj
+END
+mainwindow.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mainwindow.obj
+END
+propertiesmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/propertiesmodel.obj
+END
+layerdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/layerdock.obj
+END
+moc_tileselectionitem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tileselectionitem.obj
+END
+moc_quickstampmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_quickstampmanager.cpp
+END
+moc_objecttypesmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objecttypesmodel.cpp
+END
+bucketfilltool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/bucketfilltool.obj
+END
+moc_automapper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_automapper.cpp
+END
+moc_automappingmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_automappingmanager.cpp
+END
+mapobjectmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapobjectmodel.obj
+END
+moc_objectgrouppropertiesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectgrouppropertiesdialog.cpp
+END
+moc_stampbrush.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_stampbrush.obj
+END
+moc_resizedialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_resizedialog.cpp
+END
+filltiles.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/filltiles.obj
+END
+propertiesview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/propertiesview.obj
+END
+moc_minimap.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_minimap.obj
+END
+changetileterrain.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changetileterrain.obj
+END
+clipboardmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/clipboardmanager.obj
+END
+moc_terrainmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainmodel.cpp
+END
+changepolygon.obj
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changepolygon.obj
+END
+moc_commanddatamodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commanddatamodel.cpp
+END
+moc_editterraindialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_editterraindialog.cpp
+END
+moc_objectsdock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectsdock.cpp
+END
+mapsdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapsdock.obj
+END
+mapview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapview.obj
+END
+moc_newtilesetdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_newtilesetdialog.cpp
+END
+mappropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mappropertiesdialog.obj
+END
+objecttypesmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objecttypesmodel.obj
+END
+mapdocument.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapdocument.obj
+END
+moc_mapdocumentactionhandler.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapdocumentactionhandler.cpp
+END
+moc_preferencesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_preferencesdialog.obj
+END
+moc_objectselectiontool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectselectiontool.cpp
+END
+eraser.obj
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/eraser.obj
+END
+resizedialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/resizedialog.obj
+END
+tileselectionitem.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tileselectionitem.obj
+END
+moc_propertiesmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_propertiesmodel.cpp
+END
+moc_abstracttiletool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstracttiletool.cpp
+END
+terrainmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/terrainmodel.obj
+END
+resizemapobject.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/resizemapobject.obj
+END
+moc_aboutdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_aboutdialog.obj
+END
+moc_clipboardmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_clipboardmanager.obj
+END
+commanddatamodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/commanddatamodel.obj
+END
+addremoveterrain.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/addremoveterrain.obj
+END
+moc_layermodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_layermodel.obj
+END
+terrainview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/terrainview.obj
+END
+moc_preferences.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_preferences.obj
+END
+moc_mapsdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapsdock.obj
+END
+resizemap.obj
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/resizemap.obj
+END
+movetileset.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/movetileset.obj
+END
+moc_offsetmapdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_offsetmapdialog.obj
+END
+moc_tilesetview.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetview.obj
+END
+newtilesetdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/newtilesetdialog.obj
+END
+tmxmapwriter.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tmxmapwriter.obj
+END
+changeobjectgroupproperties.obj
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/changeobjectgroupproperties.obj
+END
+tiled.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tiled.intermediate.manifest
+END
+mapdocumentactionhandler.obj
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/mapdocumentactionhandler.obj
+END
+toolmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/toolmanager.obj
+END
+moc_quickstampmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_quickstampmanager.obj
+END
+colorbutton.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/colorbutton.obj
+END
+tilesetdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilesetdock.obj
+END
+moc_tilesetmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetmanager.cpp
+END
+moc_objecttypesmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objecttypesmodel.obj
+END
+moc_automapper.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_automapper.obj
+END
+moc_automappingmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_automappingmanager.obj
+END
+moc_terrainbrush.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainbrush.cpp
+END
+moc_mapview.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapview.cpp
+END
+qrc_tiled.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/qrc_tiled.cpp
+END
+moc_objectgrouppropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectgrouppropertiesdialog.obj
+END
+abstracttiletool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/abstracttiletool.obj
+END
+moc_resizedialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_resizedialog.obj
+END
+tilepainter.obj
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilepainter.obj
+END
+moc_mappropertiesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mappropertiesdialog.cpp
+END
+preferencesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/preferencesdialog.obj
+END
+moc_imagelayerpropertiesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_imagelayerpropertiesdialog.cpp
+END
+moc_mapdocument.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapdocument.cpp
+END
+moc_propertiesdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_propertiesdialog.cpp
+END
+moc_terrainmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainmodel.obj
+END
+painttilelayer.obj
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/painttilelayer.obj
+END
+moc_commanddatamodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commanddatamodel.obj
+END
+moc_editterraindialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_editterraindialog.obj
+END
+abstractobjecttool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/abstractobjecttool.obj
+END
+moc_objectsdock.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectsdock.obj
+END
+editpolygontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/editpolygontool.obj
+END
+moc_tiledapplication.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tiledapplication.cpp
+END
+addremovetileset.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/addremovetileset.obj
+END
+moc_tilesetmodel.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetmodel.cpp
+END
+moc_newtilesetdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_newtilesetdialog.obj
+END
+objectpropertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/objectpropertiesdialog.obj
+END
+moc_commanddialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commanddialog.cpp
+END
+moc_terrainview.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_terrainview.cpp
+END
+moc_mapdocumentactionhandler.obj
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mapdocumentactionhandler.obj
+END
+terrainbrush.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/terrainbrush.obj
+END
+moc_filesystemwatcher.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_filesystemwatcher.cpp
+END
+moc_objectselectiontool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_objectselectiontool.obj
+END
+moc_propertiesmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_propertiesmodel.obj
+END
+propertiesdialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/propertiesdialog.obj
+END
+quickstampmanager.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/quickstampmanager.obj
+END
+moc_abstracttiletool.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_abstracttiletool.obj
+END
+moc_newmapdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_newmapdialog.cpp
+END
+moc_toolmanager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_toolmanager.cpp
+END
+moc_commandbutton.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_commandbutton.cpp
+END
+moc_colorbutton.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_colorbutton.cpp
+END
+moc_tilesetdock.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_tilesetdock.cpp
+END
+moc_mainwindow.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_mainwindow.cpp
+END
+main.obj
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dragon/!svn/ver/19/trunk/tools/Win32_Release/src/tiled/release/main.obj
+END
+tiledapplication.obj
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tiledapplication.obj
+END
+moc_bucketfilltool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/moc_bucketfilltool.cpp
+END
+stampbrush.obj
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/stampbrush.obj
+END
+tmxmapreader.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tmxmapreader.obj
+END
+tilesetmodel.obj
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/tilesetmodel.obj
+END
+editterraindialog.obj
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/tiled/release/editterraindialog.obj
+END

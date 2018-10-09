@@ -1,0 +1,4488 @@
+import "PacketDef.proto";
+
+package TgsProtocol;
+
+message LobbyInfo
+{
+	enum lobbyState
+	{
+		state_free = 1;
+		state_busy = 2;
+		state_full = 3;
+	}
+	required uint32		lobbyId		= 1;
+	required bytes		lobbyIp		= 2;
+	required uint32		lobbyPort	= 3;
+	required bytes		lobbyName	= 4;
+	required uint32		maxPlayer	= 5;
+	required uint32		curPlayer	= 6;
+	required uint32		state		= 7; // 1 free 2 busy 3 full
+}
+
+// GM 指令
+message CLIENT2Lobby_GmCmd
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GM_CMD ];
+	required bytes		cmdStr = 2;
+}
+
+// 心跳
+message CLIENT2Lobby_Tick
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_TICK ];
+}
+
+// 即时聊天
+message CLIENT2LOBBY_ChatInfo
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHAT_INFO_NTF ];
+	enum eChatType
+	{
+		TYPE_WORLD		= 1;	//世界
+		TYPE_PRIVATE	= 2;	//私聊
+		TYPE_GUILD		= 3;	//公会
+		TYPE_RAID		= 4;	//组队
+	};
+	required	uint32		chattype	= 2;
+	required	uint64		dstCharId	= 3;
+	required	bytes		chatTxt		= 4;
+	required	uint32		kind		= 5; // 聊天类型
+	optional    bool        issystem    = 6;
+	optional    string      name        = 7;
+};
+
+// 客户端登陆DIR
+message CLIENT2DIR_LoginReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2DIR_LOGIN_REQ ];
+	required bytes		userName = 2;
+	required bytes		password = 3;
+}
+
+message DIR2CLIENT_LoginRet
+{
+	optional TgsProtocol.PacketDef cmdId= 1 [default = DIR2CLIENT_LOGIN_RET ];
+	required uint32		accountId		= 2;
+	required bytes		token			= 3;
+	repeated LobbyInfo	lobbyList		= 4;
+}
+
+// 直连登陆lobby (使用数字账号) test 用
+message  CLIENT2LOBBY_LoginReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_LOGIN_REQ ];
+	required uint64	charId	= 2;
+}
+
+// Token 登陆(通过dir)
+message  CLIENT2LOBBY_LoginToken 
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_LOGIN_TOKEN_REQ ];
+	required bytes token	= 2;
+}
+
+// 登陆lobby 附带token 检测 和排队 
+message  CLIENT2LOBBY_AuthReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_AUTH_TOEKN_REQ ];
+	required uint64	charId	= 2;
+	required bytes deviceName = 3;
+	required bytes deviceType = 4;
+	required bytes deviceUid = 5;
+	optional uint32 platform = 6; // 渠道号
+	optional uint32 language = 7;
+}
+
+// 登陆lobby,上述完成后,这一步
+message  CLIENT2LOBBY_Auth2Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_AUTH_TOEKN2_REQ ];
+	required uint64	charId	= 2;
+	required bytes deviceName = 3;
+	required bytes deviceType = 4;
+	required bytes deviceUid = 5;
+	optional uint32 platform = 6; // 渠道号
+	optional uint32 language = 7;
+}
+
+// 创建角色
+message  CLIENT2LOBBY_CreateCharReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CREATE_CHAR_REQ ];
+
+	required uint32	gender		= 2;		// 性别
+	required bytes	charName	= 3;		// 名字
+}
+
+// 改名
+message CLIENT2LOBBY_ChangeNameReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGENAME_REQ ];
+
+	required bytes	newName	= 2;		// 名字
+};
+
+// 改头像
+message CLIENT2LOBBY_ChangePhotoReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGEPHOTO_REQ ];
+
+	required uint32	newPhoto	= 2;		// 新头像
+};
+
+// 招财进宝
+message CLIENT2LOBBY_GainTreasuresReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUY_COPPER_REQ ];
+
+	required uint32	buyNum	= 2;		// 招财次数
+};
+
+// 道具 装备 合成,道具使用
+message CLIENT2LOBBY_SynItemReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SYN_ITEM_REQ ];
+
+	required uint32	itemId		= 2;		// 道具ID
+	required uint32	composeType	= 3;		// 1 合成  2 使用
+	optional uint32 itemNum		= 4;
+	optional uint32 useGotIdx   = 5;        //宝箱N选1, idx从1开始
+};
+
+// 出售道具
+message CLIENT2LOBBY_SaleItemReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SALE_ITEM_REQ ];
+
+	repeated ItemInfo		items		 = 2;
+};
+
+enum EResolveType
+{
+	EResolveType_None = 0;
+	EResolveType_Equip = 1;
+	EResolveType_HeroSoul = 2;
+	EResolveType_Hero = 3;
+	EResolveType_HeroCard = 4;
+	EResolveType_HeroDel = 5;
+	EResolveType_EquipReset = 6;
+	EResolveType_Max = 7;
+}
+message ResolveItem
+{
+	required EResolveType type = 1;
+	required uint64 id = 2;
+	optional uint32 num = 3;
+}
+// 分解
+message CLIENT2LOBBY_ResolveReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESOLVEREQ ];
+
+	repeated ResolveItem	items		= 2;
+};
+//分解预览
+message CLIENT2LOBBY_ResolveLook_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESOLVELOOK_REQ ];
+
+	repeated ResolveItem	items		= 2;
+};
+
+// *********************************************  任务相关 **************************************
+// 提交任务
+message CLIENT2LOBBY_CommitQuestReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_COMMIT_QUEST_REQ ];
+	required uint32 questid = 2;
+};
+// 一键领取任务
+message CLIENT2LOBBY_CommitQuestAllReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_COMMIT_QUEST_ALL_REQ ];
+	required uint32 show = 2;
+};
+
+//*********************************************  副本相关 **************************************
+
+// 开始挑战副本
+message CLIENT2LOBBY_ChallengeInstanceReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHALLENGE_INSTANCE_REQ ];
+
+	required uint32	instanceId  = 2;  // 副本ID
+	required uint32	sweepTimes	= 3;  // 扫荡次数 、 非扫荡为0
+};
+
+// 结束挑战副本
+message CLIENT2LOBBY_ChallengeResult
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHALLENGE_RESULT ];
+
+	required uint32	isWin			= 2;		// 0：失败   1：胜利
+	required uint32	evaluation		= 3;		// 副本评价  (1  2  3)
+};
+
+// 翻牌
+message CLIENT2LOBBY_Flop_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_FLOP_REQ ];
+
+	required uint32	type   = 2;  // 1 全选  2 抽牌
+};
+
+// 击杀怪物
+message CLIENT2LOBBY_KillMonsterNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_KILL_MONSTER_NTF ];
+
+	required uint32	monsterId   = 2;  // 怪物ID
+};
+
+// 领取章节奖励
+message CLIENT2LOBBY_GetChapterReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_CHAPTERREWARD_REQ ];
+
+	required uint32	chapterId   = 2;  // 章节ID
+	required uint32	boxIndex	= 3;
+	required uint32 copyType    = 4;  //副本类型 1:普通 2:精英
+	optional uint32 boxType     = 5;  //0:三星宝箱 1:关卡宝箱
+};
+
+// 战斗复活
+message CLIENT2LOBBY_Revive_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REVIVE_REQ ];
+};
+// 重置次数(精英副本)
+message CLIENT2LOBBY_ResetEvaluationTimes_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESETEVALUATIONTIMES_REQ ];
+
+	required uint32	instanceId    = 2;  // 副本ID
+};
+// 更改进度
+message CLIENT2LOBBYProgressReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_PROGRESS_REQ ];
+
+	optional uint32	progress    = 2;  // 新手引导进度
+	optional uint32 leavePoint	= 3;  // 新手引导统计埋点
+	optional uint32	newprogress = 4;  // 新的新手引导进度
+};
+
+//*********************************************  英雄相关 **************************************
+enum ChangeFormationType  //更改阵型
+{
+	ChangeFormationType_Invalid	= 0;
+	ChangeFormationType_Copy	= 1; //副本
+	ChangeFormationType_Arena   = 2; //竞技场
+	ChangeFormationType_Expedition = 3; //远征
+	ChangeFormationType_Max		= 4;
+};
+// 更改阵型
+message CLIENT2LOBBY_ChangeFormation_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGEFO_RMATION_REQ ];
+
+	repeated uint32			formation		= 2;	// 出战英雄（英雄模板ID）
+	optional ChangeFormationType type		= 3;	// 布阵类型
+	repeated uint32			assistFormation	= 4;	// 出战英雄（英雄模板ID）
+};
+
+// 英雄升星
+message CLIENT2LOBBY_HeroEvolution_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HERO_EVOLUTION_REQ ];
+
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+
+// 英雄强化
+message CLIENT2LOBBY_HeroForce_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HERO_FORCE_REQ ];
+
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+//英雄化神
+message CLIENT2LOBBY_HeroDeification_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HERO_DEIFICATION_REQ ];
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+//武将唤醒
+message CLIENT2LOBBY_HeroAwake_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HERO_AWAKE_REQ ];
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+message CLIENT2LOBBY_HeroUpWings_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HEROUPWINGS_REQ ];
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+
+
+// 英雄合成
+message CLIENT2LOBBY_SaleHero_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SALEHERO_REQ ];
+
+	repeated uint32			templateId			= 2;// 英雄模板ID
+};
+
+// 装备强化 熔炼 精炼 
+message CLIENT2LOBBY_EquipForce_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_EQUIP_FORCE_REQ ];
+
+	required uint32			templateId		= 2;// 英雄模板ID
+	required uint32			equipIndex		= 3;
+	required uint32			opType			= 4; // 1强化 2熔炼 3精炼 
+};
+
+
+// 英雄献祭
+message CLIENT2LOBBY_Sacrifice_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SACRIFICE_REQ ];
+
+	required uint32			templateId		= 2;// 英雄模板ID
+};
+//英雄技能升级
+message CLIENT2LOBBY_HeroSkillUpgrade_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HEROSKILLUPGRADE_REQ ];
+
+	required uint32			templateId		= 2;// 英雄模板ID
+	required uint32			skillIndex		= 3;// 英雄技能索引(0 - 4)
+};
+//获取技能点信息
+message CLIENT2LOBBY_GetSkillInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SKILLINFO_REQ ];
+};
+//购买技能点
+message CLIENT2LOBBY_BuySkillPoint_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUY_SKILLPOINT_REQ ];
+};
+//吃药
+message CLIENT2LOBBY_UseExpItem_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_USE_EXPITEM_REQ ];
+
+	required uint32			itemTemplateId			= 2;// 道具模板ID
+	required uint32			itemNum						= 3;// 使用数量
+	required uint32			heroTemplateId			= 4;// 英雄模板ID
+};
+
+// 英雄觉醒 
+message CLIENT2LOBBY_HeroWake_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HERO_WAKE_REQ ];
+	required uint32         templateId      = 2;// 英雄模板ID
+}
+
+// 道具合成、分解（觉醒、将灵)
+message CLIENT2LOBBY_SynWakeEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SYN_WAKEEQUIP_REQ ];
+	required uint32 itemId      = 2;        // 目标道具ID
+	optional uint32 itemNum     = 3; 		// 目标道具数量
+	required uint32 operate 	= 4; 		// [ 1 :合成 , 2: 分解]
+}
+
+// 商品标记
+message CLIENT2LOBBY_MarkItem_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_MARKITEM_REQ];
+	required uint32 itemId      = 2;        //  标记商品ID
+	required uint32 operate     = 3;        // 操作： 1 添加标记，   2 删除标记
+}
+
+
+// 武将穿觉醒装备
+message CLIENT2LOBBY_WearWakeEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_WEAR_WAKE_EQUIP_REQ ];
+	required uint32         templateId      = 2;// 英雄模板ID
+	repeated uint32         equipId      	= 3;// 装备ID
+}
+
+// 进入阵图主界面
+message CLIENT2LOBBY_EnterGhost_Req
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = CLIENT2LOBBY_ENTERGHOST_REQ];
+}
+
+// 阵图升级
+message CLIENT2LOBBY_UpgradeDiagram_Req
+{
+	optional TgsProtocol.PacketDef cmdId 	= 1 [default = CLIENT2LOBBY_UPGRADEDIAGRAM_REQ ];
+	required uint32 		diagramId 		= 2; 	//阵图id
+}
+
+// 获取已激活阵图列表
+message CLIENT2LOBBY_DiagramList_Req
+{
+	optional TgsProtocol.PacketDef 	cmdId = 1 [default = CLIENT2LOBBY_DIAGRAMLIST_REQ ];
+	required uint32 				chapterId = 2;
+}
+
+// 阵图成就激活
+message CLIENT2LOBBY_DiagramAchieveActivate_Req
+{
+    optional TgsProtocol.PacketDef cmdId    = 1 [default = CLIENT2LOBBY_DIAGRAMACHIEVEACTIVATE_REQ ];
+	required uint32         Id       = 2;    //成就id
+}
+// 查看阵图激活信息
+message CLIENT2LOBBY_ViewGhost_Req
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = CLIENT2LOBBY_VIEWGHOST_REQ];
+	required uint32 		ghostId 		= 2;
+}
+// 批量分解将灵
+message CLIENT2LOBBY_BatchResolve_Req
+{
+	optional TgsProtocol.PacketDef cmdId    	= 1 [default = CLIENT2LOBBY_BATCHRESOLVE_REQ];
+	repeated uint32 			   ghostList 	= 2;
+}
+// 可分解的将灵列表
+message CLIENT2LOBBY_CanResolveList_Req
+{
+	optional TgsProtocol.PacketDef cmdId        = 1 [default = CLIENT2LOBBY_CANRESOLVELIST_REQ];
+}
+
+// 更换称号
+message CLIENT2LOBBY_UpdateTitle_Req
+{
+	optional TgsProtocol.PacketDef 	cmdId    	= 1 [default = CLIENT2LOBBY_UPDATETITLE_REQ ];
+	required uint32 				titleId 	= 2;
+}
+
+// 名将试炼 --开始协议
+message CLIENT2LOBBY_GeneralExercise_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GENERALEXERCISE_REQ ];
+}
+
+// 名将试炼———结束试炼
+message CLIENT2LOBBY_GeneralExerciseResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GENERALEXERCISERESULT_REQ ];
+	required bool                  iswin = 2;
+}
+
+// 名将试炼 --刷新boss
+message CLIENT2LOBBY_RefreshExerciseBoss_Req
+{
+	optional TgsProtocol.PacketDef  cmdId = 1 [default = CLIENT2LOBBY_REFRESHEXERCISEBOSS_REQ];
+}
+// 领取七日大礼
+message CLIENT2LOBBY_SevenGifts_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = CLIENT2LOBBY_SEVENGIFTS_REQ];
+	required uint32 				id 			= 2; 	//奖励id
+}
+
+// 在线奖励
+message CLIENT2LOBBY_OnlineReward_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = CLIENT2LOBBY_ONLINEREWARD_REQ];
+}
+
+// 领取昨日在线积累钻石
+message CLIENT2LOBBY_OnlineAccCoin_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = CLIENT2LOBBY_ONLINEACCCOIN_REQ];
+}
+
+// 领取离线经验
+message CLIENT2LOBBY_GetOfflineExp_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = CLIENT2LOBBY_GETOFFLINEEXP_REQ];
+	required uint32 				index 		= 2; 	// 0：普通 1：双倍   2:五倍
+}
+
+// 领取资源找回奖励
+message CLIENT2LOBBY_GetRetrieveReward_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       	= 1 [default = CLIENT2LOBBY_GETRETRIEVEREWARD_REQ];
+	required uint32 				retrieveActivity    = 2;    // 活动类型
+	required uint32 				method 			= 3; 	//找回方式， 0:免费   1:钻石
+}
+
+// 一件领取资源找回奖励
+message CLIENT2LOBBY_GetAllRetrieveReward_Req
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = CLIENT2LOBBY_GETALLRETRIEVEREWARD_REQ];
+	required uint32 				method      = 2;    //找回方式， 0:免费   1:钻石
+}
+
+// 开宝箱
+message CLIENT2LOBBY_OpenBox_Req
+{
+	//抽取类型
+	enum BoxType
+	{
+		BOX_TYPE_CopperFree		= 1;	// 装备免费
+		BOX_TYPE_CopperOnce		= 2;	// 装备单抽
+		BOX_TYPE_CopperTen		= 3;	// 装备十连			
+		BOX_TYPE_DiamondFree	= 4;	// 武将免费
+		BOX_TYPE_DiamondOnce	= 5;	// 武将单抽
+		BOX_TYPE_DiamondTen		= 6;	// 武将十连
+		BOX_TYPE_AstrologyFree  = 7;    
+		BOX_TYPE_AstrologyOne   = 8;    
+		BOX_TYPE_AstrologyTen   = 9;    
+		BOX_TYPE_GhostBoxFree   = 10;
+		BOX_TYPE_GhostBoxOnce   = 11;
+		BOX_TYPE_GhostBoxFive   = 12;
+
+	};
+
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_OPEN_BOX_REQ ];
+
+	required BoxType			openBoxType		= 2;
+};
+
+// 获取每天开宝箱的信息
+message CLIENT2LOBBY_GetOpenBoxInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETOPENBOXINFO_REQ ];
+
+};
+message CLIENT2LOBBY_GetAstrologyHero_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETASTROLOGYHERO_REQ ];
+	required uint32                heroId = 2;
+}
+
+
+
+//商店类型
+enum ClientShopType
+{
+	SHOP_TYPE_Lower		= 1; //低级
+	SHOP_TYPE_Middle	= 2; //中级
+	SHOP_TYPE_High		= 3; //高级
+	SHOP_TYPE_Sports	= 4; //竞技场
+	SHOP_TYPE_Guild		= 5; //公会
+	SHOP_TYPE_Crusade	= 6; //远征
+	SHOP_TYPE_Star		= 7; //星际
+}
+// 获取神秘商店信息
+message CLIENT2LOBBY_GetShopInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETSHOPINFO_REQ ];
+
+	required uint32			shopType		= 2;
+};
+
+// 神秘商店购买道具
+message CLIENT2LOBBY_BuyGoods_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYGOODS_REQ ];
+
+	required uint32			shopType		= 2;
+	required uint32			goodsIndx		= 3;	// 商品索引
+	optional uint32         num             = 4;
+};
+
+// 刷新神秘商店
+message CLIENT2LOBBY_RefreshShop_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REFRESHSHOP_REQ ];
+
+	required uint32			shopType		= 2;
+};
+
+// 邮件
+message CLIENT2LOBBY_ReadMail_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_READMAIL_REQ ];
+
+	required uint64			instanceId		= 2;	// 邮件实例ID
+};
+message CLIENT2LOBBY_DelMail_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_DELMAIL_REQ ];
+
+	repeated uint64			instanceId 	= 2;	// 邮件实例ID
+};
+
+
+
+/////////////////////////// 远征//////////////////////////////////////////
+message CLIENT2LOBBY_GetExpeditionRobot_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETEXPEDITIONROBOT_REQ ];
+}
+message CLIENT2LOBBY_GetExpeditionBattlePlayer_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETEXPEDITIONBATTLEPLAYER_REQ ];
+};
+
+// 挑战结果
+message CLIENT2LOBBY_ExpeditionResult
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_EXPEDITION_RESULT ];
+	required uint32			chapterId		= 2;	// 
+	required bool			bWin			= 3;	// 1胜利   0 失败
+	required bool           bSweep          = 4;    //是否扫荡
+	required uint32			isSkip			= 5;	// 1跳过 0不跳过
+};
+//重置
+message CLIENT2LOBBY_ResetExpedition_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESET_EXPEDITION_REQ ];
+
+};
+message CLIENT2LOBBY_GetRobotEffect_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETROBOTEFFECT_REQ ];
+	repeated uint32         robotid      = 2;
+};
+
+
+/////////////////////////// 竞技场//////////////////////////////////////////
+// 获取名次 及 对手
+message CLIENT2LOBBY_GetArenaInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_ARENAINFO_REQ ];
+};
+// 挑战对手
+message CLIENT2LOBBY_ChallengeArena_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHALLENGE_ARENA_REQ ];
+
+	required uint32			opponentIndex		= 2;	// 对手索引  0 1 2
+	optional bytes			robotName			= 3;	// 客户端随机的机器人名字
+};
+// 挑战结果
+message CLIENT2LOBBY_ChallengeArenaResult
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHALLENGE_ARENA_RESULT ];
+
+	required bool			bWin			= 2;	// 1胜利   0 失败
+	required uint32			isSkip			= 3;	// 1 跳过 0 没有				
+};
+// 重置
+message CLIENT2LOBBY_ResetArena_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESET_ARENA_REQ ];
+	required uint32			type		= 2;	// 1 重置CD  2 重置挑战次数
+};
+// 更换防守阵容
+message CLIENT2LOBBY_ChangeArenaDefence_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGE_ARENA_DEFENCE_REQ ];
+
+	repeated uint32			formation		= 2;	// 防守英雄（英雄模板ID）
+};
+message CLIENT2LOBBY_ArenaFastFight_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ARENAFASTFIGHT_REQ ];
+
+	required uint32			opponentIndex		= 2;	// 对手索引  0 1 2
+}
+
+// 签到
+message CLIENT2LOBBY_SignIn_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SIGNIN_REQ ];
+
+	required uint32			signType		= 2;	// 1 签到  2 补签
+};
+// 补领vip 签到奖励
+message CLIENT2LOBBY_GetVipSignInReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_VIPSIGNIN_REWARD_REQ ];
+
+	required uint32			signDay		= 2;	// 领取时间(第几天)
+};
+//新签到,跟月历走
+message CLIENT2LOBBY_MonthSignIn_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_MONTHSIGNIN_REQ ];
+
+	required uint32			signType	 = 2;	// 1 签到  2 补签
+	optional uint32         day          = 3;
+};
+
+// 好友列表
+message CLIENT2LOBBY_GetFriendInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_FRIENDINFO_REQ ];
+};
+
+message CLIENT2LOBBY_AddFriend_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ADD_FRIEND_REQ ];
+
+	required uint64			charId		= 2;	// 玩家ID
+};
+
+message CLIENT2LOBBY_DelFriend_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_DEL_FRIEND_REQ ];
+
+	required uint64			charId		= 2;	// 玩家ID
+};
+
+message CLIENT2LOBBY_OPApplyList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_OP_APPLYLIST_REQ ];
+
+	required uint32			charId		= 2;	// 申请列表角色ID charid
+	required bool			bAgree		= 3;
+};
+
+message CLIENT2LOBBY_AddBlackList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ADD_BLACKLIST_REQ ];
+
+	required uint64			charId		= 2;	// 玩家ID
+	required uint32			opType		= 3;	// 1 加黑名单  2 删除黑名单
+};
+
+message CLIENT2LOBBY_SendRcvEnergyOnce_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ENERGYONCE_REQ ];
+
+	required uint64			charId		= 2;	// 玩家ID
+	required uint32			opType		= 3;	// 1 送  2 收
+};
+
+message CLIENT2LOBBY_SendRcvEnergyAll_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ENERGYALL_REQ ];
+
+};
+
+message CLIENT2LOBBY_GetTargetFriendInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_TARGET_FRIENDINFO_REQ ];
+	required uint64				   targetcharId = 2;	// 目标用户
+};
+
+message CLIENT2LOBBYGetTargetUserinfoReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_TARGET_USERINFO_REQ ];
+	required uint64				   dstCharId 	= 2;	// 目标用户
+	optional ChangeFormationType   type   = 3;
+};
+
+message CLIENT2LOBBYRecommandFriendListReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RECOMMAND_FRIENDLIST_REQ ];
+	required uint32				 	opt = 2;		//客户端使用
+};
+
+message CLIENT2LOBBYFriendApplyInfoReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_FRIEND_APPLY_INFO_REQ ];
+};
+
+/////////////////////////// 新装备 //////////////////////////////////////////
+// 穿装备
+message CLIENT2LOBBY_Equip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_EQUIP_REQ ];
+
+	required uint32			heroId		= 2;	// 玩家ID
+	required uint64			equipId		= 3;	// 装备实例ID
+};
+message CLIENT2LOBBY_ChangeEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGEEQUIP_REQ ];
+
+	required uint32			heroId		= 2;	// 玩家ID
+	repeated uint64			equipId		= 3;	// 装备实例ID
+};
+
+// 卸装备
+message CLIENT2LOBBY_UnEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_UNEQUIP_REQ ];
+
+	required uint32			heroId		= 2;	// 玩家ID
+	required uint64			equipId		= 3;	// 装备实例ID
+};
+// 强化装备
+message CLIENT2LOBBY_StrengEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_STRENG_EQUIP_REQ ];
+
+	required uint64			equipId		= 2;	// 装备实例ID
+	required uint32			strengTimes	= 3;	// 强化次数
+};
+// 精炼装备
+message CLIENT2LOBBY_RefineEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REFINE_EQUIP_REQ ];
+
+	required uint64			equipId		= 2;	// 装备实例ID
+	repeated RefineEquipImp imp         = 3;
+};
+message CLIENT2LOBBY_StrengTreasure_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_STRENG_TREASURE_REQ ];
+
+	required uint64			treasureId  = 2;	
+	repeated uint64         materialId  = 3; 
+};
+message CLIENT2LOBBY_RefineTreasure_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REFINE_TREASURE_REQ ];
+
+	required uint64			treasureId  = 2;	
+};
+
+// 出售装备
+message CLIENT2LOBBY_SaleEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SALE_EQUIP_REQ ];
+
+	repeated uint64			equipId		= 2;	// 装备实例ID
+};
+// 进阶装备
+message CLIENT2LOBBY_EvolveEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_EVOLVEEQUIP_REQ ];
+	required uint64			equipId		= 2;	// 装备实例ID
+};
+// 觉醒装备
+message CLIENT2LOBBY_AwakeEquip_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_AWAKEEQUIP_REQ ];
+	required uint64			equipId		= 2;	// 装备实例ID
+};
+
+
+// 更改助阵
+message CLIENT2LOBBY_ChangeRaise_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHANGEFO_RAISE_REQ ];
+
+	repeated uint32			heroRaise		= 2;	// 助阵英雄（英雄模板ID）
+};
+
+// 购买商品
+message CLIENT2LOBBY_ShopBuyGoods_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SHOP_BUY_GOODS_REQ ];
+
+	required uint32			shopid		= 2;	//
+	required uint32			number		= 3;	// 商城物品购买数量 
+};
+
+// 请求活动数据
+message CLIENT2LOBBY_GetActivityData_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETACTIVITYDATA_REQ ];
+};
+
+// 获取活动奖品
+message CLIENT2LOBBY_GetActivityReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETACTIVITYREWARD_REQ ];
+	required uint32			id			= 2;	//
+	optional uint32			value		= 3;	// 对应的值
+	optional string			valueStr	= 4;	// 可能的字符串值
+	optional uint32         number      = 5;
+};
+
+// 七日活动奖励
+message CLIENT2LOBBYGetSevenRewardReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_SEVEN_REWARD_REQ ];
+	required uint32			index		 = 2;	// 七日活动奖励
+	required uint32			choose		 = 3; 	// 四选一 只对特殊活动有用
+};
+
+//购买开服基金 
+message CLIENT2LOBBY_BuyRebate_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYREBATE_REQ ];
+};
+
+// 心跳包
+message CLIENT2LOBBYHeartRep
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HEART_REP];
+	required uint32			beatTime	 = 2;
+};
+
+// 七日活动半价购买
+message CLIENT2LOBBYSevenHalfBuyReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SEVEN_HALF_BUY_REQ];
+	required uint32			index		 = 2;	// 七日活动半价购买
+};
+// 购买副本次数 
+message CLIENT2LOBBY_BuyMapTimesReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYMAPTIMES_REQ];
+};
+
+/////////////////////////// 叛军 //////////////////////////////////////////
+//叛军请求战斗开始
+message CLIENT2LOBBYRebelArmyBattleStartReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REBEL_ARMY_BATTLE_START_REQ];
+	required uint64		targetcharId	 = 2; // 拥有叛军的用户ID
+	required uint32		attackType		 = 3; // 0 普通攻击 1 全力一击
+};
+//叛军请求战斗结束
+message CLIENT2LOBBYRebelArmyBattleEndReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REBEL_ARMY_BATTLE_END_REQ];
+	required uint64		targetcharId	 = 2; // 拥有叛军的用户ID
+	required uint32		curHealth		 = 3; // 剩余血量
+	required bool		bWin			 = 4; // 胜负 0: 负 1: 胜
+	required uint32		harm			 = 5; // 伤害
+	optional uint64 	harmBig			 = 6; // 伤害 为了和后面兼容 新版本用这个
+	optional uint64		curhealthbig	 = 7; // 当前血量 为了和后面兼容 新版本用这个
+	optional bool 		isSkip 			 = 8; // 是否跳过战斗
+};
+//叛军BOSS请求
+message CLIENT2LOBBYRebelArmyBossReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REBEL_ARMY_BOSS_REQ];
+	required uint32	opt	= 2; // 1 详细 0 简要
+};
+//叛军BOSS请求 提示信息
+message CLIENT2LOBBYRebelArmyBossTipReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REBEL_ARMY_BOSS_TIP_REQ];
+};
+//叛军BOSS分享请求
+message CLIENT2LOBBYRebelArmyBossShareReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REBEL_ARMY_BOSS_SHARE_REQ];
+};
+// 请求排行榜数据
+message CLIENT2LOBBY_GetRankData_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETRANKDATA_REQ ];
+    required ERankType             type  = 2;
+};
+//查看排行榜战队tips 
+message CLIENT2LOBBY_GetRankFiveHero_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETRANKFIVEHERO_REQ ];
+    required uint64                charId= 2;
+};
+//查看排行榜武器tips 
+message CLIENT2LOBBY_GetRankWeapon_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETRANKWEAPON_REQ ];
+    required uint64                charId= 2;
+    required uint64                instanceId = 3; 
+};
+//查看排行榜武将tips 
+message CLIENT2LOBBY_GetRankHero_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETRANKHERO_REQ ];
+    required uint64                charId= 2;
+    required uint32                templateId = 3; 
+};
+//名人堂
+message CLIENT2LOBBY_GetAchieve_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETACHIEVE_REQ ];
+};
+//领取名人堂奖励
+message CLIENT2LOBBY_GetAchieveReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETACHIEVEREWARD_REQ ];
+	required uint32                id    = 2; 
+};
+//场景人物
+message CLIENT2LOBBY_GetNearbyPlayers_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETNEARBYPLAYERS_REQ ];
+	required uint32                count = 2; 
+}
+//时装
+message CLIENT2LOBBY_PutFashion_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_PUTFASHION_REQ ];
+	required uint32					heroId = 2;
+	required uint32					flag = 3; //0:卸下 1:激活
+}
+message CLIENT2LOBBY_GetChatRecord_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETCHATRECORD_REQ ];
+}
+
+/////////////////////////// 组队 //////////////////////////////////////////
+//组队挂机队伍拉取
+message CLIENT2LOBBYGetRaidTeamReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_RAID_TEAM_REQ ];
+	required uint32						section			= 2; // 起始条目位置
+	required uint32						status			= 3; // 请求的状态类别 0 全部 1:准备 2:挂机
+}
+
+//组队挂机 创建队伍
+message CLIENT2LOBBYCreateRaidTeamReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CREATE_RAID_TEAM_REQ ];
+	required	uint32  index						  = 2; // 副本index 
+}
+
+//组队挂机
+message CLIENT2LOBBYOptRaidTeamReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_OPT_RAID_TEAM_REQ ];
+	required	RaidTeamOpt  opt						 = 2; // 0 进入 1: 取消 2: 踢人 3:战斗准备开始倒计时 4:战斗开始
+	required 	uint64 	leaderId				 = 3;
+	required	uint32  charId					 = 4;
+}
+
+/////////////////////////// 军团 //////////////////////////////////////////
+message CLIENT2LOBBY_GetGuildList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDLIST_REQ ];
+	optional uint32 page = 2;
+}
+message CLIENT2LOBBY_CreateGuild_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CREATEGUILD_REQ ];
+	required string name  = 2;
+	required uint32 photo = 3;
+	optional string manifesto = 4; //宣言
+}
+message CLIENT2LOBBY_ApplyGuild_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_APPLYGUILD_REQ ];
+	required uint32 guildid = 2;
+}
+message CLIENT2LOBBY_ApplyGuildRespond_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_APPLyGUILDRESPOND_REQ ];
+	required uint64 charid  = 2;
+	required uint32 isagree = 3; //0:拒绝 1:同意
+}
+message CLIENT2LOBBY_GetGuildApplyList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDAPPLYLIST_REQ ];
+}
+message CLIENT2LOBBY_QuitGuild_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_QUITGUILD_REQ ];
+}
+message CLIENT2LOBBY_OperateGuildMember_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_OPERATEGUILDMEMBER_REQ ];
+	required uint64 charid = 2; 
+	required uint32 type   = 3; //1:升职 2:降职 3:让贤 4:开除
+}
+message CLIENT2LOBBY_ModifyGuildText_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_MODIFYGUILDTEXT_REQ ];
+	optional string manifesto = 2; 
+	optional string notice    = 3; 
+}
+message CLIENT2LOBBY_GetGuildMemberList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDMEMBERLIST_REQ ];
+}
+message CLIENT2LOBBY_GuildRitual_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GUILDRITUAL_REQ ];
+	required uint32 type = 2; //1:普通 2:太牢 3:血祭
+}
+message CLIENT2LOBBY_GetGuildRitualRateReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDRITUALRATEREWARD_REQ ];
+	required uint32 boxindex = 2; //宝箱索引,从1开始
+}
+message CLIENT2LOBBY_GetGuildRitual7DayReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDRITUAL7DAYREWARD_REQ ];
+}
+message CLIENT2LOBBY_GetGuildState_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDSTATE_REQ ];
+}
+
+message CLIENT2LOBBYGetPrizeReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_PRIZE_REQ ];
+	required ePrizeGet choose = 2; // 领奖选择
+	optional uint32		para  = 3; // 参数
+	optional uint32		para2 = 4; // 参数2
+	optional uint32		para3 = 5; // 参数2
+}
+
+message CLIENT2LOBBY_SelectGuildChapter_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SELECTGUILDCHAPTER_REQ ];
+	required uint32 chapterId            = 2;
+}
+message CLIENT2LOBBY_AttackGuildMap_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKGUILDMAP_REQ ];
+	required uint32 mapId                = 2;
+}
+message CLIENT2LOBBY_AttackGuildMapResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKGUILDMAPRESULT_REQ ];
+	required uint32 mapId                = 2;
+	repeated GuildMapMonster monster     = 3;     
+	required bool            iswin       = 4;
+}
+message CLIENT2LOBBY_GetGuildMapRewardList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDMAPREWARDLIST_REQ ];
+	required uint32 chapterId            = 2;
+}
+message CLIENT2LOBBY_ShowGuildMapRewardList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SHOWGUILDMAPREWARDLIST_REQ ];
+	required uint32 mapId                = 2;
+	required uint32 chapterId            = 3;
+}
+message CLIENT2LOBBY_ResetGuildMapType_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_RESETGUILDMAPTYPE_REQ ];
+	required bool chapter_back          = 2;
+}
+
+message CLIENT2LOBBY_GetGuildTerritoryInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDTERRITORYINFO_REQ ];
+}
+message CLIENT2LOBBY_GetGuildTerritoryBattlePlayer_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDTERRITORYBATTLEPLAYER_REQ ];
+}
+
+message CLIENT2LOBBY_AttackGuildTerritoryResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKGUILDTERRITORYRESULT_REQ ];
+	required uint32 chapterid            = 2;
+	required bool   iswin                = 3;
+}
+message CLIENT2LOBBY_PatrolGuildTerritory_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_PATROLGUILDTERRITORY_REQ ];
+	required uint32 chapterid            = 2;
+	required uint32 heroid               = 3;
+}
+message CLIENT2LOBBY_GetGuildTerritoryReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDTERRITORYREWARD_REQ ];
+	required uint32 chapterid            = 2;
+}
+message CLIENT2LOBBY_GetGuildMembersTerritoryList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDMEMBERSTERRITORYLIST_REQ ];
+}
+message CLIENT2LOBBY_GetGuildMemberTerritoryInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDMEMBERTERRITORYINFO_REQ ];
+	required uint64      charid          = 2;
+}
+message CLIENT2LOBBY_SuppressGuildMemberTerritory_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SUPPRESSGUILDMEMBERTERRITORY_REQ ];
+	required uint64      charid          = 2;
+	required uint32 chapterid            = 3; 
+}
+//军团科技
+message CLIENT2LOBBY_UnlockGuildSkill_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_UNLOCKGUILDSKILL_REQ ];
+	required uint32      skillid         = 2;
+}
+message CLIENT2LOBBY_UpGuildSkill_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_UPGUILDSKILL_REQ ];
+	required uint32      skillid         = 2;
+}
+//军团战
+message CLIENT2LOBBY_GetGuildWarEnemyList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDWARENEMYLIST_REQ ];
+}
+message CLIENT2LOBBY_SelectGuildWarEnemy_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SELECTGUILDWARENEMY_REQ ];
+	required uint32      guildid         = 2;
+}
+message CLIENT2LOBBY_GetGuildWarInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDWARINFO_REQ ];
+}
+message CLIENT2LOBBY_ShowGuildWarEnemyMembers_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SHOWGUILDWARENEMYMEMBERS_REQ ];
+	required uint32      guildid         = 2;
+}
+message CLIENT2LOBBY_AttackGuildWarEnemy_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKGUILDWARENEMY_REQ ];
+}
+message CLIENT2LOBBY_AttackGuildWarEnemyResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKGUILDWARENEMYRESULT_REQ ];
+	required bool        iswin           = 2;
+}
+message CLIENT2LOBBY_GetGuildCityTaskReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGUILDCITYTASKREWARD_REQ ];
+	required uint32        type          = 2;
+}
+message CLIENT2LOBBY_RefreshGuildCityTask_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_REFRESHGUILDCITYTASK_REQ ];
+}
+
+/////////////////////////// 夺宝 //////////////////////////////////////////
+//拥有宝物玩家拉取
+message CLIENT2LOBBYRobPlayerReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ROBPLAYER_REQ ];
+	required uint32				  itemId = 2; // 宝物碎片ID
+	required uint32				  treasureId = 3; // 宝物ID
+}
+//抢夺玩家宝物碎片战斗开始
+message CLIENT2LOBBYRobTreasureBattleStartReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ROB_TREASURE_BATTLE_START_REQ ];
+	required uint32				  itemId = 2; // 宝物碎片ID
+	required uint32				  treasureId = 3; // 宝物ID
+	required uint64				  charId = 4; // 目标用户ID
+	required uint32				  opt	= 5; // 0 一次 1 夺五次
+}
+//抢夺玩家宝物碎片战斗结束
+message CLIENT2LOBBYRobTreasureBattleEndReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ROB_TREASURE_BATTLE_END_REQ ];
+	required uint32				  itemId = 2; // 宝物碎片ID
+	required uint32				  treasureId = 3; // 宝物ID
+	required uint32				  opt	= 4; // 0 一次 1 夺五次
+	required uint32				 iswin	= 5; // 0 败 1 胜 一次才有效果 夺五次必胜
+	required uint32				 isSkip	= 6; // 0 没有跳过 1 跳过
+}
+//宝物合成
+message CLIENT2LOBBYTreasureCombineReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_TREASURE_COMBINE_REQ ];
+	required uint32				  treasureIndex = 2; // 宝物项目index
+}
+//抽奖
+message CLIENT2LOBBYRobOpenBoxReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ROB_OPEN_BOX_REQ ];
+	required uint32				  treasureIndex = 2; // 宝物项目index
+}
+message CLIENT2LOBBY_OneKeyRob_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ONEKEYROB_REQ ];
+	required uint32				  treasureIndex = 2; // 宝物项目index
+	optional bool                 autoUseEnergy = 3;
+	//optional bool                 autoBuyEnergy = 4;
+}
+message CLIENT2LOBBY_OneKeyRobEnd_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ONEKEYROBEND_REQ ];
+	required uint32              count = 2;          //夺宝次数
+}
+
+//使用物品 用于一些特殊的东西 无法分配到属性相加那里的 例如 免战令
+message CLIENT2LOBBYUseItemSpecialReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_USE_ITEM_SPECAIL_REQ ];
+	required eUseItem			   choose = 2; // 项目类别
+	required uint32					value = 3; // 项目参数
+}
+// 红包
+message CLIENT2LOBBY_GetNoticeItem_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETNOTICEITEM_REQ ];
+	required uint32				   id    = 2;
+}
+message CLIENT2LOBBY_BuyPriceTimes_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYPRICETIMES_REQ ];
+	required eRefershType          type  = 2;
+}
+message CLIENT2LOBBY_UpPosition_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_UPPOSITION_REQ ];
+}
+message CLIENT2LOBBYFirstChargeChooseReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_FIRSTCHARGECHOOSE_REQ ];
+	required uint32	choose	= 2;
+}
+message CLIENT2LOBBY_GetSevenDayRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETSEVENDAYRANK_REQ ];
+}
+message CLIENT2LOBBY_GetPKBattlePlayer_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETPKBATTLEPLAYER_REQ ];
+	required uint64                charid = 2;
+}
+message CLIENT2LOBBYHandBookStrengthReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_HANDBOOK_STRENGTH_REQ ];
+	required uint64                weaponIndex = 2;
+}
+message CLIENT2LOBBYContinueChargeChooseReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CONTINUE_CHARGE_CHOOSE_REQ ];
+	required uint32	choose	= 2;
+}
+message CLIENT2LOBBY_GetTurnTableRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETTURNTABLERANK_REQ ];
+	required uint32                actid = 2;
+}
+message CLIENT2LOBBY_InviteFriendTeam_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_INVITEFRIENDTEAM_REQ ];
+	required uint64                friendid = 2;
+}
+
+///////////////////////////////////////跨服战////////////////////
+message CLIENT2LOBBY_ServerWarGetScoreInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARGETSCOREINFO_REQ ];
+	optional uint64               charid = 2;
+}
+message CLIENT2LOBBY_ServerWarGetFightInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARGETFIGHTINFO_REQ ];
+	optional uint64               charid = 2;
+}
+
+message CLIENT2LOBBY_ServerWarSetCountry_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARSETCOUNTRY_REQ ];
+	required uint32             country  = 2;
+	optional uint64               charid = 3;
+	optional ClientServerWarPlayer self  = 4;
+}
+message CLIENT2LOBBY_ServerWarRefreshEnemy_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARREFRESHENEMY_REQ ];
+	optional uint64               charid = 2;
+}
+message CLIENT2LOBBY_ServerWarAttack_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARATTACK_REQ ];
+	required uint64      enemy_charid    = 2;
+	optional uint64      self_charid     = 3;      
+	optional ClientServerWarPlayer self  = 4;
+}
+
+message CLIENT2LOBBY_ServerWarAttackResult_Req
+{
+	optional TgsProtocol.PacketDef 	cmdId 			= 1 [default = CLIENT2LOBBY_SERVERWARATTACKRESULT_REQ ];
+	required bool                  	iswin 			= 2;
+	required uint32					isSkip			= 3;
+	optional uint64      			self_charid     = 4;
+}
+message CLIENT2LOBBY_ServerWarGetScoreRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARGETSCORERANK_REQ ];
+	optional uint64               charid = 2;
+}
+message CLIENT2LOBBY_ServerWarGetFightRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERWARGETFIGHTRANK_REQ ];
+	optional uint32               times  = 2; //0:当前排行榜 其他:历史第N次排行榜
+	optional uint64               charid = 3;
+}
+
+///////////////////////////////////////跨服战结束///////////////
+
+////////////////////////////////////////跨服组队战开始////////////
+message CLIENT2LOBBY_ServerTeamOp_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERTEAMOP_REQ ];
+	required EServerTeamOpType     type  = 2;
+	optional uint32               teamid = 3;
+	optional uint64               charid = 4;
+	optional ClientServerTeamPlayer player= 5;
+	optional uint64               memberid = 6;
+}
+message CLIENT2LOBBY_ServerTeamClose_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERTEAMCLOSE_REQ ];
+	required bool                isclose = 2; // Isclose为true，那么不会被别人自动匹配到，只能手动查找加入
+	optional uint64               charid = 3;
+}
+message CLIENT2LOBBY_ServerTeamInviteFriend_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERTEAMINVITEFRIEND_REQ ];
+	required uint64                charid = 2;
+	required uint32                teamid = 3;
+}
+message CLIENT2LOBBY_ServerTeamChangePos_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERTEAMCHANGEPOS_REQ ];
+	repeated ServerTeamPos         item = 2;
+	optional uint64               charid = 3;
+}
+message CLIENT2LOBBY_ServerTeamGetHonorRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SERVERTEAMGETHONORRANK_REQ ];
+	optional uint64               charid = 2;
+    optional bool                 onlymine = 3;
+}
+
+////////////////////////////////////////跨服组队战结束////////////
+
+message CLIENT2LOBBY_GetSearchTombInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETSEARCHTOMBINFO_REQ ];
+}
+message CLIENT2LOBBY_SearchTombGo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SEARCHTOMBGO_REQ ];
+	required uint32              tomb_id = 2;
+}
+message CLIENT2LOBBY_SearchTombEventDone_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SEARCHTOMBEVENTDONE_REQ ];
+	required uint32               choose = 2; //1:attack 2:duobi
+	optional bool                  iswin = 3;
+	required uint32              tomb_id = 4;
+	optional bool                  isboss=5;
+}
+
+//////////////////////////////////////////////////////秘境开始////////////////
+message CLIENT2LOBBY_GetSecretHoleRobot_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETSECRETHOLEROBOT_REQ ];
+}
+
+message CLIENT2LOBBY_GetSecretHoleInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETSECRETHOLEINFO_REQ ];
+}
+message CLIENT2LOBBY_AttackSecretHole_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKSECRETHOLE_REQ ];
+	required uint32                id    = 2;
+	required uint32                floor = 3;
+	required uint32                choose= 4;
+}
+message CLIENT2LOBBY_AttackSecretHoleResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKSECRETHOLERESULT_REQ ];
+	required bool                  iswin = 2;
+}
+message CLIENT2LOBBY_OpenSecretHoleBox_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_OPENSECRETHOLEBOX_REQ ];
+}
+message CLIENT2LOBBY_BuySecretHoleBuff_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYSECRETHOLEBUFF_REQ ];
+	required uint32                buffid = 2;
+}
+message CLIENT2LOBBY_ChooseSecretHole_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_CHOOSESECRETHOLE_REQ ];
+	required uint32                enterorquit = 2; //1:选择秘籍 2:退出 0:无效
+	optional uint32                id = 3;
+}
+message CLIENT2LOBBY_SweepSecretHole_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SWEEPSECRETHOLE_REQ ];
+}
+message CLIENT2LOBBY_BuySecretHoleGoods_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYSECRETHOLEGOODS_REQ ];
+}
+
+
+message CLIENT2LOBBY_AttackSecretHoleElite_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKSECRETHOLEELITE_REQ ];
+	required uint32                eliteId    = 2; 			// 精英关卡ID
+}
+
+message CLIENT2LOBBY_AttackSecretHoleResultElite_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKSECRETHOLERESULTELITE_REQ ];
+	required bool                  iswin = 2;
+	required uint32                eliteId    = 3;
+}
+
+
+//////////////////////////////////////////////////////秘境结束////////////////
+
+//七日活动四选一购买
+message CLIENT2LOBBYBUYSevenOneInFour
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUYSEVENONEINFOUR];
+	required uint32     index    = 2; // 七日购买id
+	required uint32     choice    = 3; // 4选1选项   0-3如果只是购买功能，则为0
+	required uint32     buyNum       = 4; // 4选1选项   0-3如果只是购买功能，则为0
+}
+//购买一元夺宝商品
+message CLIENT2LOBBYBUY_BuyAuction_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_BUY_AUCTION_SELF];
+	required uint32                buyNum = 2;
+	required uint32                index  = 3; //从0开始
+}
+//获得夺宝记录
+message CLIENT2LOBBYBUY_GetAuctionList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GET_LIST_SELF];
+}
+
+message CLIENT2LOBBY_GetHeroRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETHERORANK_REQ];
+	required uint32                hero_id = 2;
+}
+
+message CLIENT2LOBBY_GetReturnTaskReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETRETURNTASKREWARD_REQ];
+	required uint32                id = 2;
+	optional uint32                choose = 3;
+}
+message CLIENT2LOBBY_DoActivityOpt_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_DOACTIVITYOPT_REQ];
+	required uint32                act_id = 2;
+	optional uint32                opt = 3;
+}
+message CLIENT2LOBBY_GetPlayerTerritoryInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETPLAYERTERRITORYINFO_REQ ];
+}
+message CLIENT2LOBBY_GetPlayerTerritoryBattlePlayer_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETPLAYERTERRITORYBATTLEPLAYER_REQ ];
+}
+
+message CLIENT2LOBBY_AttackPlayerTerritoryResult_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_ATTACKPLAYERTERRITORYRESULT_REQ ];
+	required uint32 chapterid            = 2;
+	required bool   iswin                = 3;
+}
+message CLIENT2LOBBY_PatrolPlayerTerritory_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_PATROLPLAYERTERRITORY_REQ ];
+	required uint32 chapterid            = 2;
+	required uint32 heroid               = 3;
+	required uint32 time_type            = 4;
+	required uint32 gains_type           = 5;
+}
+message CLIENT2LOBBY_GetPlayerTerritoryReward_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETPLAYERTERRITORYREWARD_REQ ];
+	required uint32 chapterid            = 2; //0:领取全部巡逻奖励 
+}
+message CLIENT2LOBBY_GetFriendTerritoryList_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETFRIENDTERRITORYLIST_REQ ];
+}
+message CLIENT2LOBBY_GetFriendTerritoryInfo_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETFRIENDTERRITORYINFO_REQ ];
+	required uint64      charid          = 2;
+}
+message CLIENT2LOBBY_SuppressFriendTerritory_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_SUPPRESSFRIENDTERRITORY_REQ ];
+	required uint64      charid          = 2;
+	required uint32 chapterid            = 3; 
+}
+
+message CLIENT2LOBBY_UpTerritorySkill_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_UPTERRITORYSKILL_REQ ];
+	required uint32                id    = 2;
+}
+message CLIENT2LOBBY_GetGlobalServerRank_Req
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_GETGLOBALSERVERRANK_REQ ];
+	required EServerRankType       type  = 2;
+}
+
+//==============================================================================================
+
+// 聊天信息结构
+message  ClientChatInfo
+{
+	required uint32		chatType	= 1; //类型
+	required uint64		srcCharId	= 2; //ID
+	required bytes		srcName		= 3; //名字
+	required uint32		srcPhoto	= 4; //头像ID
+	required uint32		srcLevel	= 5; //玩家等级
+	required uint32		vipLevel	= 6; //Vip等级
+	optional bytes		srcGuild	= 7; //公会名字
+	required bytes		sendTime	= 8; //发送时间
+	required bytes		chatTxt		= 9; //内容
+	optional uint32		quality		= 10;//品质
+	optional uint32		effect		= 11;//战斗力
+	optional uint32		kind		= 12;//聊天类型 0: 普通 1: 语音
+	optional uint32		issystem	= 13;//系统消息
+	optional bytes		dstName		= 14;//对方名字 在私聊信息里有效
+}
+//即时聊天
+message  LOBBY2CLIENT_ChatInfo
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHAT_INFO_NTF ];
+
+	required uint32			ret			= 2;
+	optional ClientChatInfo	chatInfo	= 3;
+}
+//聊天记录
+message  LOBBY2CLIENT_ChatRecord
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHAT_RECORD_NTF ];
+	repeated ClientChatInfo	chatList			= 2;
+	required uint32			worldChatTimes		= 3;   // 世界聊天次数
+}
+
+
+// GM 指令
+message Lobby2CLIENT_GmCmd
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GM_CMD ];
+	
+	required uint32		ret			= 2;
+	required bytes		cmdStr		= 3;
+}
+
+// 登陆返回
+message  LOBBY2CLIENT_LoginFailed
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_LOGIN_FAILED ];
+	required uint32		error		= 2;
+	required bool		bReLogin	= 3;
+	optional bool		bCreateChar = 4;
+	optional uint32		number		= 5;	// 排队人数
+}
+
+// 通知客户端创建角色
+message  LOBBY2CLIENT_CreateCharCmd
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CREATE_CHARACTER_CMD ];
+}
+
+// 创建角色返回
+message  LOBBY2CLIENT_CreateCharFailed
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CREATE_CHAR_FAILED ];
+	required uint32 error = 2;
+	optional uint32 photo = 3;
+}
+
+message ClientChargeShop
+{
+	required uint32 shopId = 1;
+	required uint32 already = 2;
+	required uint32 price	= 3;
+}
+message ClientAssistFormation
+{
+	required uint32				type   = 1;
+	repeated uint32				heroid = 2;
+}
+
+message ClientSevenDayElement
+{
+	required uint32				index   = 1;
+	required uint32				status 	= 2; //0 未完成 1 可领奖 2 已完成
+	required uint32				step	= 3;
+}
+//基础属性
+message ClientBaseAttr
+{
+	required CoinType 				    attrType			= 1;
+	required uint32						attrVal				= 2;
+	optional uint32                     reTime              = 3;
+}
+
+message LOBBY2CLIENTActionRecordNtf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_ACTION_RECORD_NTF];
+	repeated ActionRecord		   action 	= 2;
+};
+
+// 客户端角色信息
+message LOBBY2CLIENT_CharInfo
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_CHARACTER_INFO_NTF];
+	required uint64						playerssId			= 2;
+	required uint64						charId				= 3;
+	required bytes						charName			= 4;
+	required uint32						charExp				= 5;	// 经验
+	required uint32						charlevel			= 6;	// 等级
+	required uint32						vipExp				= 7;	// vip经验
+	required uint32						vipLevel			= 8;	// vip等级
+	//required uint32					cash				= 9;	// 铜钱
+	//required uint32					gold				= 10;	// 钻石
+	//required uint32					curStamina			= 11;	// 体力(令牌)
+	//required uint32					recoveryTime		= 12;	// 下次体力恢复时间(秒)
+	repeated uint32						formation			= 13;	// 出战英雄
+	repeated ClientQuest				quests				= 14;	// 任务
+	required uint32						curHeroBagNum		= 15;	// 当前英雄背包格子数
+	repeated ClientHeroInfo				heroBag				= 16;	// 英雄
+	required uint32						gender				= 17;   // 性别101  102 
+	required uint32						photo				= 18;   // 头像
+	required uint32						bitFlag				= 19;   // 标志位
+	repeated ClientInstanceEvaluation	instanceEvaluation	= 20;	// 副本评价
+	repeated uint32						RefreshPrice		= 21;	// 刷新次数
+	repeated ClientFestivityInfo		festivityInfo		= 22;	// 名将副本挑战次数
+	//required uint32					coinConquer			= 23;	// 竞技币
+	//required uint32					coinSports			= 24;	// 远征币
+	//required uint32					coinGuild			= 25;	// 公会币
+	required uint32						serverTime			= 26;	// 服务器时间
+	//required uint32					skillPoint			= 27;	// 剩余英雄技能点数
+	//required uint32					skillPointTime		= 28;	// 下一次恢复技能点数时间(秒)
+	//required uint32					energy				= 29;	// 精力
+	//required uint32					energyReTime		= 30;	// 下次精力恢复时间(秒)
+	repeated HeroEquipNew				equipNewBag			= 31;	// 新装备背包
+	repeated uint32						arenaHero			= 32;	// 竞技场英雄
+	required uint32						recharge			= 33;	// 充值
+	repeated ClientChargeShop			chargeShop			= 34;	// 商城
+	required uint32						progress			= 35;	// 进度
+	repeated ClientAssistFormation		assistFor			= 36;	// 助阵
+	repeated DBChapterBox				chapterBox			= 37;	// 章节宝箱
+	repeated ClientSevenDayElement		sevenDay			= 38;	// 七日活动
+	repeated ClientBaseAttr             coins               = 39;   // 货币
+	optional uint32                     heromap_buy_count   = 40;   // 名将副本已购买次数
+	required RebelArmyInfo				rebelArmy			= 41;	// 叛军
+	required uint32						gmFlushTime			= 42;	// gm 指令刷新时间
+	optional uint32                     heromap_share_count = 43;   // 名将副本已打过的次数
+	optional uint32                     elitemap_count 		= 44;   // 精英副本已打过的次数
+	repeated uint32						buyedPrice	    	= 45;	// 已购买次数
+	required uint32						position			= 46;	// 官职
+	required uint32						crusadeMaxId    	= 47;	// 血战最高层
+	required uint32						crusadeCurId		= 48;	// 血战当前层
+	repeated GuildSkill                 guild_skill         = 49;   // 军团技能
+	optional int32						serverTimezone		= 50;	// 服务器时区
+	optional uint32						firstLogin			= 51;	// 是否是今天第一次登陆
+	repeated ClientHandBook				handbook			= 52;	// 图鉴 上帝装备
+	required uint32						createtime			= 53;	// 创建时间
+	repeated uint32 					AwakeHeroes      	= 54;   ///武将唤醒
+	optional uint32						openServerTime		= 55;		//开服时间
+	optional uint32                     newprogress         = 56;   //新的新手引导进度
+	optional uint32						realcreatetime		= 57;	// 创角时间
+	optional uint32 					passSecretHoleEliteMaxId = 58; 	// 秘境精英挑战通关的最大id
+	repeated uint32 					markList 	 		= 59; 	// 标记商品ID列表
+	optional uint32 					exerciseBossId 		= 60; 	// 名将试炼bossId
+	optional bool                       isgm                = 61;
+	optional uint32 					wearTitleId 		= 62; 	//佩戴称号
+	repeated uint32 					activeTitleId 		= 63;  	//已激活称号
+	optional uint32 					DiagramAchieveMaxId = 64; 	//阵图成就最大ID
+}
+
+
+// 同步角色信息
+message LOBBY2CLIENT_CharBaseInfoUpdate
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_CHAR_BASEINFO_UPDATE];
+	repeated	ClientBaseAttr attrList		= 2;  // 属性变更
+}
+
+// 同步英雄信息
+message LOBBY2CLIENT_HeroInfoUpdate
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_HEROINFO_UPDATE];
+	repeated ClientHeroInfo heroInfo		= 2;	// 英雄
+}
+message LOBBY2CLIENT_HeroDelete_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_HERODELETE_NTF];
+	repeated uint32  id		= 2;
+}
+
+// 返回客户端背包信息
+message LOBBY2CLIENT_LoadBagRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_LOAD_BAG_RET];
+	required uint32			ret				= 2;	
+	required uint32			curBagNum		= 3;	// 当前道具背包格子数
+	repeated ItemInfo		propBag			= 4;	// 道具
+}
+
+// 通知获得物品
+message LOBBY2CLIENT_SendThings
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SEND_THINGS_NTF];
+
+	repeated ItemInfo		items				= 2;
+	repeated ClientHeroInfo heros				= 3;
+	repeated HeroEquipNew	equipNew			= 4;
+	repeated uint32         title               = 5;
+}
+
+// 通知失去物品
+message LOBBY2CLIENT_ReduceThings
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REDUCE_THINGS_NTF];
+
+	repeated ItemInfo		items				= 2;
+	repeated ClientHeroInfo heros				= 3;
+	repeated HeroEquipNew	equipNew			= 4;
+}
+
+// 改名
+message LOBBY2CLIENT_ChangeNameRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGENAME_RET];
+	required uint32			ret			 = 2;
+	optional uint32			times    	 = 3;		
+}
+
+// 改头像
+message LOBBY2CLIENT_ChangePhotoRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGEPHOTO_RET ];
+
+	required uint32				ret				= 2;
+	optional uint32				newPhoto		= 3;		// 头像
+	optional uint32				times    		= 4;		
+};
+
+// 招财进宝
+message GainTreasuresInfo
+{
+	required uint32	ratio			= 1;//暴击倍数
+	required uint32	copper			= 2;//铜钱数量
+}
+// 招财进宝
+message LOBBY2CLIENT_GainTreasuresRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUY_COPPER_RET];
+	required uint32			ret				= 2;
+	repeated GainTreasuresInfo	copperList		= 3;
+}
+
+// 道具合成
+message LOBBY2CLIENT_SynItemRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SYN_ITEM_RET];
+	required uint32			ret			 = 2;
+	required uint32			type		 = 3;
+	repeated ClientSource	items		 = 4;
+	required uint32         useditemid   = 5;
+	optional string         err_str      = 6;
+}
+
+// 出售道具
+message LOBBY2CLIENT_SaleItemRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SALE_ITEM_RET ];
+
+	required uint32			ret			 = 2;
+	repeated ClientSource   sources      = 3;
+	repeated ItemInfo       items        = 4;
+};
+// 分解道具
+message LOBBY2CLIENT_ResolveRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RESOLVERET ];
+
+	required uint32			ret				= 2;
+	repeated ClientSource	sources			= 3;
+};
+// 分解预览
+message LOBBY2CLIENT_ResolveLook_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RESOLVELOOK_RET ];
+
+	required uint32			ret				= 2;
+	repeated ClientSource	sources			= 3;
+};
+
+//吃药
+message LOBBY2CLIENT_UseExpItemRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_USE_EXPITEM_RET ];
+
+	required uint32			ret					= 2;
+	required uint32			newLevel			= 3;//等级
+	required uint32			newExp				= 4;//经验
+	required uint32			heroId				= 5;
+};
+
+// 更改进度
+message LOBBY2CLIENTProgressRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_PROGRESS_RET ];
+	required uint32 ret			= 2;
+	required uint32	progress    = 3;  // 新手引导进度
+	required uint32 leavePoint	= 4;  // 新手引导统计埋点
+	optional uint32	newprogress = 5;  // 新的新手引导进度
+};
+
+//********************************************* 任务 **************************************
+
+// 提交任务
+message LOBBY2CLIENT_CommitQuestRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_COMMIT_QUEST_RET];
+	required uint32 ret		= 2;
+	required uint32 questid = 3;
+	optional uint32 deleteid = 4;
+}
+
+// 一键领取任务
+message LOBBY2CLIENT_CommitQuestAllRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_COMMIT_QUEST_ALL_RET];
+	required uint32 ret		= 2;
+	required uint32 show 	= 3;
+	repeated ClientSource sources = 4;
+}
+
+// 通知玩家接到新任务
+message LOBBY2CLIENT_NewQuest
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_NEW_QUEST_NTF];
+	repeated ClientQuest newquest = 2;
+}
+
+//任务进度更新
+message LOBBY2CLIENT_QuestObj
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_QUEST_OBJ_NTF];
+	required ClientQuest quest = 2;
+}
+
+//********************************************* 副本相关 **************************************
+// 开始挑战副本
+message InstanceReward
+{
+	optional uint32			rewardExp			= 1;  // 经验奖励
+	optional uint32			heroExp				= 2;  // 英雄经验奖励
+	repeated ItemInfo		opt_items			= 3;  // 道具奖励
+	repeated uint32			heros				= 4;  // 英雄奖励
+	repeated CoinInfo		coin				= 5;  // 货币奖励
+	repeated uint32			equip				= 6;  // 装备奖励
+}
+
+// 开始挑战副本
+message LOBBY2CLIENT_ChallengeInstanceRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHALLENGE_INSTANCE_RET];
+	required	uint32				ret				= 2;
+	required	uint32				instanceId		= 3; // 挑战副本ID
+	repeated	InstanceReward		rewardList		= 4; // 奖励列表
+	optional    ClientBattlePlayer  battle_player   = 5; 
+}
+
+// 结束挑战副本
+message LOBBY2CLIENT_ChallengeResult
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHALLENGE_RESULT];
+	required	uint32				ret				= 2;
+	required	uint32				instanceId		= 3; // 挑战副本ID
+	optional	ClientInstanceEvaluation evaluation	= 4; // 个人副本信息
+	optional	RebelArmyBoss		boss			= 5;
+	optional	uint32				heromap_share_count	= 6; // 名将副本已打过的次数
+	optional 	uint32              elitemap_count 	= 7;   // 精英副本已打过的次数
+	optional	uint32				failTimes		= 8;	// 失败次数
+	optional    ClientFestivityInfo heromap_enter_count=9;  //名将副本章节已打过的次数
+	optional    bool                iswin           = 10;
+}
+
+// 翻牌
+message LOBBY2CLIENT_Flop_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FLOP_RET ];
+	required uint32			ret				= 2;
+	required uint32			type			= 3;
+	required uint32			itemIndex		= 4;  // 抽奖道具索引
+};
+
+// 章节奖励
+message LOBBY2CLIENT_GetChapterReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_CHAPTERREWARD_RET ];
+	required uint32			ret			 = 2;
+	required uint32			chapterId	 = 3;
+	optional uint32			boxIndex	 = 4;
+	repeated ClientSource	sources		 = 5;
+	required uint32         copyType     = 6;
+	optional uint32         boxType      = 7;
+};
+
+// 战斗复活
+message LOBBY2CLIENT_Revive_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REVIVE_RET ];
+	required uint32			ret				= 2;
+};
+// 重置次数(精英副本)
+message LOBBY2CLIENT_ResetEvaluationTimes_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RESETEVALUATIONTIMES_RET ];
+	required uint32			ret				= 2;
+	optional uint32			instanceId		= 3; //副本ID
+	optional uint32			times			= 4; //已重置的次数
+	optional uint32			challengeTimes  = 5;
+};
+
+//*********************************************  英雄相关 **************************************
+
+// 更改阵型
+message LOBBY2CLIENT_ChangeFormation_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGE_FORMATION_RET ];
+	required uint32			ret				= 2;
+	repeated uint32			formation		= 3;	// 出战英雄
+	optional uint32			type			= 4;
+	repeated uint32			assistformation	= 5;	// 助阵英雄
+};
+
+// 英雄进阶
+message LOBBY2CLIENT_HeroEvolution_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HERO_EVOLUTION_RET ];
+	required uint32			ret				= 2;
+	required uint32			templateId		= 3;// 英雄模板ID
+	required uint32			newLevel		= 4;// 强化后的星级
+};
+
+// 英雄强化
+message LOBBY2CLIENT_HeroForce_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HERO_FORCE_RET ];
+	required uint32			ret				= 2;
+	required uint32			templateId		= 3;// 英雄模板ID
+	required uint32			newLevel		= 4;// 强化后的等级
+};
+//化神
+message LOBBY2CLIENT_HeroDeification_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HERO_DEIFICATION_RET ];
+	required uint32			ret				= 2;
+	optional uint32			templateId		= 3;// 英雄模板ID
+	optional uint32			newLevel		= 4;// 化神后的等级
+	optional uint32         star            = 5;//如果升星级，这里需要设置为新星级
+
+};
+//武将唤醒
+message LOBBY2CLIENT_HeroAwake_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HERO_AWAKE_RET ];
+	required uint32 		ret 			= 2;
+	required uint32			templateId		= 3;// 英雄模板ID
+	repeated ClientSource   sources      = 4;
+};
+message LOBBY2CLIENT_HeroUpWings_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HEROUPWINGS_RET ];
+	required uint32 		ret 		 = 2;
+	optional uint32			templateId   = 3;// 英雄模板ID
+	optional uint32         wingsLev     = 4;
+	optional uint32         wingsRate    = 5;
+	repeated ClientSource   sources      = 6;
+};
+
+// 英雄合成
+message LOBBY2CLIENT_SaleHero_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SALEHERO_RET ];
+
+	required uint32			ret			= 2;
+	repeated uint32         heroid      = 3;
+	repeated ClientSource   sources     = 4;
+};
+
+// 强化装备
+message LOBBY2CLIENT_EquipForce_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_EQUIP_FORCE_RET ];
+	required uint32			ret				= 2;
+	required uint32			templateId		= 3;// 英雄模板ID
+	required uint32			equipIndex		= 4;// 装备索引
+	required uint32			opType			= 5;// 1强化 2熔炼 3精炼 
+	optional HeroEquipInfo	newEquipInfo	= 6;
+	optional uint32			attrIndex		= 7;// 熔炼变化属性索引
+};
+
+// 英雄献祭
+message LOBBY2CLIENT_Sacrifice_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SACRIFICE_RET ];
+	required uint32			ret				= 2;
+	required uint32			itemId			= 3; // 战魂ID
+	required uint32			itemNum			= 4; // 战魂数量
+};
+//英雄技能升级
+message LOBBY2CLIENT_HeroSkillUpgrade_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HEROSKILLUPGRADE_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			templateId		= 3;// 英雄模板ID
+	required uint32			skillIndex		= 4;// 英雄技能索引
+	required uint32			newLvl			= 5;// 升级后的技能等级
+};
+
+//获取技能点信息
+message LOBBY2CLIENT_GetSkillInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SKILLINFO_RET ];
+
+	required uint32			skillpoint			= 2;// 剩余英雄技能点数
+	required uint32			recoveryTime		= 3;// 下一次恢复技能点数时间(秒)
+};
+
+//购买技能点
+message LOBBY2CLIENT_BuySkillPoint_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUY_SKILLPOINT_RET ];
+
+	required uint32			ret			= 2;
+};
+
+
+// 至尊召唤热点包通知
+message LOBBY2CLIENT_SupremeHotBoxNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SUPREMEHOTBOX_NTF ];
+
+	required uint32 weekBoxId							= 2;
+	required uint32 dayBox_1							= 3;
+	required uint32 dayBox_2							= 4;
+	required uint32 dayBox_3							= 5;
+};
+message AstrologyRecord
+{
+	required ClientSource source = 1;
+	required uint32       lucky  = 2; 
+}
+// 获取每天开宝箱的信息
+message LOBBY2CLIENT_GetOpenBoxInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GRTOPENBOXINFO_RET ];
+
+	required uint32 openCopperBoxNum						= 2;	// 当天开免费铜钱宝箱的次数
+	required uint32 freeCopperBoxCD							= 3;	// 免费铜钱宝箱倒计时（秒）
+	required uint32 freeDiamondBoxCD						= 4;	// 免费钻石宝箱倒计时（秒）
+	optional uint32 diamondAgeisNum                         = 5;    // 再招募几次必出橙将
+	optional bool   isCreateDay                             = 6;    // 是否创角当天
+	optional bool   isSpecifyDiamondsTimes                  = 7;   // 是否招募武将指定次数抽奖
+	optional uint32 equipAgeisNum                           = 8;   // 再招募几次必出整装
+	optional bool   isSpecifyEquipTimes                     = 9;   // 是否抽武将指定次数抽奖
+	optional uint32 freeAstrologyCD                         = 10;   
+	optional uint32 AstrologyCountry                        = 11;
+	optional uint32 AstrologyCountryNextSeconds             = 12;
+	optional uint32 AstrologyLucky                          = 13;
+	repeated AstrologyRecord AstrologyHistory               = 14;
+	optional uint32 freeGhostBoxCD                          = 15;   
+	optional uint32 ghostAgeisNum                           = 16; //再招募几次必出金将灵   
+};
+// 开宝箱
+message BoxHeroInfo
+{
+	required uint32		templateId	= 1;	// 模板ID
+	required bool		bNew		= 2;	// true 新英雄
+};
+message LOBBY2CLIENT_OpenBox_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_OPEN_BOX_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			openBoxType		= 3;	// 开宝箱类型
+	repeated ClientSource	sources			= 4;
+	optional uint32         lucky           = 5;
+	repeated uint32         adventure      = 6;
+};
+message LOBBY2CLIENT_GetAstrologyHero_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETASTROLOGYHERO_RET ];
+
+	required uint32			ret				= 2;
+	repeated ClientSource	sources			= 3;
+	optional uint32 AstrologyLucky          = 4;
+};
+
+// 武将觉醒
+message LOBBY2CLIENT_HeroWake_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HERO_WAKE_RET ];
+	required uint32         ret             = 2;
+	required uint32         templateId      = 3;// 英雄模板ID
+	required uint32         newWakeLevel    = 4;// 觉醒后的等级
+	required WakeAttr 		property 		= 5;// 觉醒到newWakeLevel加成的属性
+}
+
+//道具合成与分解（觉醒、将灵）
+message LOBBY2CLIENT_SynWakeEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SYN_WAKEEQUIP_RET];
+	required uint32         ret          = 2;
+	repeated ClientSource   sources      = 3; // 合成后增加的资源
+}
+
+// 商品标记操作
+message LOBBY2CLIENT_MarkItem_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_MARKITEM_RET];
+	required uint32         ret          = 2;
+	required uint32 		itemId       = 3;        //  标记商品ID
+	required uint32 		operate      = 4;        // 操作： 1 添加标记，   2 删除标记
+}
+
+// 武将穿觉醒装备
+message LOBBY2CLIENT_WearWakeEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_WEAR_WAKE_EQUIP_RET ];
+	required uint32         ret             = 2;
+	required uint32         templateId      = 3;// 英雄模板ID
+	repeated uint32 		wakeEquips 		= 4;// 英雄身上穿的觉醒装备
+}
+
+//进入阵图主界面
+message LOBBY2CLIENT_EnterGhost_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ENTERGHOST_RET];
+	required uint32 			ret 		= 2;
+	repeated DiagramChapterMap  chapters    = 3; 	//章节信息(章节id和激活阵图)
+	optional uint32 			Id 			= 4; 	// 名将试炼id
+}
+
+// 阵图升级
+message LOBBY2CLIENT_UpgradeDiagram_Ret
+{
+	optional TgsProtocol.PacketDef cmdId 	= 1 [default = LOBBY2CLIENT_UPGRADEDIAGRAM_RET];
+	required uint32         ret             = 2;
+	optional Diagram 		diagram 		= 3;
+	optional uint32 		UnlockMaxId 	= 4;
+}
+
+
+// 阵图成就激活
+message LOBBY2CLIENT_DiagramAchieveActivate_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_DIAGRAMACHIEVEACTIVATE_RET];
+	required uint32         ret             = 2;
+	optional uint32         maxId 	       	= 3;
+}
+
+// 获取已激活阵图列表
+message LOBBY2CLIENT_DiagramList_Ret
+{
+	optional TgsProtocol.PacketDef 	cmdId    = 1 [default = LOBBY2CLIENT_DIAGRAMLIST_RET];
+	optional uint32 				ret 	 = 2;
+	optional DiagramChapterMap 		chapter	 = 3;
+}
+
+// 将灵激活的阵图数
+message LOBBY2CLIENT_GhostActive_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_GHOSTACTIVE_NTF];
+	optional uint32 				ret 	= 2;
+	repeated Ghost 					ghost 	= 3;
+}
+
+// 查看阵图激活信息
+message LOBBY2CLIENT_ViewGhost_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId   	= 1 [default = LOBBY2CLIENT_VIEWGHOST_RET];
+	optional uint32                 ret     	= 2;
+	repeated uint32 				activeId 	= 3;
+}
+// 批量分解将灵
+message LOBBY2CLIENT_BatchResolve_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_BATCHRESOLVE_RET];
+	optional uint32 				ret 		= 2;
+	repeated ClientSource   		sources    	= 3;
+}
+// 可分解的将灵列表
+message LOBBY2CLIENT_CanResolveList_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_CANRESOLVELIST_RET];
+	optional uint32 				ret 		= 2;
+	repeated uint32 				ghostlist 	= 3;
+}
+
+// 更换称号
+message LOBBY2CLIENT_UpdateTitle_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_UPDATETITLE_RET];
+	optional uint32 				ret 	= 2;
+	optional uint32 				titleId = 3;
+}
+
+// 名将试炼 --开始协议
+message LOBBY2CLIENT_GeneralExercise_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GENERALEXERCISE_RET];
+	required uint32                ret      = 2;
+	optional ClientBattlePlayer    self     = 3;
+}
+
+// 名将试炼———结束试炼
+message LOBBY2CLIENT_GeneralExerciseResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GENERALEXERCISERESULT_RET];
+	required uint32                ret      = 2;
+	optional bool                  iswin    = 3;
+	repeated ClientSource          sources  = 4;
+	optional uint32 			   Id 		= 5;
+}
+
+// 名将试炼 --刷新boss
+message LOBBY2CLIENT_RefreshExerciseBoss_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId 	= 1 [default = LOBBY2CLIENT_REFRESHEXERCISEBOSS_RET];
+	required uint32                	ret   	= 2;
+	optional uint32 				Id  	= 3;
+}
+
+// 史诗关卡boss 推送
+message LOBBY2CLIENT_RefreshEpicBoss_Ntf 
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_REFRESHEPICBOSS_NTF];
+	repeated EpicBoss epicBoss = 2;
+} 
+
+// 领取七日大礼	
+message LOBBY2CLIENT_SevenGifts_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_SEVENGIFTS_RET];
+	required uint32                 ret     = 2;
+	optional uint32 				id 		= 3; 	// 奖励id
+	repeated ClientSource 			sources = 4; 	//获取的奖励
+}
+
+// 七日大礼奖励已领取的id
+message LOBBY2CLIENT_SevenGifts_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_SEVENGIFTS_NTF];
+	optional uint32 				today 	= 2; 		// 今天的天数
+	repeated uint32 				ids 	= 3; 		// 已领取的id
+}
+
+// 在线奖励
+message LOBBY2CLIENT_OnlineReward_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_ONLINEREWARD_RET];
+	required uint32                 ret     = 2;
+	repeated OnlineRewards 			rewards = 3; 	//获取的奖励
+}
+
+// 在线奖励已领取的状态推送
+message LOBBY2CLIENT_OnlineReward_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId   			= 1 [default = LOBBY2CLIENT_ONLINEREWARD_NTF];
+	repeated uint32 				onlineRewardIds 	= 2;
+	required uint32 				yesterdayAccCoin 	= 3;  //昨日在线累计钻石数量
+	required uint32 				onlineTime 			= 4;  //累计在线时间
+}
+
+// 领取昨日在线积累钻石
+message LOBBY2CLIENT_OnlineAccCoin_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_ONLINEACCCOIN_RET];
+	required uint32                 ret     = 2;
+	repeated ClientSource 			sources = 3; 	//获取的奖励
+}
+ 
+// 领取离线经验
+message LOBBY2CLIENT_GetOfflineExp_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_GETOFFLINEEXP_RET];
+	required uint32 				ret 		= 2;
+	required uint32 				state 		= 3; 	//0:未领取 1:普通领取 2：双倍   3：五倍
+	repeated ClientSource 			sources 	= 4; 	//获取的奖励
+}
+
+// 推送离线经验累计状态
+message LOBBY2CLIENT_OfflineState_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_OFFLINESTATE_NTF];
+	required uint32 				acctime 	= 2;
+	required uint32 				state 		= 3; 	//0:未领取 1:普通领取 2：双倍   3：五倍
+	repeated uint32 				exp 		= 4; 	//经验值
+}
+
+// 领取资源找回奖励
+message LOBBY2CLIENT_GetRetrieveReward_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_GETRETRIEVEREWARD_RET];
+	required uint32 				ret     	= 2;
+	required RetrieveState 			state 		= 3; 	//资源找回状态
+	repeated ClientSource 			sources 	= 4; 	//获取的奖励
+}
+
+// 一件领取资源找回奖励
+message LOBBY2CLIENT_GetAllRetrieveReward_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId  	= 1 [default = LOBBY2CLIENT_GETALLRETRIEVEREWARD_RET];
+	required uint32 				ret 	= 2;
+	repeated RetrieveState          state   = 3; 				//资源找回状态 
+	repeated ClientSource 			sources = 4; 				//获取的奖励
+}
+
+// 资源找回状态推送
+message LOBBY2CLIENT_RetrieveState_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_RETRIEVESTATE_NTF];
+	repeated RetrieveState 			state 	= 2; 	// 资源找回状态
+}
+
+// 聊天秘籍推送
+message LOBBY2CLIENT_ChatPassword_Ntf
+{
+	optional TgsProtocol.PacketDef  cmdId   = 1 [default = LOBBY2CLIENT_CHATPASSWORD_NTF];
+	repeated PassWordState 			states 	= 2;
+}
+message CLIENT2LOBBY_ChatPasswordAct_Req
+{
+	optional TgsProtocol.PacketDef  cmdId   	= 1 [default = CLIENT2LOBBY_CHATPASSWORDACT_REQ];
+	required uint32 				passwordId 	= 2;
+}
+message LOBBY2CLIENT_ChatPasswordAct_Ret
+{
+	optional TgsProtocol.PacketDef  cmdId       = 1 [default = LOBBY2CLIENT_CHATPASSWORDACT_RET];
+	optional uint32 				ret 		= 2;
+	optional PassWordState 			state 		= 3;
+}
+
+/////////////////////////// 神秘商店//////////////////////////////////////////
+message ClientGoodsInfo
+{
+	repeated ClientSource sell      = 1;    // 购买的物品
+	repeated ClientSource cost      = 2;    // 消耗的物品
+	required bool		bSale		= 3;	// 是否已经出售
+	repeated ItemUseRestrict restrict=4;    // 购买条件
+	optional uint32		buyedNum	= 5;	// 已购买数量
+	optional uint32		maxNum  	= 6;	// 可购买数量
+	optional float      discount    = 7;    //  折扣
+	optional uint32     globalNum   = 8;    // 全服剩余数量
+	optional uint32     goodsId     = 9;    // goodsid
+};
+message ClientShopInfo
+{
+	required uint32				shopType	= 1;	// 商店类型
+	required uint32				goodsIndex	= 2;	// 商品批次
+	required uint32				countdown	= 3;	// 倒计时 (秒, 0 表示不消失)
+	repeated ClientGoodsInfo	goodsList	= 4;	// 商品列表
+	required bool				bToday		= 5;	// true 今天  false 明天
+	optional uint32				refresh		= 6;	// 下次刷新时间（秒）
+};
+
+// 获取神秘商店信息
+message LOBBY2CLIENT_GetShopInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETSHOPINFO_RET ];
+
+	repeated ClientShopInfo		shopList		= 2;
+};
+
+// 神秘商店购买道具
+message LOBBY2CLIENT_BuyGoods_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYGOODS_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			shopType		= 3;
+	required uint32			goodsIndx		= 4;	// 商品索引
+	repeated ClientSource	source			= 5;
+	optional uint32         num             = 6;
+	optional uint32         globalNum       = 7;
+};
+
+// 刷新神秘商店
+message LOBBY2CLIENT_RefreshShop_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REFRESHSHOP_RET ];
+
+	required uint32			ret				= 2;
+	optional uint32			shopType		= 3;
+	optional uint32			refreshTimes	= 4;
+};
+// 神秘商店激活
+message LOBBY2CLIENT_ShopActivity_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SHOPACTIVITY_NTF ];
+
+	required ClientShopInfo	shopInfo		= 2;
+};
+
+// 活动通知
+message LOBBY2CLIENT_Festivity_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FESTIVITY_NTF ];
+
+	required uint32	FestivityId		= 2; // 活动ID
+	required uint32	bOpen			= 3; // 0 关闭  1 开启
+};
+
+// 邮件
+message ClientMailInfo
+{
+	required uint64				instanceId		= 1;	// 邮件唯一ID
+	required uint32				templateId		= 2;	// 邮件配表ID
+	required uint32				mailType		= 3;	// 类型
+	required bytes				subjectStr		= 4;	// 邮件标题
+	required bytes				contextStr		= 5;	// 邮件内容
+	required bytes				senderStr		= 6;	// 发件人
+	required uint32				createtime		= 7;	// 发送时间
+	required bool				bRead			= 8;	// 是否已读
+	repeated ClientSource		accessory		= 9;	// 附件
+	optional LString			subjectStr_l    = 10;	// 邮件标题(多语言)
+	optional LString			contextStr_l	= 11;	// 邮件内容(多语言)
+	optional LString			senderStr_l		= 12;	// 发件人(多语言)
+	
+};
+//登录返回邮件列表
+message LOBBY2CLIENT_MailList
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_MAIL_LIST ];
+
+	repeated	ClientMailInfo	mailList = 2;
+};
+//新邮件通知
+message LOBBY2CLIENT_NewMail_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_NEW_MAIL_NTF ];
+
+	required	ClientMailInfo	newMail = 2;
+};
+//阅读邮件
+message LOBBY2CLIENT_ReadMail_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_READMAIL_RET ];
+
+	required uint32			ret				= 2;
+	required uint64			instanceId		= 3;	// 邮件唯一ID
+	repeated ClientSource	items			= 4;	
+};
+//删除邮件
+message LOBBY2CLIENT_DelMail_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DELMAIL_NTF ];
+
+	required uint64			instanceId				= 2;	// 邮件唯一ID
+};
+message LOBBY2CLIENT_DelMail_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DELMAIL_RET ];
+
+	required uint32			ret				= 2;
+	repeated uint64			instanceId		= 3;	// 邮件唯一ID
+};
+
+/////////////////////////// 血战//////////////////////////////////////////
+message LOBBY2CLIENT_GetExpeditionRobot_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETEXPEDITIONROBOT_RET ];
+	repeated ClientBattlePlayer    robot = 2;
+}
+message LOBBY2CLIENT_GetExpeditionBattlePlayer_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETEXPEDITIONBATTLEPLAYER_RET ];
+
+	required uint32			ret			 = 2;
+	optional uint32			chapterId    = 3;
+	optional ClientBattlePlayer battle_player   = 4; 
+	optional ClientBattlePlayer enemy_player    = 5; 
+	required uint32			isSkip				= 6;
+}
+
+message LOBBY2CLIENT_ExpeditionResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_EXPEDITIONRESULT_RET ];
+
+	required uint32			ret				= 2;
+	optional uint32			chapterId		= 3;
+	optional bool			bSweep  		= 4;
+	repeated ClientSource   sources         = 5;
+	optional bool			iswin   		= 6;
+	required uint32			isSkip			= 7;
+}
+// 重置远征
+message LOBBY2CLIENT_ResetExpedition_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RESET_EXPEDITION_RET ];
+
+	required uint32						ret				= 2;
+	optional uint32                     refreshTimes    = 3;
+}
+message LOBBY2CLIENT_GetRobotEffect_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GetRobotEffect_RET ];
+	repeated RobotEffect item            = 2;
+}
+
+
+/////////////////////////// 竞技场//////////////////////////////////////////
+
+message ClientArenaOpponent
+{
+	required	uint32					rank			= 1;	// 玩家排名
+	required	uint32					totalWin		= 2;	// 胜利总数
+	required    ClientBattlePlayer      battle_player    = 3; 
+};
+// 获取名次 及 对手
+message LOBBY2CLIENT_GetArenaInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_ARENAINFO_RET ];
+
+	required uint32					ret					= 2;
+	optional uint32					rank				= 3;	// 排名
+	optional uint32					bestRank			= 4;	// 历史最高排名
+	repeated uint32					formation			= 5;	// 己方防守阵容
+	repeated uint32					assit_formation  	= 6;	// 己方防守助阵阵容
+	repeated ClientArenaOpponent 	opponentList		= 7;	// 对手列表
+};
+// 挑战对手
+message LOBBY2CLIENT_ChallengeArena_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHALLENGE_ARENA_RET ];
+
+	required uint32				ret				= 2;
+	repeated ClientSource		items			= 3;  // 道具奖励
+	optional ClientBattlePlayer battle_player   = 4; 
+	optional ClientBattlePlayer enemy_player    = 5; 
+};
+// 奖励
+message LOBBY2CLIENT_ChallengeArenaReward
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHALLENGE_ARENA_REWARD ];
+
+	required uint32				ret				= 2;
+	required uint32				newRank			= 3;	// 新排名
+	required uint32				lastBestRank	= 4;	// 之前的历史最高排名
+	required uint32				coinDiamond		= 5;	// 历史最高排名奖励
+	repeated ClientSource		items			= 6;	// 道具奖励
+	required bool				isWin			= 7;	//
+	required uint32				isSkip			= 8;	//
+};
+// 重置挑战次数
+message LOBBY2CLIENT_ResetArena_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RESET_ARENA_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			type			= 3;	// 1 重置CD  2 重置挑战次数	 3 换一批对手
+	repeated ClientArenaOpponent 	opponentList = 4;	// 对手列表
+};
+// 更换防守阵容
+message LOBBY2CLIENT_ChangeArenaDefence_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGE_ARENA_DEFENCE_RET ];
+
+	required uint32			ret					= 2;
+	repeated uint32			formation			= 3;	// 新的防守阵容
+};
+
+message FastFightResult
+{
+	required uint32  ret   = 1;
+	optional bool    iswin = 2;
+	repeated ClientSource sources = 3;
+}
+//连战5次
+message LOBBY2CLIENT_ArenaFastFight_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ARENAFASTFIGHT_RET ];
+	required uint32  	     ret   = 2;
+	repeated FastFightResult items = 3;
+	optional bool            isboss= 4;
+};
+
+// 服务器踢人
+message LOBBY2CLIENT_KickNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_KICK_NTF ];
+
+	required 	uint32  	type					= 2; //改成用通用的errorcode emLobby2ClientErr
+};
+
+
+
+// 签到信息
+message LOBBY2CLIENT_SignInInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SIGNIN_INFO_NTF ];
+
+	repeated uint32			signList				= 2;	// 当月签到列表 1 普通签到  2 vip签到
+	required bool			bSignToday				= 3;	// 今天是否已签到
+	required uint32			oweSignNum				= 4;	// 当月可以补签的次数
+	required uint32			compensationSignNum		= 5;	// 当月已经补签的次数
+	optional uint32			signMon					= 6;	// 签到奖励的月 1-开服第一个月 2-开服1月后
+	optional uint32         monthSignValue          = 7;
+};
+// 签到结果返回
+message LOBBY2CLIENT_SignIn_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SIGNIN_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			signType		= 3;	// 1 签到  2 补签
+	repeated ClientSource   sources         = 4;
+};
+// 补领vip 签到奖励
+message LOBBY2CLIENT_GetVipSignInReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_VIPSIGNIN_REWARD_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			signDay			= 3;	// 领取时间(第几天)
+};
+message LOBBY2CLIENT_MonthSignIn_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_MONTHSIGNIN_RET ];
+
+	required uint32			ret				= 2;
+	required uint32			signType		= 3;	// 1 签到  2 补签
+	optional uint32         day             = 4;
+	repeated ClientSource   sources         = 5;
+	optional uint32         monthSignValue  = 6;
+};
+
+
+enum EAnnouncementType
+{
+	 Custom				= 1;
+     OpenBox			= 2;	// 抽卡
+     StrengthenHero		= 3;	// 强化英雄
+     StrengthenEquip	= 4;	// 强化装备
+ }
+message LOBBY2CLIENT_Announcement_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ANNOUNCEMENT_NTF ];
+
+	required EAnnouncementType		type			= 2;
+	optional uint32					val				= 3;	// 英雄ID  星级 等
+	optional bytes					charName		= 4;	// 名字
+	optional bytes					strAnnouncement	= 5;	// 公告内容(只有后台公告才有内容)
+};
+
+/////////////////////////// 好友系统 //////////////////////////////////////////
+message LOBBY2CLIENT_FriendList_Ret
+{
+	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FRIENDLIST_RET ];
+	repeated	ClientFriendInfo friendList	 = 2;
+	repeated	ClientFriendInfo blackList	 = 3;
+	repeated	ClientFriendInfo applyList	 = 4;
+	repeated	ClientFriendInfo recommandList	 = 5;
+	required	uint32			rcvTimes	= 6;
+};
+
+message LOBBY2CLIENT_FriendInfo_Ntf
+{
+	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FRIENDINFO_NTF ];
+	repeated	ClientFriendInfo friendList	 	= 2;
+	repeated	ClientFriendInfo applyList		= 3;
+	required	uint32			rcvTimes		= 4;
+};
+
+// 刷新推荐好友
+message LOBBY2CLIENTRecommandFriendListRet
+{
+	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RECOMMAND_FRIENDLIST_RET ];
+	repeated	ClientFriendInfo recommandList	 = 2;
+	required 	uint32			opt				 = 3;
+};
+
+message LOBBY2CLIENT_AddFriend_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ADD_FRIEND_RET ];
+
+	required uint32			ret			= 2;
+	required uint64			charId	    = 3;
+};
+
+message LOBBY2CLIENT_DelFriend_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DEL_FRIEND_RET ];
+
+	required uint32			ret			= 2;
+	required uint64			charId		= 3;	// 玩家ID
+};
+
+message LOBBY2CLIENT_ApplyList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_OP_APPLYLIST_RET ];
+
+	required uint32				ret			= 2;
+	required uint64				charId		= 3;	// 申请列表角色ID charid
+	required bool				bAgree		= 4;
+};
+
+message LOBBY2CLIENT_AddBlackList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ADD_BLACKLIST_RET ];
+
+	required uint32					ret				= 2;
+	required uint32					opType			= 3;
+	required uint64					charid			= 4;
+	optional ClientFriendInfo		charInfo		= 5;
+};
+
+message LOBBY2CLIENT_SendRcvEnergyOnce_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ENERGYONCE_RET ];
+
+	required uint32					ret				= 2;
+	required uint64					charId			= 3;	// 玩家ID
+	required uint32					rcvTimes		= 4;	// 领取精力次数
+	required uint32					opType			= 5;
+	required uint32					getEnergy		= 6;	// 获得精力
+};
+
+message LOBBY2CLIENT_SendRcvEnergyAll_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ENERGYALL_RET ];
+
+	required uint32					ret				= 2;
+	required uint32					rcvTimes		= 3;
+	required uint32					getEnergy		= 4;	// 获得精力
+};
+
+/*message LOBBY2CLIENT_NewApply_Ntf*/
+/*{*/
+	/*optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_NEW_APPLY_NTF ];*/
+
+	/*required ClientFriendInfo	charInfo	= 2;*/
+/*};*/
+
+/*message LOBBY2CLIENT_NewFriend_Ntf*/
+/*{*/
+	/*optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_NEW_FRIEND_NTF ];*/
+
+	/*required ClientFriendInfo	charInfo	= 2;*/
+/*};*/
+
+message LOBBY2CLIENT_DelFriend_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DEL_FRIEND_NTF ];
+
+	required uint64					charId		= 2;	// 玩家ID
+};
+
+message LOBBY2CLIENT_GetTargetFriendInfo_Ret
+{
+	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_TARGET_FRIENDINFO_RET ];
+	required uint32		ret						= 2;
+	required bool 		bfriend	 				= 3;
+	required bool 		black	 				= 4;
+	required bool 		apply	 				= 5;
+};
+
+//message LOBBY2CLIENT_GetTargetFriendInfoDesc_Ret
+//{
+//	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_TARGET_FRIENDINFO_RET ];
+//	required uint32		ret						= 2;
+//	required bool 		bfriend	 				= 3;
+//	required bool 		black	 				= 4;
+//	required bool 		apply	 				= 5;
+//}
+
+message LOBBY2CLIENTGetTargetUserInfoRet
+{
+	optional	TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_TARGET_USERINFO_RET ];
+	required uint32		ret						= 2;
+	optional bool 		bfriend	 				= 3;
+	optional bool 		black	 				= 4;
+	optional bool 		apply	 				= 5;
+	optional uint64		myCharId				= 6;
+	optional uint64		dstcharid				= 7;
+	optional bytes		charName				= 9;
+	optional uint32		photo					= 10;
+	optional uint32		charLevel				= 11;
+	optional uint32		effect					= 12; // 战斗力
+	optional uint32		vipLevel				= 13;
+	optional bytes		guildName				= 14;
+	optional bool		bSend					= 15; // 是否送精力
+	optional uint32		receive					= 16; // 收精力 0 未送  1 未收 2 已收
+	optional uint32 	loginTime				= 17; // 最近登录时间
+	repeated ClientHeroInfo formationHero		= 18; // 出站英雄
+	repeated ClientHeroInfo assistHero	    	= 19; // 助阵英雄
+};
+/////////////////////////// 新装备 //////////////////////////////////////////
+
+// 穿装备
+message LOBBY2CLIENT_Equip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_EQUIP_RET ];
+
+	required uint32			heroId		= 2;	// 玩家ID
+	required uint64			equipId		= 3;	// 装备实例ID
+};
+message LOBBY2CLIENT_ChangeEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGEEQUIP_RET ];
+
+	required uint32         ret         = 2; 
+	required uint32			heroId		= 3;	
+	repeated uint64			onEquipId   = 4;
+	repeated uint64         unEquipId   = 5;
+};
+
+// 卸装备
+message LOBBY2CLIENT_UnEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_UNEQUIP_RET ];
+
+	required uint32			heroId		= 2;	// 玩家ID
+	required uint64			equipId		= 3;	// 装备实例ID
+};
+
+// 强化装备
+message LOBBY2CLIENT_StrengEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_STRENG_EQUIP_RET ];
+
+	required uint32			ret				= 2;
+	required uint64			equipId			= 3;	// 装备实例ID
+	required uint32			strengLevel		= 4;	// 新的强化等级
+	required uint32			strengTimes		= 5;	// 强化次数
+	required uint32			critTimes		= 6;	// 暴击次数
+};
+
+// 精炼装备
+message LOBBY2CLIENT_RefineEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REFINE_EQUIP_RET ];
+
+	required uint32			ret				= 2;
+	required uint64			equipId			= 3;	// 装备实例ID
+	required uint32			refineLevel		= 4;	// 新的精炼等级
+	optional uint32         refineExp       = 5;
+};
+message LOBBY2CLIENT_StrengTreasure_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_STRENG_TREASURE_RET ];
+
+	required uint32			ret				= 2;
+	optional uint64         treasureId      = 3;
+	repeated uint64         materialId      = 4;
+	optional uint32			strengLevel		= 5;	
+	optional uint32			strengExp		= 6;	
+};
+message LOBBY2CLIENT_RefineTreasure_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REFINE_TREASURE_RET ];
+
+	required uint32			ret				= 2;
+	optional uint64			treasureId		= 3;	
+	optional uint32			refineLevel		= 4;
+};
+
+
+// 出售装备
+message LOBBY2CLIENT_SaleEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SALE_EQUIP_RET ];
+
+	required uint32			ret			= 2;
+	repeated uint64			equipId		= 3;	// 装备实例ID
+	repeated ClientSource	sources		= 4;	// 返还资源
+};
+message LOBBY2CLIENT_EvolveEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_EVOLVEEQUIP_RET ];
+
+	required uint32			ret			= 2;
+	required uint64			equipId		= 3;
+	optional uint32         newTemplateId= 4;
+};
+message LOBBY2CLIENT_AwakeEquip_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_AWAKEEQUIP_RET ];
+
+	required uint32			ret				= 2;
+	required uint64			equipId			= 3;
+	optional uint32			awakeLevel		= 4;	
+};
+// 更改助阵
+message LOBBY2CLIENT_ChangeRaise_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CHANGE_RAISE_RET ];
+
+	required uint32			ret			= 2;
+	repeated uint32			heroRaise	= 3;	// 助阵英雄（英雄模板ID）
+};
+
+// 购买商品
+message LOBBY2CLIENT_ShopBuyGoods_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SHOP_BUY_GOODS_RET ];
+
+	required uint32			ret			= 2;
+	required uint32			shopid		= 3;	// 
+	repeated ClientChargeShop chargeShop 	= 4;
+	repeated ClientSource	source		= 5;
+};
+
+// 玩家登陆推送数据完毕通知
+message LOBBY2CLIENT_LoginDataComplete_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_LOGINDATACOMPLETE_NTF ];
+};
+
+// 请求活动数据
+message LOBBY2CLIENT_GetActivityData_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETACTIVITYDATA_RET ];
+	repeated ClientActivity acts		 = 2;
+};
+
+// 获取活动奖品
+message LOBBY2CLIENT_GetActivityReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETACTIVITYREWARD_RET ];
+	required uint32			ret			 = 2;
+	repeated ClientSource	sources		 = 3;
+};
+//更新活动数据
+message LOBBY2CLIENT_UpdateActivityData_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_UPDATEACTIVITYDATA_NTF ];
+	repeated ClientActivity acts		 = 2;
+};
+
+//七日活动奖励
+message LOBBY2CLIENTGetSevenRewardRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_SEVEN_REWARD_RET ];
+	required uint32			ret			= 2;
+	repeated ClientSource	sources		= 3;
+};
+message LOBBY2CLIENTSevenNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SEVEN_NTF ];
+	repeated ClientSevenDayElement seven = 2;
+};
+
+message GoodsExchange
+{
+	required uint32 index = 1;
+	repeated ClientSource get = 2;
+	repeated ClientSource cost = 3;
+	optional float  discount = 4;
+};
+// 全局数据通知
+message LOBBY2CLIENTGlobalNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GLOBAL_NTF ];
+
+	required uint32 openServerTime		 = 2;
+	optional HalfBuy	halfbuy			 = 3;	
+	repeated GoodsExchange goodList		 = 4;	// 货物对应关系 木有用于半价购买货物
+	required string	content				 = 5;	// 在线参数
+	optional string chatAddr			 = 6;	// 语言地址
+	repeated ClientChargeShopConf shop	 = 7;	// 充值商城配表
+	optional string noticeurl            = 8;   // 登陆游戏弹出的公告url
+	optional string custominfo           = 9;   // 客服简介
+};
+// 购买开服基金
+message LOBBY2CLIENT_BuyRebate_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYREBATE_RET ];
+	required uint32			ret			 = 2;
+};
+// 心跳包
+message LOBBY2CLIENTHeartNtf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HEART_NTF ];
+	required uint32			beatTime	 = 2;
+};
+
+// 七日活动半价购买
+message LOBBY2CLIENTSevenHalfBuyRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_SEVEN_HALF_BUY_RET];
+	required uint32			ret			 = 2;
+	required uint32			index		 = 3;	// 七日活动物品index
+	repeated ClientSource	sources		 = 4;
+};
+//购买名将副本次数 
+message LOBBY2CLIENT_BuyMapTimesRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYMAPTIMES_RET];
+	required uint32			ret			 = 2;
+    optional uint32         count        = 3;
+};
+
+/////////////////////////// 叛军 //////////////////////////////////////////
+//购买名将副本次数 
+message RebelArmyBoss
+{
+	required uint64 		ownerUserId  = 1;
+	required uint32			maxHealth	 = 2;
+	required uint32			curHealth	 = 3;
+	required uint32			createTime	 = 4;
+	required uint32			index		 = 5;
+	required bytes			name		 = 6;
+	required uint32			lv			 = 7;
+	required uint32			share		 = 8;
+	optional uint64			maxHealthBig = 9; // 为了兼容 新版用这个
+	optional uint64			curHealthBig = 10; // 为了兼容 新版用这个
+};
+
+message RebelArmyInfo
+{
+	required uint32		dayHarm	= 2;
+	required uint32		dayHarmRank = 3;
+	required uint32		dayExploits = 4;
+	required uint32		dayExploitsrank = 5;
+	required uint32		battleValue		= 6;
+	required uint32		freeCount	= 7;
+	required uint32		startLv		= 8;
+	optional uint64		dayHarmBig	= 9;
+}
+
+//叛军请求战斗开始
+message LOBBY2CLIENTRebelArmyBattleStartRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REBEL_ARMY_BATTLE_START_RET];
+	required uint32 			ret		 = 2;
+	required uint32			  attackType = 3;			
+	required RebelArmyBoss			boss = 4;
+	optional ClientBattlePlayer battle_player = 5;
+};
+
+//叛军请求战斗结束
+message LOBBY2CLIENTRebelArmyBattleEndRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REBEL_ARMY_BATTLE_END_RET];
+	required uint32					ret	 = 2;
+	optional RebelArmyInfo			rebelarmy = 3;
+	optional RebelArmyBoss			boss = 4;
+	repeated ClientSource			sources = 5;
+};
+
+//叛军BOSS请求回复
+message LOBBY2CLIENTRebelArmyBossRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REBEL_ARMY_BOSS_RET];
+	required uint32					ret	 = 2;
+	repeated RebelArmyBoss			bossList = 3;
+	optional uint32					num = 4; // 几个boss
+};
+
+//叛军BOSS请求回复
+message LOBBY2CLIENTRebelArmyBossTipRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REBEL_ARMY_BOSS_TIP_RET];
+	required uint32					ret	 = 2;
+	optional uint32					num = 4; // 几个boss
+};
+
+//叛军BOSS分享请求
+message LOBBY2CLIENTRebelArmyBossShareRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REBEL_ARMY_BOSS_SHARE_RET];
+	required uint32					ret = 2;
+};
+// 排行榜数据 
+message LOBBY2CLIENT_GetRankData_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETRANKDATA_RET ];
+	required uint32					ret	 = 2;
+	optional ClientRankList        info  = 3;
+};
+
+message RankHeroData
+{
+  required uint32                  templateId = 1;
+  required uint32                  level      = 2;
+  required uint32                  star       = 3;
+}
+//查看排行榜战队tips 
+message LOBBY2CLIENT_GetRankFiveHero_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETRANKFIVEHERO_RET ];
+    required uint32                ret   = 2;
+    optional uint64                charId= 3;
+    optional string                name  = 4;
+    optional uint32                photo = 5;
+    optional uint32                level = 6;
+    optional uint32                vip   = 7;
+    optional uint32                rank  = 8;
+    optional uint32                effect= 9;
+    repeated RankHeroData          heros = 10;
+};
+//查看排行榜武器tips 
+message LOBBY2CLIENT_GetRankWeapon_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETRANKWEAPON_RET ];
+    required uint32                ret   = 2;
+    optional uint32                templateId= 3;
+    optional uint32                strengLev = 4;
+    optional uint32                refineLev = 5;
+    optional uint32                suitValue = 6; 
+};
+//查看排行榜武将tips 
+message LOBBY2CLIENT_GetRankHero_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETRANKHERO_RET ];
+    required uint32                ret   = 2;
+    optional uint32                templateId= 3;
+    optional string                name  = 4;
+    optional uint32                level = 5;
+    optional uint32                star  = 6;
+    optional uint32                effect= 7;
+};
+
+//名人堂 
+message LOBBY2CLIENT_GetAchieve_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETACHIEVE_RET ];
+    required uint32                ret   = 2;
+    repeated ClientAchieve         achieve = 3;
+};
+//领取名人堂奖励
+message LOBBY2CLIENT_GetAchieveReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETACHIEVEREWARD_RET ];
+	required uint32                ret   = 2;
+	required uint32                id    = 3;
+	repeated ClientSource          sources = 4;
+};
+
+message NearbyPlayer
+{
+	required uint64                charid   = 1;
+	required string                name     = 2;
+    required uint32                photo    = 3;
+    required uint32                gender   = 4;
+    optional string                guild    = 5;
+    required uint32                effect   = 6;
+    optional uint32                isFashion= 7;
+    required uint32                level    = 8;
+    required uint32                viplevel = 9;
+    optional uint32                isfriend = 10;
+    optional uint32                isblack  = 11;
+    optional uint32                isapply  = 12;
+    optional uint32                star     = 13;
+    optional uint32                wingsLevel = 14;
+	optional uint32 			   wearTitleId = 15;
+};
+message LOBBY2CLIENT_GetNearbyPlayers_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETNEARBYPLAYERS_RET ];
+    repeated NearbyPlayer          players = 2;	
+};
+//时装
+message LOBBY2CLIENT_PutFashion_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_PUTFASHION_RET ];
+	required uint32					ret   = 2;
+	required uint32					heroId = 3;
+	required uint32					flag = 4; //0:卸下 1:激活
+};
+enum eCharInfoReset
+{ 
+	eCharInfoReset_None                = 0;
+	eCharInfoReset_MapBuyCount         = 1; // 名将副本已购买次数
+	eCharInfoReset_MapShareCount       = 2; // 名将副本共享次数
+	eCharInfoReset_OpenCopperBoxTimes  = 3; // 铜钱招募次数
+    eCharInfoReset_OpenDiamondBoxTimes = 4; // 钻石招募次数
+	eCharInfoReset_WorldChatTimes      = 5; // 世界聊天次数
+	eCharInfoReset_ArenaTimes          = 6; // 竞技场挑战次数
+	eCharInfoReset_ServerTime          = 7; // 服务器时间
+	eCharInfoReset_SignIn              = 8; // 是否已签到
+	eCharInfoReset_DailyDiamondsConsume= 9; // 每日消耗钻石
+	eCharInfoReset_RebelArmyExploits   = 10; // 叛军每日功勋
+	eCharInfoReset_RebelArmyHarm	   = 11; // 叛军每日伤害
+	eCharInfoReset_EliteMapCount       = 12; // 精英副本总次数
+	eCharInfoReset_DailyRecharge       = 13; // 每日充值
+	eCharInfoReset_GuildDailyDevote    = 14; // 每日军团贡献
+	eCharInfoReset_TaskScore           = 15; // 任务积分 
+	eCharInfoReset_SourceMapTimes      = 16; // 名将副本次数
+	eCharInfoReset_WingsRate           = 17; // 武将翅膀幸运值清空
+	eCharInfoReset_ArenaScore          = 18; // 竞技场积分
+	eCharInfoReset_Max                 = 19;
+};
+
+message CharInfoReset
+{
+	required eCharInfoReset type = 1;
+	required uint32         value =2 [default = 0];
+};
+
+//凌晨刷新玩家数据通知
+message LOBBY2CLIENT_NewDayUpdate_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_NEWDAYUPDATE_NTF];
+	repeated ClientQuest				quests				= 2;	// 任务
+	repeated ClientInstanceEvaluation	instanceEvaluation	= 3;	// 副本评价
+	repeated uint32						refreshPrice		= 4;	// 刷新次数
+	repeated CharInfoReset              resetItem           = 5;
+	repeated ClientChargeShop			chargeShop			= 6;
+	repeated uint32						buyedPrice   		= 7;	//已购买次数
+	required uint32 					signMon 			= 8;    //当前签到月
+	repeated uint32         			signList            = 9;    // 当月签到列表 1 普通签到  2 vip签到
+};
+
+//充值通知
+message LOBBY2CLIENT_Recharge_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_RECHARGE_NTF];
+	required uint32				   dollar	= 2; // 充值获得钻石
+	repeated ClientChargeShop	   chargeShop = 3;	// 商城物品购买
+	repeated ClientSource		   firstPrize = 4; // 首次充值 分档奖励
+	repeated ClientSource		   iapPrize	  = 5;	// iap 充值物品获得
+	/*repeated ClientSource		   continuePrize = 6; // 连续充值活动奖励*/
+	optional uint32                money    = 7;
+	optional uint32                shopid   = 8;
+	optional bool 				   isGM 	= 9; 	// 通过gm指令充值
+};
+
+//充值通知
+message LOBBY2CLIENTShareNtf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_SHARE_NTF];
+	required bytes				   content	= 2; // 分享内容;
+}
+
+/////////////////////////// 组队 //////////////////////////////////////////
+message ClientRaidTeamArmy
+{
+	required uint64 leaderId	 = 1;
+	repeated ClientRaidTeamInfo	player	= 2;	
+	required RaidTeamStatus		status	= 3; // 
+	required uint32 index		= 4; // 组队的 场景index
+	required uint32 count		= 5; // 计数
+	required uint32 maxhealth		= 6; // 血量
+	required uint32 needTime		= 7; // 杀死需要的总时间
+	required uint32 monsterIndex	= 8; // 怪物index
+	repeated ClientRaidTeamInfo  applyPlayer = 9; // 请求用户
+	required uint32 endTime		= 10; //组队结束时间
+};
+
+//组队数据通知
+message LOBBY2CLIENTRaidTeamNtf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_RAID_TEAM_NTF];
+	required uint32						ret				= 2;
+	required ClientRaidTeamArmy			team			= 3;
+	required uint32						attackCount		= 4; //战斗剩余讨伐的次数 为0的时候结算奖励的时候要提示 没有奖励可以获取
+	required RaidTeamNtf				opt				= 5; // 操作
+	required uint64						charId			= 6; // 触发这个操作的用户ID
+	required uint64						dstCharId		= 7; // 目标用户
+	repeated ClientSource				sources		 	= 8; // 战斗结束在重开的奖励
+	required uint32						timer			= 9; // 倒计时
+	repeated ClientSource				boxes		 	= 10; // 战斗结束在重开的宝箱奖励
+};
+
+//组队挂机 队伍拉取回复
+message LOBBY2CLIENTGetRaidTeamRet
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_GET_RAID_TEAM_RET];
+	required uint32						ret				= 2;
+	repeated ClientRaidTeamArmy			team			= 3;
+	required uint32						section			= 4;
+};
+
+//组队挂机 创建队伍回复
+message LOBBY2CLIENTCreateRaidTeamRet
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_CREATE_RAID_TEAM_RET];
+	required uint32						ret				= 2;
+	required uint32						index			= 3;
+};
+
+message LOBBY2CLIENTOptRaidTeamRet
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_OPT_RAID_TEAM_RET];
+	required	uint32		ret			 = 2;
+	required	uint32		opt			 = 3; // 0 进入 1: 取消 2: 踢人
+	required 	uint64		leaderId	 = 4;
+	required	uint32		charId		 = 5;
+};
+
+message LOBBY2CLIENT_GetGuildList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_GETGUILDLIST_RET];
+	repeated ClientGuildInfo items = 2;
+	optional uint32          page  = 3;           
+	optional uint32          totalpage  = 4;           
+}
+message LOBBY2CLIENT_CreateGuild_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_CREATEGUILD_RET];
+	required uint32         ret				= 2;
+}
+message LOBBY2CLIENT_ApplyGuild_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_APPLYGUILD_RET];
+	required uint32         ret				= 2;
+}
+message LOBBY2CLIENT_ApplyGuildRespond_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_APPLYGUILDRESPOND_RET];
+	required uint32         ret				= 2;
+}
+message LOBBY2CLIENT_GetGuildApplyList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_GETGUILDAPPLYLIST_RET];
+	required uint32         ret				= 2;
+	repeated ClientGuildMember member       = 3;
+}
+message LOBBY2CLIENT_QuitGuild_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_QUITGUILD_RET];
+	required uint32         ret				= 2;
+	optional uint32         type            = 3; //0:自己退出 1:被开除
+}
+message LOBBY2CLIENT_OperateGuildMember_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_OPERATEGUILDMEMBER_RET];
+	required uint32         ret				= 2;
+}
+message LOBBY2CLIENT_ModifyGuildText_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_MODIFYGUILDTEXT_RET];
+	required uint32         ret				= 2;
+}
+message LOBBY2CLIENT_GetGuildMemberList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_GETGUILDMEMBERLIST_RET];
+	required uint32         ret				= 2;
+	repeated ClientGuildMember member       = 3;
+}
+message LOBBY2CLIENT_GuildInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDINFO_NTF];
+	required ClientGuildInfo info = 2;
+}
+message LOBBY2CLIENT_GuildMember_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId	= 1 [default = LOBBY2CLIENT_GUILDMEMBER_NTF];
+	required ClientGuildMember member       = 2;
+}
+message LOBBY2CLIENT_GuildApply_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDAPPLY_NTF];
+	required ClientGuildMember apply        = 2;
+}
+message LOBBY2CLIENT_GuildRitual_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDRITUAL_NTF];
+	required ClientGuildRitual data         = 2;
+}
+message LOBBY2CLIENT_GuildRitual_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDRITUAL_RET];
+	required uint32         ret				= 2;
+	optional uint32         ritual          = 3;
+	optional uint32         exp             = 4;
+	optional uint32         devote          = 5;
+	optional uint32         rate            = 6;
+
+}
+message LOBBY2CLIENT_GetGuildRitualRateReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDRITUALRATEREWARD_RET];
+	required uint32         ret				= 2;
+	required uint32         boxindex	    = 3;
+	repeated ClientSource	sources		 	= 4; 
+}
+message LOBBY2CLIENT_GetGuildRitual7DayReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDRITUAL7DAYREWARD_RET];
+	required uint32         ret				= 2;
+	optional uint32         devote          = 3;
+}
+message LOBBY2CLIENT_GetGuildState_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDSTATE_RET];
+	required uint32         ret				= 2;
+	repeated ClientGuildState item          = 3;
+}
+message LOBBY2CLIENT_GuildState_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDSTATE_NTF];
+	repeated ClientGuildState item          = 2;
+}
+//用户杂项属性通知
+message LOBBY2CLIENT_PrizeInfoNtf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_PRIZEINFO_NTF];
+	repeated PrizeInfo item                 = 2;
+	optional uint32	onlinetime				= 3; // 在线时间
+	optional uint32	avoidTime				= 4; // 免战结束时间
+	repeated ClientChargeShop chargeshop	= 5; // 充值商城
+}
+message LOBBY2CLIENTGetPrizeRet
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GET_PRIZE_RET];
+	required uint32					ret		= 2;
+	required ePrizeGet				choose  = 3;
+	repeated ClientSource		sources		= 4;
+	optional uint32				para		= 5;
+	optional uint32				para2		= 6;
+	optional uint32				para3		= 7;
+}
+
+message LOBBY2CLIENT_GuildMapInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDMAPINFO_NTF];
+	required GuildChapterInfo info          = 2;
+	required uint32           chapter_id    = 3; //今日攻打的章节id
+}
+message  LOBBY2CLIENT_SelectGuildChapter_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SELECTGUILDCHAPTER_RET];
+	required uint32					ret		= 2;
+}
+
+message LOBBY2CLIENT_AttackGuildMap_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKGUILDMAP_RET];
+	required uint32					ret		= 2;
+	repeated GuildMapMonster        monster = 3;
+	required uint32          attacked_times = 4;
+	optional ClientBattlePlayer battle_player = 5;
+	optional uint32                map_id   = 6;
+}
+message LOBBY2CLIENT_AttackGuildMapResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKGUILDMAPRESULT_RET];
+	required uint32					ret		= 2;
+	repeated ClientSource       sources     = 3;
+}
+message LOBBY2CLIENT_GetGuildMapRewardList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDMAPREWARDLIST_RET];
+	repeated GuildMapReward        item     = 2;
+	optional uint32                chapter_id   = 3;
+}
+message LOBBY2CLIENT_ShowGuildMapRewardList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SHOWGUILDMAPREWARDLIST_RET];
+	repeated ClientSource          sources  = 2;
+	optional uint32                map_id   = 3;
+	optional uint32                chapter_id   = 4;
+}
+
+message LOBBY2CLIENT_ResetGuildMapType_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_RESETGUILDMAPTYPE_RET];
+	required uint32					ret		= 2;
+	optional bool                   chapter_back = 3;
+	
+}
+message LOBBY2CLIENT_GetGuildTerritoryInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDTERRITORYINFO_RET];
+	required uint32                 ret     = 2;
+	optional GuildTerritoryInfo     info    = 3;
+}
+message LOBBY2CLIENT_GetGuildTerritoryBattlePlayer_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETGUILDTERRITORYBATTLEPLAYER_RET ];
+	required uint32                 ret     = 2;
+	optional uint32                chapter_id = 3;
+	optional ClientBattlePlayer    battle_player = 4;
+}
+
+message LOBBY2CLIENT_AttackGuildTerritoryResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKGUILDTERRITORYRESULT_RET];
+	required uint32                 ret     = 2;
+	repeated ClientSource       sources     = 3;
+	optional uint32        passed_chapterid = 4;
+}
+message LOBBY2CLIENT_PatrolGuildTerritory_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_PATROLGUILDTERRITORY_RET];
+	required uint32                 ret     = 2;
+	optional GuildTerritoryChapter  item    = 3;
+}
+message LOBBY2CLIENT_GetGuildTerritoryReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDTERRITORYREWARD_RET];
+	required uint32                 ret     = 2;
+	repeated ClientSource       sources     = 3;
+}
+message LOBBY2CLIENT_GetGuildMembersTerritoryList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDMEMBERSTERRITORYLIST_RET];
+	required uint32                 ret     = 2;
+	repeated GuildMemberTerritoryInfo item  = 3;
+}
+message LOBBY2CLIENT_GetGuildMemberTerritoryInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDMEMBERTERRITORYINFO_RET];
+	required uint32                 ret     = 2;
+	optional GuildTerritoryInfo     info    = 3;
+}
+message LOBBY2CLIENT_SuppressGuildMemberTerritory_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SUPPRESSGUILDMEMBERTERRITORY_RET];
+	required uint32                 ret     = 2;
+	required uint32                chapterid= 3;
+	optional uint32                suppressTimes = 4;
+	repeated ClientSource       sources     = 5;
+}
+message LOBBY2CLIENT_GuildTerritoryRiotDone_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDTERRITORYRRIOTDONE_NTF];
+	required uint64                charid   = 2;
+	required string                name     = 3;
+	repeated GuildTerritoryEventUpdate item = 4;
+	repeated ClientSource       sources     = 5;
+}
+message LOBBY2CLIENT_UnlockGuildSkill_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_UNLOCKGUILDSKILL_RET];
+	required uint32                ret      = 2;
+	optional uint32                skillid  = 3;
+}
+message LOBBY2CLIENT_UpGuildSkill_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_UPGUILDSKILL_RET];
+	required uint32                ret      = 2;
+	optional uint32                skillid  = 3;
+	optional uint32                skilllevel  = 4;
+}
+message LOBBY2CLIENT_GetGuildWarEnemyList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDWARENEMYLIST_RET];
+	required uint32                ret      = 2;
+	repeated ClientGuildInfo       item     = 3;
+}
+message LOBBY2CLIENT_SelectGuildWarEnemy_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SELECTGUILDWARENEMY_RET];
+	required uint32                ret      = 2;
+	optional uint32                guildid  = 3;
+}
+message LOBBY2CLIENT_GetGuildWarInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDWARINFO_RET];
+	required bool                  opening  = 2; //是否正在战争中
+	required uint32                seconds  = 3; //还剩多少时间开启或结束
+	optional ClientGuildInfo       enemyGuild= 4;
+	repeated ClientGuildWarMsg     msg      = 5;
+	optional uint32                total_exp= 6; //我方抢夺的总物资
+}
+message LOBBY2CLIENT_ShowGuildWarEnemyMembers_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SHOWGUILDWARENEMYMEMBERS_RET];
+	required uint32                ret      = 2;
+	repeated ClientGuildMember     item     = 3;
+}
+message LOBBY2CLIENT_AttackGuildWarEnemy_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKGUILDWARENEMY_RET];
+	required uint32                ret      = 2;
+	optional ClientBattlePlayer    battle_player  = 3; 
+	optional ClientBattlePlayer    enemy_player   = 4; 
+}
+message LOBBY2CLIENT_AttackGuildWarEnemyResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKGUILDWARENEMYRESULT_RET];
+	required uint32                ret      = 2;
+	optional bool                  iswin    = 3;
+	repeated ClientSource		   sources  = 4;
+	optional uint32                attacked_times = 5;
+}
+message LOBBY2CLIENT_GuildWarMsg_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDWARMSG_NTF];
+	repeated ClientGuildWarMsg     msg      = 2;
+}
+message LOBBY2CLIENT_GuildWarEndPlayerMsg_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDWARENDPLAYERMSG_NTF];
+	optional ClientGuildWarEndMsg     msg   = 2;
+}
+
+message LOBBY2CLIENT_GuildWarEndMsg_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDWARENDMSG_NTF];
+	repeated ClientGuildWarEndMsg     msg   = 2;
+}
+message LOBBY2CLIENT_GuildTechnology_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDTECHNOLOGY_NTF];
+	required ClientGuildTechnology data     = 2;
+}
+
+message LOBBY2CLIENT_GuildCityInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDCITYINFO_NTF];
+	required uint32                city_level = 2;
+	required uint32                city_exp = 3;
+}
+message ClientCityTask
+{
+	required uint32 type   = 1; //1:名望 2:活跃 3:军团 4:追回任务
+	required uint32 id     = 2;
+	optional uint32 step   = 3; //进度
+	optional uint32 status = 4; //0:未完成 1:完成 2:已领取
+	optional uint32 curr_rate = 5;
+	optional uint32 total_rate = 6;
+}
+message LOBBY2CLIENT_GuildCityTaskInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDCITYTASKINFO_NTF];
+	repeated ClientCityTask task            = 2;
+}
+message LOBBY2CLIENT_GuildCityTaskUpdate_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GUILDCITYTASKUPDATE_NTF];
+	required ClientCityTask task            = 2;
+}
+message LOBBY2CLIENT_GetGuildCityTaskReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGUILDCITYTASKREWARD_RET];
+	required uint32       ret     = 2;
+	repeated ClientSource sources = 3;
+	optional ClientCityTask task  = 4;
+}
+message LOBBY2CLIENT_RefreshGuildCityTask_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_REFRESHGUILDCITYTASK_RET];
+	required uint32       ret     = 2;
+	optional ClientCityTask task  = 3;
+}
+
+
+/////////////////////////// 夺宝 //////////////////////////////////////////
+//拥有宝物玩家拉取
+message LOBBY2CLIENTRobPlayerRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ROBPLAYER_RET ];
+	required uint32				 	ret = 2;
+	required uint32				  itemId = 3; // 宝物碎片ID
+	required uint32				  treasureId = 4; // 宝物ID
+	repeated ClientBattlePlayer	  player = 5; // 目标列表
+}
+//抢夺玩家宝物碎片
+message LOBBY2CLIENTRobTreasureBattleStartRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ROB_TREASURE_BATTLE_START_RET ];
+	required uint32				  ret = 2;
+	required uint32				  itemId = 3; // 宝物碎片ID
+	required uint32				  treasureId = 4; // 宝物ID
+	required uint64				  charId = 5; // 目标用户ID
+	required uint32				  opt	= 6; // 0 一次 1 夺五次
+	optional ClientBattlePlayer   battle_player  = 7; 
+	optional ClientBattlePlayer   enemy_player   = 8; 
+}
+message RobPrize
+{
+	repeated ClientSource		base	 = 8; //  基础奖励 包含碎片
+	repeated ClientSource		show	 = 9; // 奖励 一次的还需要抽奖 字段为展示字段 五次的自动抽取
+	optional uint32             itemId   = 10; 
+	optional bool               useEnegryItem = 11; //是否使用了精力囊
+}
+
+//抢夺玩家宝物碎片
+message LOBBY2CLIENTRobTreasureBattleEndRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ROB_TREASURE_BATTLE_END_RET ];
+	required uint32					ret = 2;
+	required uint32				  itemId = 3; // 宝物碎片ID
+	required uint32				  treasureId = 4; // 宝物ID
+	required uint64				  charId = 5; // 目标用户ID
+	required uint32				  opt	 = 6; // 0 一次 1 夺五次
+	required uint32				 iswin	= 7;
+	repeated RobPrize			 prize	= 8;
+	required uint32				isSkip	= 9;
+}
+//宝物合成
+message LOBBY2CLIENTTreasureCombineRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_TREASURE_COMBINE_RET ];
+	required uint32					ret = 2;
+	required uint32				  treasureIndex = 3; // 宝物项目index
+	repeated ClientSource		 sources		= 4; // 合成后的物品
+}
+//抽奖
+message LOBBY2CLIENTRobOpenBoxRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ROB_OPEN_BOX_RET ];
+	required uint32					ret = 2;
+	required uint32				  treasureIndex = 3; // 宝物项目index
+	repeated ClientSource			sources	 = 4; // 奖励
+}
+message LOBBY2CLIENT_OneKeyRob_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ONEKEYROB_RET ];
+	required uint32				  ret = 2;
+	required uint32				  treasureIndex = 3;
+	repeated RobPrize			  prize	= 4;
+	required bool                 isAllGot = 5; //是否获得了所有碎片
+}
+message LOBBY2CLIENT_OneKeyRobEnd_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_ONEKEYROBEND_RET ];
+	required uint32				  ret = 2;
+}
+
+//使用物品 用于一些特殊的东西 无法分配到属性相加那里的 例如 免战令
+message LOBBY2CLIENTUseItemSpecialRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_USE_ITEM_SPECAIL_RET ];
+	required uint32					ret = 2;
+	required eUseItem			   choose = 3; // 项目类别
+	required uint32				 	value = 4; // 项目参数
+}
+//跑马灯 公告(老版本)
+message LOBBY2CLIENT_Notice_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_NOTICE_NTF ];
+	repeated ClientNoticeInfo      item  = 2;
+}
+//跑马灯 通过任务推送
+message LOBBY2CLIENT_NoticeByTask_Ntf
+{
+	optional TgsProtocol.PacketDef 	cmdId = 1 [default = LOBBY2CLIENT_NOTICEBYTASK_NTF];
+	optional uint32 				noticeId 	= 2;
+	optional uint32 				charid 		= 3;
+	optional string 				charName 	= 4;
+	repeated uint32 				params 		= 5;
+	optional string 				content 	= 6;
+	optional uint32 				tasktype 	= 7;
+	optional uint32 				quality 	= 8;
+}
+message LOBBY2CLIENT_GetNoticeItem_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETNOTICEITEM_RET ];
+	required uint32				   ret = 2;
+	repeated ClientSource          sources  = 3;
+}
+message LOBBY2CLIENT_RefershTimes_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_REFERSHTIMES_NTF ];
+	required eRefershType          type  = 2;
+	required uint32                value = 3;
+}
+
+message LOBBY2CLIENT_BuyPriceTimes_Ret                 
+{                                                      
+    optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYPRICETIMES_RET ];
+    required uint32                ret   = 2;          
+    optional eRefershType          type  = 3;
+    optional uint32                value = 4;
+} 
+message LOBBY2CLIENT_UpPosition_Ret                 
+{                                                      
+    optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_UPPOSITION_RET ];
+    required uint32                ret   = 2;          
+    optional uint32                position = 3;
+} 
+message LOBBY2CLIENT_GetFirstWeapon_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETFIRSTWEAPON_NTF ];
+	required uint64                id    = 2;
+}
+message LOBBY2CLIENT_FirstChargeChoose_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FIRSTCHARGECHOOSE_RET ];
+	required uint32				   ret = 2;
+	required uint32 			   choose = 3;
+}
+message LOBBY2CLIENT_GetSevenDayRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETSEVENDAYRANK_RET ];
+	required uint32				   ret   = 2;
+	repeated ClientSevenDayRank    item  = 3;
+}
+message LOBBY2CLIENT_GetPKBattlePlayer_Ret             
+{                                                      
+    optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETPKBATTLEPLAYER_RET ];
+    required uint32               ret = 2;             
+    optional ClientBattlePlayer   battle_player  = 3; 
+    optional ClientBattlePlayer   enemy_player   = 4; 
+} 
+message LOBBY2CLIENT_TeamEffect_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_TEAMEFFECT_NTF];
+	required uint32 effect					= 2; // 用户副本战力
+}
+message LOBBY2CLIENTHandBookStrengthRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_HANDBOOK_STRENGTH_RET ];
+	required uint32					ret	= 2;
+	required uint64                charid = 3;
+	required uint64				weaponIndex = 4;
+	required uint64				weaponLv	= 5;		
+}
+// 首冲 二冲 三冲 活动
+message LOBBY2CLIENTContinueChargeNtf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_CONTINUE_CHARGE_NTF];
+	repeated ClientContinueCharge conf		= 2; // 配置数据
+	required uint32 startTime				= 3; // 开始时间
+	required uint32 endTime					= 4; // 结束时间
+	required uint32	index					= 5; // 用户当前获得的级别 充值 二冲这一类的
+	required uint32 getTime					= 6; // 用户当前充值的时间
+	required uint32 value					= 7; // 只对累冲有效 累冲数值
+	required uint32 complete				= 8; // 1 完成了 0 未完成
+}
+message LOBBY2CLIENTContinueChargeChooseRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_CONTINUE_CHARGE_CHOOSE_RET ];
+	required uint32				   ret = 2;
+	required uint32 			   choose = 3;
+}
+message TurnTableSource
+{
+	required ClientSource sources  = 1;
+	required uint32       num      = 2;
+};
+message LOBBY2CLIENT_TurnTableResult_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_TURNTABLERESULT_NTF];
+	required uint32 act_id					= 2; //转盘活动id
+	required uint32 turn_num                = 3; //转x次
+	repeated ClientSource sources           = 4;
+	required uint32 today_num               = 5; //今日抽奖次数
+	required uint32 total_num               = 6; //总抽奖次数
+}
+message LOBBY2CLIENT_GetTurnTableRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETTURNTABLERANK_RET];
+	required uint32                ret      = 2;
+	required uint32                actid    = 3;
+	repeated PlayerTurntableData   data     = 4;
+}
+///////////////////////////////////////跨服战////////////////////
+message LOBBY2CLIENT_ServerWarGetScoreInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARGETSCOREINFO_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	optional uint32                status   = 4;
+	optional uint32                times    = 5; //第N次跨服战
+	optional uint32                myrank   = 6;
+	optional ClientServerWarPlayer self     = 7;
+	repeated ClientServerWarPlayer enemy    = 8;
+	repeated ClientServerWarPlayer top1     = 9; //4个国家的top1
+}
+message LOBBY2CLIENT_ServerWarGetFightInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARGETFIGHTINFO_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	optional uint32                status   = 4;
+	optional uint32                times    = 5; //第N次跨服战
+	optional uint32                myrank   = 6;
+	repeated ClientServerWarPlayer enemy    = 7;
+}
+
+message LOBBY2CLIENT_ServerWarSetCountry_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARSETCOUNTRY_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+}
+message LOBBY2CLIENT_ServerWarRefreshEnemy_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARREFRESHENEMY_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	repeated ClientServerWarPlayer enemy    = 4;
+}
+message LOBBY2CLIENT_ServerWarAttack_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARATTACK_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	optional ClientServerWarPlayer self     = 4;
+	optional ClientServerWarPlayer enemy    = 5; 
+}
+
+message LOBBY2CLIENT_ServerWarAttackResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARATTACKRESULT_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	repeated ClientServerWarPlayer enemy    = 4; 
+	optional ClientServerWarPlayer self     = 5;
+	required bool                  iswin 	= 6;
+	required uint32				   isSkip	= 7;
+	repeated ClientSource          sources  = 8;
+	optional uint32                enemy_idx =9;
+}
+message LOBBY2CLIENT_ServerWarGetScoreRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARGETSCORERANK_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	optional uint32                myrank   = 4;
+	optional uint32                myscore  = 5;
+	repeated ClientServerWarPlayer item     = 6;
+}
+message LOBBY2CLIENT_ServerWarGetFightRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERWARGETFIGHTRANK_RET];
+	required uint32                ret      = 2;
+	optional uint32                times    = 3;
+	optional uint64                charid   = 4;
+	optional uint32                myrank   = 5;
+	repeated ClientServerWarPlayer item     = 6;
+}
+
+///////////////////////////////////////跨服战结束///////////////
+
+////////////////////////////////////////跨服组队战开始////////////
+message LOBBY2CLIENT_ServerTeamOp_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMOP_RET];
+	required uint32                ret      = 2;
+	required EServerTeamOpType     type     = 3;
+	optional uint32                teamid   = 4;
+	optional uint64                charid   = 5;
+	optional uint32                next_invite_time = 6;
+}
+message LOBBY2CLIENT_ServerTeamPlayers_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMPLAYERS_NTF];
+	repeated ClientServerTeamPlayer item    = 2;
+	required uint32                teamid   = 3;
+	optional uint64                charid   = 4;
+	optional bool                  isclose  = 5;
+}
+
+message LOBBY2CLIENT_ServerTeamClose_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMCLOSE_NTF];
+	required uint32                ret      = 2;
+	optional bool                  isclose  = 3;
+	optional uint64                charid   = 4;
+}
+message LOBBY2CLIENT_ServerTeamInviteFriend_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMINVITEFRIEND_RET];
+	required uint32                ret      = 2;
+}
+message LOBBY2CLIENT_ServerTeamInvited_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMINVITED_NTF];
+	required string                name     = 2;
+	required uint32               teamid    = 3;               
+}
+message LOBBY2CLIENT_ServerTeamChangePos_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMCHANGEPOS_NTF];
+	required uint32                ret      = 2;
+	repeated ServerTeamPos         item     = 3;
+	optional uint64                charid   = 4;
+}
+message LOBBY2CLIENT_ServerTeamQuit_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMQUIT_NTF];
+	required uint64           quitid   = 2;
+	optional uint64           charid   = 3;
+	optional uint32           newleaderpos = 4;
+	optional bool             iskick   = 5;	
+}
+
+message LOBBY2CLIENT_ServerTeamDoReady_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMDOREADY_NTF];
+	required uint64                memberid = 2;
+	required bool                  isready  = 3;
+	optional uint64                charid   = 4;  
+}
+message LOBBY2CLIENT_ServerTeamWaitFight_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMWAITFIGHT_NTF];
+	required uint32                seconds  = 2;
+	optional bool                iscancle   = 3;
+	optional uint64                charid   = 4;  
+}
+message LOBBY2CLIENT_ServerTeamFightReuslt_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMFIGHTRESULT_NTF];
+	required bool                  iswin    = 2;
+	optional uint64                charid   = 3;  
+	required ClientServerTeamBattleResult res=4;
+	optional bool                  ismvp    = 5;
+	repeated ClientSource          sources  = 6;
+}
+message LOBBY2CLIENT_ServerTeamGetHonorRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SERVERTEAMGETHONORRANK_RET];
+	required uint32                ret      = 2;
+	optional uint64                charid   = 3;
+	optional uint32                myrank   = 4;
+	optional uint32                myhonor  = 5;
+	repeated ClientServerTeamPlayer item    = 6;
+	optional bool                  onlymine = 7;
+}
+message LOBBY2CLIENT_ClearServerTeamHonorRank_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_CLEARSERVERTEAMHONORRANK_NTF];
+}
+
+////////////////////////////////////////跨服组队战结束////////////
+
+message LOBBY2CLIENT_GetSearchTombInfo_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETSEARCHTOMBINFO_NTF];
+	required uint32                ret      = 2; //error code
+	optional uint32            max_tomb_id  = 3; //tomb id
+	optional ClientBattlePlayer    self     = 4;
+	repeated TombImp               tomb_imp = 5;
+	optional bool                  isnewday = 6;
+}
+message LOBBY2CLIENT_SearchTombGo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SEARCHTOMBGO_RET];
+	required uint32                ret      = 2; 
+	repeated ClientSource          sources  = 3;
+	optional TombImp               tomb_imp = 4;
+}
+message LOBBY2CLIENT_SearchTombEventDone_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SEARCHTOMBEVENTDONE_RET];
+	required uint32                ret      = 2; 
+	optional uint32         max_tomb_id     = 3;
+	optional uint32           done_event    = 4;
+	repeated ClientSource          sources  = 5;
+	optional TombImp               tomb_imp = 6;
+	optional bool                  iswin    = 7;
+	optional bool                  isboss   = 8;
+}
+
+message LOBBY2CLIENT_GetSecretHoleRobot_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETSECRETHOLEROBOT_RET];
+	required uint32                floor    = 2;
+	repeated ClientBattlePlayer    robot    = 3;
+}
+
+message LOBBY2CLIENT_GetSecretHoleInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETSECRETHOLEINFO_RET];
+	required uint32                currid   = 2;
+	required uint32                floor    = 3;
+	required uint32                boxtimes = 4;
+	repeated uint32                buff     = 5;
+	repeated SecretHole            hole     = 6;
+	required uint32                totalstar = 7;
+	required uint32                stars    = 8;
+	repeated RobotEffect           robot    = 10;
+	repeated uint32                buff_buy = 11;
+	optional ClientGoodsInfo       goods    = 12;
+	optional uint32                floor_stars = 13;
+	optional uint32                last_floor = 14;
+}
+message LOBBY2CLIENT_AttackSecretHole_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKSECRETHOLE_RET];
+	required uint32                ret      = 2;
+	optional ClientBattlePlayer    self     = 3;
+	optional ClientBattlePlayer    enemy    = 4;
+}
+message LOBBY2CLIENT_AttackSecretHoleResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKSECRETHOLERESULT_RET];
+	required uint32                ret      = 2;
+	optional uint32                id       = 3;
+	optional uint32                floor    = 4;
+	optional uint32                floor_star = 5;
+	optional uint32                stars    = 6;
+	optional uint32                totalstar= 7;
+	optional bool                  iswin    = 8;
+	repeated ClientSource          sources  = 9;
+	optional ClientGoodsInfo       goods    = 10;
+	repeated uint32                buff     = 11;
+	optional uint32                source_crit = 12;
+	optional uint32                floor_stars = 13;
+	optional bool                  add_times = 14;
+}
+message LOBBY2CLIENT_OpenSecretHoleBox_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_OPENSECRETHOLEBOX_RET];
+	required uint32                ret      = 2;
+	optional uint32                boxtimes = 3;
+	repeated ClientSource          sources  = 4;
+}
+message LOBBY2CLIENT_BuySecretHoleBuff_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_BUYSECRETHOLEBUFF_RET];
+	required uint32                ret      = 2;
+	repeated uint32                buff     = 3;
+	optional uint32                stars    = 4;
+}
+message LOBBY2CLIENT_ChooseSecretHole_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_CHOOSESECRETHOLE_RET];
+	required uint32                ret      = 2;
+	optional uint32                enterorquit = 3;
+	optional uint32                currid   = 4;
+	repeated RobotEffect           robot    = 5;
+	optional uint32                max_id   = 6;
+}
+message SweepSecretHoleInfo
+{
+	required uint32                floor    = 1;
+	repeated ClientSource          sources  = 2;
+	optional uint32                source_crit = 3;
+}
+message LOBBY2CLIENT_SweepSecretHole_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SWEEPSECRETHOLE_RET];
+	required uint32                ret      = 2;
+	optional uint32                id       = 3;
+	optional uint32                floor    = 4;
+	optional uint32                stars    = 5;
+	repeated SweepSecretHoleInfo   item     = 6;
+	optional ClientGoodsInfo       goods    = 7;
+	repeated uint32                buff     = 8;
+	optional uint32                floor_stars = 9;
+}
+message LOBBY2CLIENT_BuySecretHoleGoods_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYSECRETHOLEGOODS_RET ];
+	required uint32			ret		 	 = 2;
+	repeated ClientSource	sources		 = 3;
+};
+
+message LOBBY2CLIENT_AttackSecretHoleElite_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKSECRETHOLEELITE_RET];
+	required uint32                ret      = 2;
+	optional ClientBattlePlayer    self     = 3;
+}
+
+message LOBBY2CLIENT_AttackSecretHoleResultElite_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKSECRETHOLERESULTELITE_RET];
+	required uint32                ret      = 2;
+	optional bool                  iswin    = 3;
+	repeated ClientSource          sources  = 4;
+	optional uint32   passSecretHoleEliteMaxId = 5; 		// 秘境精英挑战通关的最大ID
+}
+
+
+//七日活动四选一购买返回
+message LOBBY2CLIENTBUYSevenOneInFour
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUYSEVENONEINFOUR]; 
+	required uint32     ret      = 2; 
+	required uint32     index    = 3; // 七日活动物品index 
+	required uint32     choice    = 4; // 4选1选项      0-3如果只是购买功能，则为0
+	required uint32     buyNum       = 5;                                                                                                                                                
+	repeated ClientSource	sources		 = 6;
+}
+//一元夺宝返回
+message LOBBY2CLIENT_Buy_Auction_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_BUY_AUCTION_SELF ];
+	required uint32 ret = 2; 
+	required uint32 buyNum = 3;////购买成功的数量
+	required uint32 index = 4; //购买的子选项
+	required uint32 activityid = 5;
+}
+//一元夺宝取得初始化数据
+message LOBBY2CLIENT_Auction_Info_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GET_LIST_SELF ];
+	repeated AuctionInfo            info        = 2;
+	repeated uint32                 num         = 3;        //已购买总数量
+	repeated uint32                 buyNum      = 4;        //自己购买的数量
+	repeated uint32 				win 		= 5; 		//是否中奖	
+	required uint32 				activityid 	= 6;
+}
+
+message LOBBY2CLIENT_FriendOnline_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_FRIENDONLINE_NTF ];
+	required uint64                charid = 2;
+	required bool                  isonline = 3;
+	optional uint32                time = 4;
+}
+message LOBBY2CLIENT_GetHeroRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETHERORANK_RET ];
+	required uint32                ret   = 2;
+	required uint32                hero_id = 3;
+	repeated ClientHeroRank        item  = 4;
+	optional uint32                myrank = 5;
+}
+
+message LOBBY2CLIENT_ReturnSystem_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_RETURNSYSTEM_NTF ];
+	required uint32                return_time = 2;
+	optional uint32                end_time = 3;
+	repeated uint32                open_type = 4;	
+	repeated ReturnTask            task  = 5;
+	optional bool                  isreturn = 6;
+}
+message LOBBY2CLIENT_GetReturnTaskReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETRETURNTASKREWARD_RET ];
+	required uint32                ret   = 2;
+	optional ReturnTask            task  = 3;
+	repeated ClientSource          sources = 4;
+}
+
+message LOBBY2CLIENT_UpdateReturnTask_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_UPDATERETURNTASK_RET ];
+	required ReturnTask            task = 2;
+}
+message LOBBY2CLIENT_DoActivityOpt_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DOACTIVITYOPT_RET ];
+	required uint32                ret   = 2;
+	optional uint32                act_id= 3;
+	optional uint32                opt =   4;
+	repeated ClientSource          sources=5;
+	optional uint32                rate =  6;
+}
+message LOBBY2CLIENT_GetPlayerTerritoryInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETPLAYERTERRITORYINFO_RET];
+	required uint32                 ret     = 2;
+	optional PlayerTerritoryInfo    info    = 3;
+}
+message LOBBY2CLIENT_GetPlayerTerritoryBattlePlayer_Ret
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_GETPLAYERTERRITORYBATTLEPLAYER_RET ];
+	required uint32                 ret     = 2;
+	optional uint32                chapter_id = 3;
+	optional ClientBattlePlayer    battle_player = 4;
+}
+message LOBBY2CLIENT_AttackPlayerTerritoryResult_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_ATTACKPLAYERTERRITORYRESULT_RET];
+	required uint32                 ret     = 2;
+	repeated ClientSource       sources     = 3;
+	optional uint32        passed_chapterid = 4;
+}
+message LOBBY2CLIENT_PatrolPlayerTerritory_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_PATROLPLAYERTERRITORY_RET];
+	required uint32                 ret     = 2;
+	optional PlayerTerritoryChapter item    = 3;
+}
+message LOBBY2CLIENT_GetPlayerTerritoryReward_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETPLAYERTERRITORYREWARD_RET];
+	required uint32                 ret     = 2;
+	repeated ClientSource       sources     = 3;
+	repeated uint32             chapterid   = 4;
+}
+message LOBBY2CLIENT_GetFriendTerritoryList_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETFRIENDTERRITORYLIST_RET];
+	required uint32                 ret     = 2;
+	repeated FriendTerritoryInfo      item  = 3;
+}
+message LOBBY2CLIENT_GetFriendTerritoryInfo_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETFRIENDTERRITORYINFO_RET];
+	required uint32                 ret     = 2;
+	optional PlayerTerritoryInfo    info    = 3;
+}
+message LOBBY2CLIENT_SuppressFriendTerritory_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_SUPPRESSRRIENDTERRITORY_RET];
+	required uint32                 ret     = 2;
+	required uint32                chapterid= 3;
+	optional uint32                suppressTimes = 4;
+	repeated ClientSource       sources     = 5;
+	repeated ClientSource       friendsources = 6;
+	optional uint32             currTime = 7;
+	optional uint32             suppress_words =  8;
+}
+message LOBBY2CLIENT_PlayerTerritoryRiotDone_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_PLAYERTERRITORYRRIOTDONE_NTF];
+	required uint64                charid   = 2;
+	required string                name     = 3;
+	required uint32               chapterid = 4;
+	required uint32               event_index=5; //第N个事件，从1开始
+	repeated ClientSource         sources   = 6;
+	optional uint32               suppress_words = 7;
+	optional uint32               suppress_time = 8;
+}
+message LOBBY2CLIENT_PlayerTerritoryNewEvent_Ntf
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_PLAYERTERRITORYRNEWEVENT_NTF];
+	required uint32               chapterid = 2;
+	repeated PlayerTerritoryEvent event     = 3;
+	required uint32               next_event_time =4;
+}
+message LOBBY2CLIENT_UpTerritorySkill_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_UPTERRITORYSKILL_RET];
+	required uint32                 ret     = 2;
+	optional uint32                 id      = 3;
+	optional uint32                 level   = 4;
+}
+enum ENewHandProgressType
+{
+	ENewHandProgressType_None = 0;
+	ENewHandProgressType_TwoHeroItem = 1; //组合橙将礼包
+	ENewHandProgressType_Max = 10;
+}
+
+message  LOBBY2CLIENT_NewHandProgress_NTF
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_NEWHANDPROGRESS_RET];
+	required ENewHandProgressType  type     = 2;
+	optional uint32                value    = 3; 
+}
+message LOBBY2CLIENT_GetGlobalServerRank_Ret
+{
+	optional TgsProtocol.PacketDef cmdId    = 1 [default = LOBBY2CLIENT_GETGLOBALSERVERRANK_RET];
+	required uint32                ret      = 2;
+	optional EServerRankType       type     = 3;
+	optional uint32                myrank   = 4;
+	repeated PlayerRankData        data     = 5;
+	
+}
+//==========================================================================================================
+
+// DEBUG 指令
+message CLIENT2LOBBYDeBugReq
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = CLIENT2LOBBY_DEBUG_REQ ];
+	required string		cmdStr = 2;
+}
+//抽卡
+message DrawDebug
+{
+	repeated ClientSource sources = 1;
+	repeated uint32	errcode = 2; // 2 和 3 对应表示， 发生的错误类型 => 发生的错误次数
+	repeated uint32 errnum	= 3; // 同上
+}
+
+// DEBUG 指令
+message LOBBY2CLIENTDeBugRet
+{
+	optional TgsProtocol.PacketDef cmdId = 1 [default = LOBBY2CLIENT_DEBUG_RET ];
+	required uint32		ret			= 2;
+	optional DrawDebug	draw		= 3;
+}
+
+message CLIENT2LOBBY_AuthQueueReq
+{
+	optional TgsProtocol.PacketDef	cmdId   = 1 [default = CLIENT2LOBBY_AUTH_QUEUE_REQ];
+}
+
+message  LOBBY2CLIENT_AuthQueue_Ret
+{
+	optional TgsProtocol.PacketDef	cmdId   = 1 [default = LOBBY2CLIENT_AUTH_QUEUE_RET];
+	required uint32                 ret     = 2;
+	required uint32					number	= 3;
+}

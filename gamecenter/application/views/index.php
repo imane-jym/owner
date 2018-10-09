@@ -361,10 +361,17 @@ echo $str;
                 <div class="modal-backdrop-trans modal-dialog" role="document" style="display: none">
                     <div class="modal-content">
                         <div class="modal-header">
+<<<<<<< HEAD
                             <h4 class="modal-title" id="barcodeModalLabel">关注“菠萝游戏”</h4>
                         </div>
                         <div class="modal-body">
                             <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/boluo-qrcode.jpg">
+=======
+                            <h4 class="modal-title" id="barcodeModalLabel">关注“萌果互娱”</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/qrcode_mghy.jpg">
+>>>>>>> 08ccc79632d2b06cf313da5d2998d14b669cf6b7
                         </div>
                         <div class="modal-footer">
                             <h4 class="modal-title">长按识别二维码</h4>

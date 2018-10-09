@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/dragon/!svn/ver/714/trunk/server/gameserver
+END
+DBCtrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/DBCtrl.cpp
+END
+Shop.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Shop.h
+END
+CenterDBCtrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/CenterDBCtrl.h
+END
+Notice.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Notice.cpp
+END
+Other.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/dragon/!svn/ver/390/trunk/server/gameserver/Other.cpp
+END
+Handler.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/Handler.h
+END
+GlobalConfig.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/GlobalConfig.cpp
+END
+CityBuildingManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dragon/!svn/ver/92/trunk/server/gameserver/CityBuildingManager.h
+END
+World.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/World.cpp
+END
+GmCommandExt.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/GmCommandExt.h
+END
+Hero.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/714/trunk/server/gameserver/Hero.cpp
+END
+Item.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/363/trunk/server/gameserver/Item.cpp
+END
+CommonType.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/CommonType.h
+END
+ConfigData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/ConfigData.cpp
+END
+Store.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Store.h
+END
+Role.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/Role.cpp
+END
+RoleBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/RoleBase.h
+END
+GmCommand.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/GmCommand.h
+END
+Task.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/363/trunk/server/gameserver/Task.h
+END
+Shop.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Shop.cpp
+END
+CenterDBCtrl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/CenterDBCtrl.cpp
+END
+Handler.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/Handler.cpp
+END
+tags
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/dragon/!svn/ver/34/trunk/server/gameserver/tags
+END
+GmCmdPro.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/GmCmdPro.h
+END
+DBCtrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/361/trunk/server/gameserver/DBCtrl.h
+END
+CityBuildingManager.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dragon/!svn/ver/92/trunk/server/gameserver/CityBuildingManager.cpp
+END
+LuaExport.pkg
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/34/trunk/server/gameserver/LuaExport.pkg
+END
+GmCommandExt.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/GmCommandExt.cpp
+END
+Other.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Other.h
+END
+Notice.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Notice.h
+END
+GlobalConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/GlobalConfig.h
+END
+World.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/World.h
+END
+Store.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/dragon/!svn/ver/100/trunk/server/gameserver/Store.cpp
+END
+RoleBase.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/RoleBase.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/dragon/!svn/ver/34/trunk/server/gameserver/CMakeLists.txt
+END
+Hero.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/390/trunk/server/gameserver/Hero.h
+END
+Task.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/Task.cpp
+END
+Item.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/363/trunk/server/gameserver/Item.h
+END
+ConfigData.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/360/trunk/server/gameserver/ConfigData.h
+END
+Role.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/Role.h
+END
+GmCmdPro.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dragon/!svn/ver/681/trunk/server/gameserver/GmCmdPro.cpp
+END

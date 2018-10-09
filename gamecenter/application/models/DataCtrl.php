@@ -127,7 +127,8 @@ class DataCtrl {
 			'onsale_time' => $one[7],
 			'big_pic' => $one[8],
 			'status' => $one[9],
-			'is_login' => $one[10]
+			'is_login' => $one[10],
+			'orientation' => $one[11]
 		);
 		$cache->HashMSet("GameInfo", array($info['game_id'] => json_encode($info))
 						);
@@ -198,7 +199,17 @@ class DataCtrl {
 		$cache->Init();
 		$game_info = $cache->HashMGet("GameInfo", $game_list);
 		$game_info_nocache = array();
-		//var_dump($game_list, $game_info);
+		if ($game_info == false)
+		{
+			foreach($game_list as $key => $val)
+			{
+				if ($val)
+				$game_info_nocache[] = $val;
+			}
+		}
+		else
+		{
+			//var_dump($game_list, $game_info);
 		foreach ($game_info as $key => $val)
 		{
 			if ($val != false)
@@ -219,6 +230,7 @@ class DataCtrl {
 				//$game_info[$key] = array();
 				$game_info_nocache[] = $key;
 			}
+		}
 		}
 
 		//var_dump($game_list, $game_info, $game_info_nocache);
@@ -250,7 +262,8 @@ class DataCtrl {
 					'onsale_time' => $val[7],
 					'big_pic' => $val[8],
 					'status' => $val[9],
-					'is_login' => $val[10]
+					'is_login' => $val[10],
+					'orientation' => $val[11]
 				);
 				$game_info[$info['game_id']] = $info;
 				$infoCache[$info['game_id']] = json_encode($info);

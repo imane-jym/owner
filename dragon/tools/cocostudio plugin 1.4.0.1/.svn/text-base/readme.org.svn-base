@@ -1,0 +1,4 @@
+运行install.bat 会将plugin中的dllcopy到C:\Users\%username%\CocoStudio\Plugins\1.4\
+
+Tips:
+更新Cocostudio版本以后，需要为新版的cocostudio重新配置插件。所以，修改install.bat内容copy正确版本的plugin。

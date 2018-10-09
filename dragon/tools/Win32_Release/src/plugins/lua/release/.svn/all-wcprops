@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release
+END
+luaplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release/luaplugin.obj
+END
+lua.intermediate.manifest
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release/lua.intermediate.manifest
+END
+luatablewriter.obj
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release/luatablewriter.obj
+END
+moc_luaplugin.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release/moc_luaplugin.cpp
+END
+moc_luaplugin.obj
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dragon/!svn/ver/12/trunk/tools/Win32_Release/src/plugins/lua/release/moc_luaplugin.obj
+END
