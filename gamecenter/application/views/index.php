@@ -361,17 +361,10 @@ echo $str;
                 <div class="modal-backdrop-trans modal-dialog" role="document" style="display: none">
                     <div class="modal-content">
                         <div class="modal-header">
-<<<<<<< HEAD
                             <h4 class="modal-title" id="barcodeModalLabel">关注“菠萝游戏”</h4>
                         </div>
                         <div class="modal-body">
                             <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/boluo-qrcode.jpg">
-=======
-                            <h4 class="modal-title" id="barcodeModalLabel">关注“萌果互娱”</h4>
-                        </div>
-                        <div class="modal-body">
-                            <img class="qrcode" src="<?php echo $config['base_url'] ?>/static/images/qrcode_mghy.jpg">
->>>>>>> 08ccc79632d2b06cf313da5d2998d14b669cf6b7
                         </div>
                         <div class="modal-footer">
                             <h4 class="modal-title">长按识别二维码</h4>
@@ -383,4 +376,5 @@ echo $str;
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/flexslider/2.6.1/jquery.flexslider-min.js"></script>
 <script src="<?php echo $config['base_url'] ?>/static/js/sys.js"></script>
+<div style="text-align:center"><p>本网站素材都是有网友提供, 如有侵权和投稿, 请联系744190545@qq.com </p></div>
 </html>
